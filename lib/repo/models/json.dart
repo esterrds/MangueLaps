@@ -1,24 +1,21 @@
-class User {
-  dynamic numero;
-  dynamic nome;
-  int voltas = 0;
+// //classe das equipes, onde serão recebidos os dados de registro e número de voltas
 
-  User({this.numero, this.nome});
+ //class User {
+   //dynamic numero;
+   //dynamic nome;
+   //int voltas = 0;
 
-  User.fromJson(Map<String, dynamic> json) {
-    numero = json['numero'];
-    nome = json['nome'];
-  }
+   //User({this.numero, this.nome});
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['numero'] = this.numero;
-    data['nome'] = this.nome;
-    return data;
-  }
+   //User.fromJson(Map<String, dynamic> json) {
+     //numero = json['numero'];
+     //nome = json['nome'];
+   //}
 
-  @override
-  String toString() {
-    return "Nome: " + this.nome + "\nNº: " + this.numero;
-  }
-}
+   //Map<String, dynamic> toJson() {
+     //final Map<String, dynamic> data = <String, dynamic>{};
+     //data['numero'] = numero;
+     //data['nome'] = nome;
+     //return data;
+   //}
+ //}

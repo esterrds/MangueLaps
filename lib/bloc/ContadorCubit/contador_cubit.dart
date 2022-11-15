@@ -5,6 +5,8 @@ import '../../repo/models/car.dart';
 
 part 'contador_state.dart';
 
+//parte do código que trabalha com as listas registradas
+
 class ContadorCubit extends Cubit<ContadorState> {
   ContadorCubit() : super(ContadorInitial());
 
@@ -15,7 +17,7 @@ class ContadorCubit extends Cubit<ContadorState> {
   List<Car> getCars() => _carList;
 
   void createCar(int numero, String nome) {
-    Car car = Car(numero, nome);
+    Car car = Car.fromJson(numero, nome);
     _carList.add(car);
     emit(ContadorIdle());
   }
@@ -24,6 +26,12 @@ class ContadorCubit extends Cubit<ContadorState> {
     _carList.remove(car);
     emit(ContadorIdle());
   }
+
+  void rebuild() {
+    emit(ContadorIdle());
+  }
+
+  //testes
 
   // void cleanList(){
   //   _carList = [];

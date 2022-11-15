@@ -1,25 +1,27 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:appdowill/presentation/add_car.dart';
 
-const carListKey = 'car_list';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:enduro_app/config/preferences_keys.dart';
+import 'package:enduro_app/repo/models/car.dart';
+
+//repositório (salvar os dados em formato json)
 
 class CarRepository {
   late SharedPreferences sharedPreferences;
 
-  Future<List> getCarList() async {
+  Future<List<Car>> getCarList() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    final String jsonString = sharedPreferences.getString(carListKey) ?? '[]';
+    final String jsonString =
+        sharedPreferences.getString(PreferenceKeys.chave) ?? '[]';
     final List jsonDecoded = jsonDecode(jsonString) as List;
-    return jsonDecoded.map((e) => CarRepository.fromJson(e)).toList();
+
+    print(jsonDecoded);
+
+    return jsonDecoded.map((e) => Car.fromJson(e, jsonString)).toList();
   }
 
-  void saveCarList(List<CarAdder> name, number) {
-    final String jsonString = json.encode(name);
-    //final String jsonString = json.encode(number);
-
-    sharedPreferences.setString(carListKey, jsonString);
+  void saveCarList(List<Car> carros) {
+    final String jsonString = json.encode(carros);
+    sharedPreferences.setString(PreferenceKeys.chave, jsonString);
   }
-
-  static fromJson(e) {}
 }

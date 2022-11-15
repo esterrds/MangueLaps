@@ -1,5 +1,6 @@
+//lista de carros e contador
 class Car {
-  Car(
+  Car.fromJson(
     this.numeroDoCarro,
     this.nomeDaEquipe,
   );
@@ -11,10 +12,26 @@ class Car {
   int getVoltas() => _numeroDeVoltas;
 
   void increment() {
-    _numeroDeVoltas++;
+    if (_numeroDeVoltas >= 300) {
+      _numeroDeVoltas = 300;
+    } else {
+      _numeroDeVoltas++;
+    }
   }
 
   void decrement() {
-    _numeroDeVoltas--;
+    if (_numeroDeVoltas <= 0) {
+      _numeroDeVoltas = 0;
+    } else {
+      _numeroDeVoltas--;
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'equipe': nomeDaEquipe,
+      'numero': numeroDoCarro.toString(),
+      'voltas': _numeroDeVoltas.toString()
+    };
   }
 }

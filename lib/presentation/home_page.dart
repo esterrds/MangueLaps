@@ -1,15 +1,18 @@
-import 'package:appdowill/config/navigator/routes.dart';
-import 'package:appdowill/presentation/main_list.dart';
+import 'package:enduro_app/config/navigator/routes.dart';
+import 'package:enduro_app/presentation/main_list.dart';
+import 'package:enduro_app/presentation/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
+//botão da tela principal para a tela de cadastro (+)
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: MainList(),
+        drawer: const NavBar(),
+        body: const MainList(),
         appBar: AppBar(
           title: const Center(child: Text("Contador de voltas")),
         ),

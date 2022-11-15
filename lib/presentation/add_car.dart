@@ -1,16 +1,20 @@
 import 'dart:convert';
 
-import 'package:appdowill/bloc/cubit/contador_cubit.dart';
-import 'package:appdowill/repo/models/json.dart';
-import 'package:appdowill/repo/save.dart';
+// import 'package:enduro_app/config/preferences_keys.dart';
+import 'package:enduro_app/repo/save.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:appdowill/repo/models/json.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+import '../bloc/ContadorCubit/contador_cubit.dart';
+
+//tela de cadastro
 
 class CarAdder extends StatelessWidget {
-  TextEditingController _numberController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
+  final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final CarRepository carRepository = CarRepository();
+
+  CarAdder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class CarAdder extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  //caixa para receber nome das equipes
                   Expanded(
                     child: TextField(
                       controller: _nameController,
@@ -37,6 +42,7 @@ class CarAdder extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //caixa para receber número do carro
                   SizedBox(
                     width: 100,
                     child: TextField(
@@ -50,20 +56,20 @@ class CarAdder extends StatelessWidget {
                   ),
                 ],
               ),
+              //botão de confirmar, que manda os dados cadastrados para o contador
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    _doConfirm();
-                    _saveJson();
                     if (_nameController.toString().isNotEmpty &&
                         _numberController.toString().isNotEmpty) {
                       BlocProvider.of<ContadorCubit>(context).createCar(
-                        int.parse(_numberController.toString()),
-                        _nameController.toString(),
+                        int.parse(_numberController.text),
+                        _nameController.text,
                       );
                       Navigator.pop(context);
                     }
+                    //repository.Equipes(carros);
                   },
                   child: const Text("Confirmar"),
                 ),
@@ -75,18 +81,17 @@ class CarAdder extends StatelessWidget {
     );
   }
 
-  void _doConfirm() {
-    User newUser =
-        User(nome: _nameController.text, numero: _numberController.text);
-    print(newUser);
-  }
+  //testes para armazenamento usando sharedPreferences
 
-  void _saveUser(User user) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("equipes", json.encode(user.toJson()));
-  }
+  // void _doConfirm() {
+  //   User newUser =
+  //       User(nome: _nameController.text, numero: _numberController.text);
+  //   print(newUser);
+  //   _saveUser(newUser);
+  // }
 
-  void _saveJson() {
-    
-  }
+  // void _saveUser(User user) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString(PreferenceKeys.chave, json.encode(user.toJson()));
+  // }
 }
