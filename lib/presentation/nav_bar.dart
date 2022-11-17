@@ -39,7 +39,7 @@ class NavBar extends StatelessWidget {
                           width: 120,
                           height: 120,
                           child: Icon(
-                            Icons.wifi,
+                            Icons.connect_without_contact,
                             color: Colors.black,
                           ),
                         )
@@ -48,7 +48,7 @@ class NavBar extends StatelessWidget {
                           width: 120,
                           height: 120,
                           child: Icon(
-                            Icons.wifi,
+                            Icons.connect_without_contact,
                             color: Colors.red,
                           ),
                         ),
@@ -74,12 +74,12 @@ class NavBar extends StatelessWidget {
                             alertSucess(context);
                           }
                         },
-                        icon: const Icon(Icons.waves)),
+                        icon: const Icon(Icons.airplane_ticket_outlined)),
                     IconButton(
                         onPressed: () {
                           print(CarRepository);
                         },
-                        icon: const Icon(Icons.favorite)),
+                        icon: const Icon(Icons.anchor)),
                   ],
                 ),
               ),
@@ -131,7 +131,7 @@ alertSucess(BuildContext context) {
   );
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
-    title: const Text("Boa, Bajeire!"),
+    title: const Text("Boa, Bajeiro(a)!"),
     content: const Text("Sua mensagem foi enviada com sucesso."),
     actions: [
       okButton,
