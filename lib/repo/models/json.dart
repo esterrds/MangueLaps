@@ -1,21 +1,22 @@
 // //classe das equipes, onde serão recebidos os dados de registro e número de voltas
+class JoaoManjador {
+  int? nDoCarro;
+  String? team;
+  int? nDeVoltas;
 
- //class User {
-   //dynamic numero;
-   //dynamic nome;
-   //int voltas = 0;
+  JoaoManjador({this.nDoCarro, this.team, this.nDeVoltas});
 
-   //User({this.numero, this.nome});
+  JoaoManjador.fromJson(Map<String, dynamic> json) {
+    nDoCarro = json['nDoCarro'];
+    team = json['team'];
+    nDeVoltas = json['nDeVoltas'];
+  }
 
-   //User.fromJson(Map<String, dynamic> json) {
-     //numero = json['numero'];
-     //nome = json['nome'];
-   //}
-
-   //Map<String, dynamic> toJson() {
-     //final Map<String, dynamic> data = <String, dynamic>{};
-     //data['numero'] = numero;
-     //data['nome'] = nome;
-     //return data;
-   //}
- //}
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['nDoCarro'] = this.nDoCarro;
+    data['team'] = this.team;
+    data['nDeVoltas'] = this.nDeVoltas;
+    return data;
+  }
+}
