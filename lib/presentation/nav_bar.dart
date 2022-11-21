@@ -20,7 +20,7 @@ class NavBar extends StatelessWidget {
           return ListView(
             children: [
               Container(
-                color: Colors.blueAccent,
+                color: Color.fromARGB(255, 80, 6, 150),
                 height: 50,
                 child: IconButton(
                   onPressed: () {
@@ -49,14 +49,14 @@ class NavBar extends StatelessWidget {
                           height: 120,
                           child: Icon(
                             Icons.connect_without_contact,
-                            color: Colors.red,
+                            color: Colors.green,
                           ),
                         ),
                 ),
               ),
               Container(
                 //design do segundo container
-                color: Colors.blueGrey,
+                color: Color.fromARGB(255, 133, 99, 179),
                 height: 200,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -76,10 +76,7 @@ class NavBar extends StatelessWidget {
                         },
                         icon: const Icon(Icons.airplane_ticket_outlined)),
                     IconButton(
-                        onPressed: () {
-                          print(CarRepository);
-                        },
-                        icon: const Icon(Icons.anchor)),
+                        onPressed: () {}, icon: const Icon(Icons.anchor)),
                   ],
                 ),
               ),
@@ -105,7 +102,7 @@ alertFailed(BuildContext context) {
   );
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
-    title: const Text("FALHA NA CONEXÃO"),
+    title: const Text("Falha na conexão"),
     content: const Text("Sua mensagem não foi enviada."),
     actions: [
       okButton,
