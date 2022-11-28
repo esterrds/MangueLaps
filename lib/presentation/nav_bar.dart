@@ -3,7 +3,6 @@ import 'package:enduro_app/config/navigator/routes.dart';
 import 'package:enduro_app/repo/save.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:enduro_app/repo/save.dart';
 import 'package:enduro_app/config/preferences_keys.dart';
 
 //3 tracinhos
@@ -70,13 +69,15 @@ class NavBar extends StatelessWidget {
                             conCubit.publishTest();
                             alertSucess(context);
                           } else {
-                            conCubit.publishTest();
-                            alertSucess(context);
+                            wait(context);
                           }
                         },
                         icon: const Icon(Icons.airplane_ticket_outlined)),
                     IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.anchor)),
+                        onPressed: () {
+                          print("buscando informações...");
+                        },
+                        icon: const Icon(Icons.cloud_download)),
                   ],
                 ),
               ),
@@ -130,6 +131,31 @@ alertSucess(BuildContext context) {
   AlertDialog alerta = AlertDialog(
     title: const Text("Boa, Bajeiro(a)!"),
     content: const Text("Sua mensagem foi enviada com sucesso."),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
+  );
+}
+
+wait(BuildContext context) {
+  // configura o button
+  Widget okButton = ElevatedButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.pushNamed(context, initRoute);
+    },
+  );
+  // configura o  AlertDialog
+  AlertDialog alerta = AlertDialog(
+    title: const Text("Espere um pouco"),
+    content: const Text("Tentando conectar..."),
     actions: [
       okButton,
     ],
