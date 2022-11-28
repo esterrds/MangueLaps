@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:enduro_app/repo/models/json.dart';
+//import 'package:enduro_app/repo/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:mqtt_client/mqtt_client.dart';
@@ -15,6 +18,8 @@ part 'connectivity_state.dart';
 MqttClient client = MqttServerClient.withPort(mqttBroker, '', 1883);
 
 class ConnectivityCubit extends Cubit<ConnectivityState> {
+  JoaoManjador carRepo = JoaoManjador();
+  //final Car carros = Car(0, "teste", 12);
   ConnectivityCubit() : super(ConnectivityInitial()) {
     mqttConnect();
   }
@@ -57,7 +62,8 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
 
   void publishTest() {
     final builder = MqttClientPayloadBuilder();
-    builder.addString("Ola, rasp-chan!");
+    //builder.addString("${carros.numeroDoCarro},${carros.nomeDaEquipe}");
+    builder.addString(carRepo.toString());
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 
