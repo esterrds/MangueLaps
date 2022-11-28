@@ -19,4 +19,10 @@ class JoaoManjador {
     data['nDeVoltas'] = this.nDeVoltas;
     return data;
   }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "Equipes: {carro: $nDoCarro, equipe: $team, voltas: ${this.nDeVoltas}}";
+  }
 }
