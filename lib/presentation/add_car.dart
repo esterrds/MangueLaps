@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 // import 'package:enduro_app/config/preferences_keys.dart';
+import 'package:enduro_app/repo/models/car.dart';
+import 'package:enduro_app/repo/models/json.dart';
 import 'package:enduro_app/repo/save.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,6 @@ import '../bloc/ContadorCubit/contador_cubit.dart';
 class CarAdder extends StatelessWidget {
   final TextEditingController _numberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final CarRepository carRepository = CarRepository();
 
   CarAdder({super.key});
 
@@ -67,6 +68,8 @@ class CarAdder extends StatelessWidget {
                         int.parse(_numberController.text),
                         _nameController.text,
                       );
+                      print(
+                          "carro: ${_numberController.text}, equipe: ${_nameController.text}");
                       Navigator.pop(context);
                     }
                     //repository.Equipes(carros);
