@@ -20,7 +20,7 @@ class MyHomePage extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, carAdder);
           },
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.car_crash),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
