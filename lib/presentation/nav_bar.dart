@@ -1,6 +1,7 @@
 import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
 import 'package:enduro_app/config/navigator/routes.dart';
 import 'package:enduro_app/repo/save.dart';
+import 'package:enduro_app/teste.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:enduro_app/config/preferences_keys.dart';
@@ -76,6 +77,7 @@ class NavBar extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           print("buscando informações...");
+                          teste();
                         },
                         icon: const Icon(Icons.cloud_download)),
                   ],
