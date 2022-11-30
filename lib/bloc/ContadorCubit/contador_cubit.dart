@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -17,7 +19,7 @@ class ContadorCubit extends Cubit<ContadorState> {
   List<Car> getCars() => _carList;
 
   void createCar(int numero, String nome) {
-    Car car = Car.fromJson(numero, nome);
+    Car car = Car("numero", 8);
     _carList.add(car);
     emit(ContadorIdle());
   }
