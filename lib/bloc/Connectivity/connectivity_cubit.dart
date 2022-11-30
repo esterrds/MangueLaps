@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
+import 'package:enduro_app/repo/models/car.dart';
 import 'package:enduro_app/repo/models/json.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
@@ -62,8 +63,9 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
   void publishTest() {
     final builder = MqttClientPayloadBuilder();
     //builder.addString("${carros.numeroDoCarro},${carros.nomeDaEquipe}");
-    builder.addString(JoaoManjador().toString());
-    print(JoaoManjador().toString());
+    Car carro = Car("teste", 0);
+    builder.addString(carro.toString());
+    print(carro.toString());
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 
