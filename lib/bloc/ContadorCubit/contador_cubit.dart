@@ -19,7 +19,7 @@ class ContadorCubit extends Cubit<ContadorState> {
   List<Car> getCars() => _carList;
 
   void createCar(int numero, String nome) {
-    Car car = Car("numero", 8);
+    Car car = Car(nome, numero);
     _carList.add(car);
     emit(ContadorIdle());
   }
@@ -38,5 +38,8 @@ class ContadorCubit extends Cubit<ContadorState> {
   // void cleanList(){
   //   _carList = [];
   // }
-
+  @override
+  String toString() {
+    return "Equipes: $_carList";
+  }
 }
