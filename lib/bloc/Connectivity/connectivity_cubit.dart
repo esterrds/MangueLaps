@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
+import 'package:enduro_app/presentation/add_car.dart';
 import 'package:enduro_app/repo/models/car.dart';
 import 'package:enduro_app/repo/models/json.dart';
 import 'package:flutter/material.dart';
@@ -69,9 +70,9 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
       index++;
     }
     carro.getCars();
+    print(CarAdder());
     builder.addString(
         "Equipes: {carro: ${carro.getCars()[index].numeroDoCarro.toString()}, equipe: ${carro.getCars()[index].nomeDaEquipe}}");
-    print(carro.getListLenght());
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 
@@ -79,5 +80,29 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
   void mqttDisconnect() {
     client.disconnect();
     emit(ConnectivityDisconnected());
+  }
+}
+
+class Cadastros extends StatelessWidget {
+  const Cadastros({super.key, required this.equipe});
+
+  final Car equipe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("info"),
+      ),
+      body: groupDetails(),
+    );
+  }
+
+  groupDetails() {
+    return {
+      equipe.nomeDaEquipe,
+      equipe.numeroDoCarro,
+      equipe.getVoltas()
+    };
   }
 }
