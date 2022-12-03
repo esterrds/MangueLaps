@@ -20,10 +20,11 @@ class MyHomePage extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamed(context, carAdder);
           },
-          child: const Icon(Icons.car_crash),
+          child: const Icon(Icons.directions_car_filled),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
 }
+
