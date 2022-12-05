@@ -62,6 +62,7 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
   }
 
   void publishTest() {
+    Car equipes;
     final builder = MqttClientPayloadBuilder();
     //builder.addString("${carros.numeroDoCarro},${carros.nomeDaEquipe}");
     ContadorCubit carro = ContadorCubit();
@@ -70,7 +71,7 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
       index++;
     }
     carro.getCars();
-    print(CarAdder());
+    print(carro.getCars().toList());
     builder.addString(
         "Equipes: {carro: ${carro.getCars()[index].numeroDoCarro.toString()}, equipe: ${carro.getCars()[index].nomeDaEquipe}}");
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
@@ -80,29 +81,5 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
   void mqttDisconnect() {
     client.disconnect();
     emit(ConnectivityDisconnected());
-  }
-}
-
-class Cadastros extends StatelessWidget {
-  const Cadastros({super.key, required this.equipe});
-
-  final Car equipe;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("info"),
-      ),
-      body: groupDetails(),
-    );
-  }
-
-  groupDetails() {
-    return {
-      equipe.nomeDaEquipe,
-      equipe.numeroDoCarro,
-      equipe.getVoltas()
-    };
   }
 }
