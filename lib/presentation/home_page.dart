@@ -15,6 +15,17 @@ class MyHomePage extends StatelessWidget {
         body: const MainList(),
         appBar: AppBar(
           title: const Center(child: Text("Contador de voltas")),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                // do something
+              },
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -27,4 +38,3 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-
