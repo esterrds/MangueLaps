@@ -22,6 +22,7 @@ class MyHomePage extends StatelessWidget {
                 color: Colors.white,
               ),
               onPressed: () {
+                Navigator.pushNamed(context, viewPage);
                 // do something
               },
             )
