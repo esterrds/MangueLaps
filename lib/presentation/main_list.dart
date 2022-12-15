@@ -27,30 +27,31 @@ class MainList extends StatelessWidget {
                   background: Container(
                     color: Colors.red,
                   ),
-                  key: ValueKey<dynamic>(cubit.getCars()[index]),
+                  key: ValueKey<dynamic>(cubit.carList[index]),
                   onDismissed: (DismissDirection direction) {
-                    cubit.getCars().removeAt(index);
-                    final snackBar = SnackBar(
-                        content: const Text("Carro removido."),
-                        action: SnackBarAction(
-                          label: 'Desfazer',
+                    cubit.carList.removeAt(index);
+                    final snackBar = const SnackBar(
+                        content: Text("Carro removido.")
+                        //action: SnackBarAction(
+                        /*label: 'Desfazer',
                           onPressed: (() {
                             //retorna com o carro excluído (falta fazer)
                           }),
-                        ));
+                            )*/
+                        );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text(cubit.getCars()[index].numeroDoCarro.toString()),
-                      Text(cubit.getCars()[index].nomeDaEquipe),
-                      Text(cubit.getCars()[index].getVoltas().toString()),
+                      Text(cubit.carList[index].numeroDoCarro.toString()),
+                      Text(cubit.carList[index].nomeDaEquipe),
+                      Text(cubit.carList[index].getVoltas().toString()),
                       //botão de incremento
                       GestureDetector(
                         child: const Icon(Icons.arrow_upward),
                         onTap: () {
-                          cubit.getCars()[index].increment();
+                          cubit.carList[index].increment();
                           cubit.rebuild();
                         },
                       ),
@@ -58,7 +59,7 @@ class MainList extends StatelessWidget {
                       GestureDetector(
                         child: const Icon(Icons.arrow_downward),
                         onTap: () {
-                          cubit.getCars()[index].decrement();
+                          cubit.carList[index].decrement();
                           cubit.rebuild();
                         },
                       )
