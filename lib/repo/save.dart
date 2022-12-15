@@ -1,4 +1,4 @@
-import 'dart:convert';
+/*import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:enduro_app/config/preferences_keys.dart';
@@ -24,4 +24,4 @@ class CarRepository {
     final String jsonString = json.encode(carros);
     sharedPreferences.setString(PreferenceKeys.chave, jsonString);
   }
-}
+}*/

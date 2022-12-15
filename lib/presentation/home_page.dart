@@ -15,12 +15,24 @@ class MyHomePage extends StatelessWidget {
         body: const MainList(),
         appBar: AppBar(
           title: const Center(child: Text("Contador de voltas")),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.monitor,
+                //color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, viewPage);
+                // do something
+              },
+            )
+          ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, carAdder);
           },
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.directions_car_filled),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),

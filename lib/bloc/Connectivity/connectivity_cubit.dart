@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
-import 'package:enduro_app/repo/models/json.dart';
+import 'package:enduro_app/repo/models/car.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -17,8 +19,6 @@ part 'connectivity_state.dart';
 MqttClient client = MqttServerClient.withPort(mqttBroker, '', 1883);
 
 class ConnectivityCubit extends Cubit<ConnectivityState> {
-  JoaoManjador carRepo = JoaoManjador();
-  //final Car carros = Car(0, "teste", 12);
   ConnectivityCubit() : super(ConnectivityInitial()) {
     mqttConnect();
   }
@@ -59,11 +59,15 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     emit(ConnectivityConnected());
   }
 
-  void publishTest() {
+  void publishTest(ContadorCubit carCubit) {
     final builder = MqttClientPayloadBuilder();
-    //builder.addString("${carros.numeroDoCarro},${carros.nomeDaEquipe}");
-    builder.addString(JoaoManjador().toString());
-    print(JoaoManjador().toString());
+    List<Car> carList = carCubit.carList;
+    print(carList);
+
+    for (Car car in carList) {
+      print(car);
+    }
+    builder.addString("${carList.toString()}");
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 

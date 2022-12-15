@@ -1,6 +1,9 @@
 import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
+import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
 import 'package:enduro_app/config/navigator/routes.dart';
+import 'package:enduro_app/presentation/colors.dart';
 import 'package:enduro_app/repo/save.dart';
+import 'package:enduro_app/teste.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:enduro_app/config/preferences_keys.dart';
@@ -13,13 +16,15 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     //conexão mqtt
     ConnectivityCubit conCubit = BlocProvider.of<ConnectivityCubit>(context);
+    ContadorCubit carCubit = BlocProvider.of<ContadorCubit>(context);
     return Drawer(
       child: BlocBuilder<ConnectivityCubit, ConnectivityState>(
         builder: (context, state) {
           return ListView(
             children: [
               Container(
-                color: Color.fromARGB(255, 80, 6, 150),
+                //design do primeiro container
+                color: Color.fromRGBO(0, 125, 83, 49),
                 height: 50,
                 child: IconButton(
                   onPressed: () {
@@ -48,15 +53,15 @@ class NavBar extends StatelessWidget {
                           height: 120,
                           child: Icon(
                             Icons.connect_without_contact,
-                            color: Colors.green,
+                            color: Colors.yellow,
                           ),
                         ),
                 ),
               ),
               Container(
                 //design do segundo container
-                color: Color.fromARGB(255, 133, 99, 179),
-                height: 200,
+                color: midBlue,
+                height: 50,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -66,20 +71,20 @@ class NavBar extends StatelessWidget {
                           if (state is ConnectivityDisconnected) {
                             alertFailed(context);
                           } else if (state is ConnectivityConnected) {
-                            conCubit.publishTest();
+                            conCubit.publishTest(carCubit);
                             alertSucess(context);
                           } else {
                             wait(context);
                           }
                         },
-                        icon: const Icon(Icons.airplane_ticket_outlined)),
-                    IconButton(
-                        onPressed: () {
-                          print("buscando informações...");
-                        },
-                        icon: const Icon(Icons.cloud_download)),
+                        icon: const Icon(Icons.cloud_upload_outlined)),
                   ],
                 ),
+              ),
+              Container(
+                width: 100,
+                height: 400,
+                child: Image.asset('assets/images/logoVerde.jpeg'),
               ),
               Row(
                 children: const [],

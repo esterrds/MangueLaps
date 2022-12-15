@@ -33,7 +33,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Enduro App',
         theme: ThemeData(
-          primarySwatch: Colors.purple,
+          colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.green,
+          ),
         ),
         //próxima página
         onGenerateRoute: RouteGenerator.generateRoute,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -10,20 +12,18 @@ part 'contador_state.dart';
 class ContadorCubit extends Cubit<ContadorState> {
   ContadorCubit() : super(ContadorInitial());
 
-  List<Car> _carList = [];
+  List<Car> carList = [];
 
-  int getListLenght() => _carList.length;
-
-  List<Car> getCars() => _carList;
+  int getListLenght() => carList.length;
 
   void createCar(int numero, String nome) {
-    Car car = Car.fromJson(numero, nome);
-    _carList.add(car);
+    Car car = Car(nome, numero);
+    carList.add(car);
     emit(ContadorIdle());
   }
 
   void removeCar(Car car) {
-    _carList.remove(car);
+    carList.remove(car);
     emit(ContadorIdle());
   }
 
@@ -36,5 +36,8 @@ class ContadorCubit extends Cubit<ContadorState> {
   // void cleanList(){
   //   _carList = [];
   // }
-
+  @override
+  String toString() {
+    return "Equipes: $carList";
+  }
 }
