@@ -41,6 +41,7 @@ dependencies:
   mqtt_client: ^9.7.2
   shared_preferences: ^2.0.15
   material: ^1.0.0+2
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
