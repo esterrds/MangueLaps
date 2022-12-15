@@ -1,4 +1,5 @@
 import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
+import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
 import 'package:enduro_app/config/navigator/routes.dart';
 import 'package:enduro_app/repo/save.dart';
 import 'package:enduro_app/teste.dart';
@@ -14,6 +15,7 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     //conexão mqtt
     ConnectivityCubit conCubit = BlocProvider.of<ConnectivityCubit>(context);
+    ContadorCubit carCubit = BlocProvider.of<ContadorCubit>(context);
     return Drawer(
       child: BlocBuilder<ConnectivityCubit, ConnectivityState>(
         builder: (context, state) {
@@ -67,7 +69,7 @@ class NavBar extends StatelessWidget {
                           if (state is ConnectivityDisconnected) {
                             alertFailed(context);
                           } else if (state is ConnectivityConnected) {
-                            conCubit.publishTest();
+                            conCubit.publishTest(carCubit);
                             alertSucess(context);
                           } else {
                             wait(context);
@@ -77,6 +79,7 @@ class NavBar extends StatelessWidget {
                     IconButton(
                         onPressed: () {
                           print("buscando informações...");
+                          print(carCubit);
                           teste();
                         },
                         icon: const Icon(Icons.cloud_download)),
