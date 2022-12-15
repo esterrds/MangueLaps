@@ -49,7 +49,7 @@ class AddItemPageState extends State<AddItemPage>
       "command": "add_item",
       "name": nameController.text,
     });
-    var url = Uri.https("http://12.0.0.1/phpconnection/index.php" + dataStr);
+    var url = Uri.parse("http://12.0.0.1/phpconnection/index.php" + dataStr);
     var result = await http.get(url);
     setState(() {
       this.response = result.body;
@@ -107,7 +107,7 @@ class ViewPageState extends State<ViewPage>
     var dataStr = jsonEncode({
       "command": "get_items",
     });
-    var url = Uri.https("http://12.0.0.1/phpconnection/index.php" + dataStr);
+    var url = Uri.parse("http://12.0.0.1/phpconnection/index.php" + dataStr);
     var result = await http.get(url);
     setState(() {
       data.clear();
