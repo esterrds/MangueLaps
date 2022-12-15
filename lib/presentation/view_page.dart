@@ -33,15 +33,14 @@ import 'package:http/http.dart' as http;
 //   }
 // }
 
-class AddItemPage extends StatefulWidget
-{
+class AddItemPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return AddItemPageState();
   }
 }
-class AddItemPageState extends State<AddItemPage>
-{
+
+class AddItemPageState extends State<AddItemPage> {
   TextEditingController nameController = TextEditingController();
   String response = "NULL";
   createItem() async {
@@ -55,6 +54,7 @@ class AddItemPageState extends State<AddItemPage>
       this.response = result.body;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,9 +65,7 @@ class AddItemPageState extends State<AddItemPage>
         children: <Widget>[
           TextField(
             controller: this.nameController,
-            decoration: InputDecoration(
-              labelText: "Nome"
-            ),
+            decoration: InputDecoration(labelText: "Nome"),
           ),
           ElevatedButton(
             onPressed: createItem,
@@ -80,29 +78,28 @@ class AddItemPageState extends State<AddItemPage>
   }
 }
 
-class ViewPage extends StatefulWidget
-{
+class ViewPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return ViewPageState();
   }
 }
-class Item
-{
+
+class Item {
   String id;
   String name;
   DateTime timestamp;
   Item(this.id, this.name, this.timestamp);
 }
-class ViewPageState extends State<ViewPage>
-{
+
+class ViewPageState extends State<ViewPage> {
   List<Item> data = [];
-  showAddItemPage()
-  {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context){
+  showAddItemPage() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return AddItemPage();
     }));
   }
+
   refreshData() async {
     var dataStr = jsonEncode({
       "command": "get_items",
@@ -112,15 +109,13 @@ class ViewPageState extends State<ViewPage>
     setState(() {
       data.clear();
       var jsonItems = jsonDecode(result.body) as List<dynamic>;
-      jsonItems.forEach((item){
-        this.data.add(Item(
-          item['id'] as String,
-          item['name'] as String,
-          DateTime.parse(item['timestamp'] as String)
-        ));
+      jsonItems.forEach((item) {
+        this.data.add(Item(item['id'] as String, item['name'] as String,
+            DateTime.parse(item['timestamp'] as String)));
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,6 +139,4 @@ class ViewPageState extends State<ViewPage>
       ),
     );
   }
-  
 }
-
