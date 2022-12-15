@@ -1,3 +1,4 @@
+//bibliotecas
 import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
 import 'package:enduro_app/config/navigator/routes.dart';
 import 'package:flutter/material.dart';
