@@ -12,20 +12,18 @@ part 'contador_state.dart';
 class ContadorCubit extends Cubit<ContadorState> {
   ContadorCubit() : super(ContadorInitial());
 
-  List<Car> _carList = [];
+  List<Car> carList = [];
 
-  int getListLenght() => _carList.length;
-
-  List<Car> getCars() => _carList;
+  int getListLenght() => carList.length;
 
   void createCar(int numero, String nome) {
     Car car = Car(nome, numero);
-    _carList.add(car);
+    carList.add(car);
     emit(ContadorIdle());
   }
 
   void removeCar(Car car) {
-    _carList.remove(car);
+    carList.remove(car);
     emit(ContadorIdle());
   }
 
@@ -40,6 +38,6 @@ class ContadorCubit extends Cubit<ContadorState> {
   // }
   @override
   String toString() {
-    return "Equipes: $_carList";
+    return "Equipes: $carList";
   }
 }
