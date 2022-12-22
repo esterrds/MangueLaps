@@ -1,4 +1,4 @@
-package com.example.appdowill
+package com.example.enduro_app
 
 import io.flutter.embedding.android.FlutterActivity
 

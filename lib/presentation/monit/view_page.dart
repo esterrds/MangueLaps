@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class AddItemPage extends StatefulWidget {
+import 'package:enduro_app/presentation/monit/mysql_connection.dart';
+
+/*class AddItemPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return AddItemPageState();
@@ -18,7 +20,7 @@ class AddItemPageState extends State<AddItemPage> {
       "command": "add_item",
       "name": nameController.text,
     });
-    var url = Uri.parse("http://12.0.0.1/phpconnection/index.php" + dataStr);
+    var url = Uri.parse("http://64.227.19.172/flutter_php/index.php" + dataStr);
     var result = await http.get(url);
     setState(() {
       this.response = result.body;
@@ -46,7 +48,7 @@ class AddItemPageState extends State<AddItemPage> {
       ),
     );
   }
-}
+}*/
 
 class ViewPage extends StatefulWidget {
   @override
@@ -63,7 +65,32 @@ class Item {
 }
 
 class ViewPageState extends State<ViewPage> {
-  List<Item> data = [];
+  //teste mysql
+  int _counter = 0;
+  var db = new Mysql();
+  var carro = 0;
+  var equipe = '';
+  var voltas = 0;
+
+  void _getCustomer() {
+    db.getConnection().then((conn) {
+      String sql = 'select equipe from Equipes where id = 20;';
+      conn.query(sql).then((results) {
+        for (var row in results) {
+          setState(() {
+            carro = row[0];
+            equipe = row[0];
+            voltas = row[0];
+          });
+        }
+      });
+      conn.close();
+    });
+  }
+
+  //
+
+  /*List<Item> data = [];
   showAddItemPage() {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return AddItemPage();
@@ -84,7 +111,7 @@ class ViewPageState extends State<ViewPage> {
             DateTime.parse(item['timestamp'] as String)));
       });
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -92,19 +119,29 @@ class ViewPageState extends State<ViewPage> {
       appBar: AppBar(
         title: const Center(child: Text("Monitoramento")),
       ),
-      floatingActionButton: FloatingActionButton(
+      /*floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: showAddItemPage,
-      ),
+      ),*/
       body: Column(
         children: <Widget>[
           ElevatedButton(
-            onPressed: refreshData,
+            onPressed: _getCustomer,
             child: Text("Atualizar"),
           ),
-          Column(
-            children: data.map((item) => Text(item.name)).toList(),
+          Text(
+            'Relatório das Equipes:',
           ),
+          Text(
+            '$carro,$equipe,$voltas',
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+
+          //
+
+          Column(
+              //children: data.map((item) => Text(item.name)).toList(),
+              ),
         ],
       ),
     );

@@ -2,11 +2,8 @@ import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
 import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
 import 'package:enduro_app/config/navigator/routes.dart';
 import 'package:enduro_app/presentation/colors.dart';
-import 'package:enduro_app/repo/save.dart';
-import 'package:enduro_app/teste.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:enduro_app/config/preferences_keys.dart';
 
 //3 tracinhos
 class NavBar extends StatelessWidget {
@@ -24,7 +21,7 @@ class NavBar extends StatelessWidget {
             children: [
               Container(
                 //design do primeiro container
-                color: Color.fromRGBO(0, 125, 83, 49),
+                color: const Color.fromRGBO(0, 125, 83, 49),
                 height: 50,
                 child: IconButton(
                   onPressed: () {
@@ -101,7 +98,7 @@ class NavBar extends StatelessWidget {
 alertFailed(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
-    child: const Text("OK"),
+    child: const Text("Toque em qualquer lugar da tela"),
     onPressed: () {
       Navigator.pushNamed(context, initRoute);
     },
@@ -127,7 +124,7 @@ alertFailed(BuildContext context) {
 alertSucess(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
-    child: const Text("OK"),
+    child: const Text("Toque em qualquer lugar da tela"),
     onPressed: () {
       Navigator.pushNamed(context, initRoute);
     },
@@ -152,7 +149,7 @@ alertSucess(BuildContext context) {
 wait(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
-    child: const Text("OK"),
+    child: const Text("Toque em qualquer lugar da tela"),
     onPressed: () {
       Navigator.pushNamed(context, initRoute);
     },

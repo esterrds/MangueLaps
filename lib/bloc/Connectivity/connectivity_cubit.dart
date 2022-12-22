@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -67,7 +66,10 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     for (Car car in carList) {
       print(car);
     }
-    builder.addString("${carList.toString()}");
+    //for (int i = 0; i < carList.length; i++) {
+    //  print(carList[i]);
+    // }
+    builder.addString("${carList}");
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 
