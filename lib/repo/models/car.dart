@@ -46,7 +46,6 @@ class Car {
 
   @override
   String toString() {
-    // TODO: implement toString
     return "Equipes: {carro: ${numeroDoCarro}, equipe: ${nomeDaEquipe}, voltas: ${_numeroDeVoltas}}";
   }
 }

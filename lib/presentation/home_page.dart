@@ -17,9 +17,9 @@ class MyHomePage extends StatelessWidget {
           title: const Center(child: Text("Contador de voltas")),
           actions: <Widget>[
             IconButton(
-              icon: Icon(
-                Icons.settings,
-                color: Colors.white,
+              icon: const Icon(
+                Icons.monitor,
+                //color: Colors.white,
               ),
               onPressed: () {
                 Navigator.pushNamed(context, viewPage);

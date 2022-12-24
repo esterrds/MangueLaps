@@ -1,6 +1,6 @@
 {
-    "name": "appdowill",
-    "short_name": "appdowill",
+    "name": "enduro_app",
+    "short_name": "enduro_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

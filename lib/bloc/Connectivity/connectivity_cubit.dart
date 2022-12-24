@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -62,14 +61,15 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
   void publishTest(ContadorCubit carCubit) {
     final builder = MqttClientPayloadBuilder();
     List<Car> carList = carCubit.carList;
-    print('alalala');
     print(carList);
 
     for (Car car in carList) {
       print(car);
-      print('alalala2');
     }
-    builder.addString("Equipes: ${carList.toList()}");
+    //for (int i = 0; i < carList.length; i++) {
+    //  print(carList[i]);
+    // }
+    builder.addString("${carList}");
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 
