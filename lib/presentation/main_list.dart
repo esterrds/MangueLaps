@@ -14,10 +14,10 @@ class MainList extends StatelessWidget {
 
     return BlocBuilder<ContadorCubit, ContadorState>(
       builder: (context, state) {
-        return Padding(
+        return Scaffold(
           //organização dos itens na lista
-          padding: const EdgeInsets.symmetric(horizontal: 13.0),
-          child: ListView.separated(
+          //padding: const EdgeInsets.symmetric(horizontal: 13.0),
+          body: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
               return Builder(builder: (context) {
                 return Container(
@@ -72,7 +72,34 @@ class MainList extends StatelessWidget {
                             cubit.carList[index].decrement();
                             cubit.rebuild();
                           },
-                        )
+                        ),
+                        GestureDetector(
+                          child: const Icon(Icons.check),
+                          onLongPress: () {
+                            print("Long press");
+                            const SizedBox(
+                              //conectado
+                              width: 50,
+                              height: 50,
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.yellow,
+                              ),
+                            );
+                          },
+                          onLongPressCancel: () {
+                            print("Long press cancel");
+                            const SizedBox(
+                              //conectado
+                              width: 50,
+                              height: 50,
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.black,
+                              ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
