@@ -68,8 +68,9 @@ class NavBar extends StatelessWidget {
                           if (state is ConnectivityDisconnected) {
                             alertFailed(context);
                           } else if (state is ConnectivityConnected) {
-                            conCubit.publishTest(carCubit);
-                            alertSucess(context);
+                            //conCubit.publishTest(carCubit);
+                            selectCar(context);
+                            //alertSucess(context);
                           } else {
                             wait(context);
                           }
@@ -94,6 +95,31 @@ class NavBar extends StatelessWidget {
   }
 }
 
+selectCar(BuildContext context) {
+  // configura o button
+  Widget okButton = ElevatedButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.pushNamed(context, initRoute);
+    },
+  );
+  // configura o  AlertDialog
+  AlertDialog alerta = AlertDialog(
+    title: const Text("Selecione um carro"),
+    content: const Text("Aperte e segure no item que deseja enviar."),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
+  );
+}
+
 //alerta de mensagem não enviada
 alertFailed(BuildContext context) {
   // configura o button
@@ -106,7 +132,7 @@ alertFailed(BuildContext context) {
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
     title: const Text("Falha na conexão"),
-    content: const Text("Sua mensagem não foi enviada."),
+    content: const Text("Verifique se o broker está ligado."),
     actions: [
       okButton,
     ],
