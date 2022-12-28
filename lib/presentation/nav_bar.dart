@@ -68,9 +68,9 @@ class NavBar extends StatelessWidget {
                           if (state is ConnectivityDisconnected) {
                             alertFailed(context);
                           } else if (state is ConnectivityConnected) {
-                            //conCubit.publishTest(carCubit);
-                            selectCar(context);
-                            //alertSucess(context);
+                            conCubit.publishTest(carCubit);
+                            //selectCar(context);
+                            alertSucess(context);
                           } else {
                             wait(context);
                           }
@@ -105,8 +105,8 @@ selectCar(BuildContext context) {
   );
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
-    title: const Text("Selecione um carro"),
-    content: const Text("Aperte e segure no item que deseja enviar."),
+    title: const Text("Boa, Bajeiro(a)!"),
+    content: const Text("Você enviou um carro."),
     actions: [
       okButton,
     ],
@@ -158,7 +158,7 @@ alertSucess(BuildContext context) {
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
     title: const Text("Boa, Bajeiro(a)!"),
-    content: const Text("Sua mensagem foi enviada com sucesso."),
+    content: const Text("Seus carros foram enviados."),
     actions: [
       okButton,
     ],

@@ -21,7 +21,6 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
   ConnectivityCubit() : super(ConnectivityInitial()) {
     mqttConnect();
   }
-
   bool flag = true;
 
   void mqttConnect() async {
@@ -51,7 +50,7 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     }
   }
 
-//testes: mensagem enviada ao broker quando conectado
+  //testes: mensagem enviada ao broker quando conectado
   void subTest() {
     client.subscribe(mqttPubTopic, MqttQos.atMostOnce);
     flag = !flag;
@@ -73,7 +72,7 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 
-//desconectar
+  //desconectar
   void mqttDisconnect() {
     client.disconnect();
     emit(ConnectivityDisconnected());

@@ -40,4 +40,6 @@ class ContadorCubit extends Cubit<ContadorState> {
   String toString() {
     return "Equipes: $carList";
   }
+
+  void publishTest(List<Car> selecionados) {}
 }
