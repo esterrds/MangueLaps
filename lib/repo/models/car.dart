@@ -28,24 +28,8 @@ class Car {
     print("carro: $numeroDoCarro, voltas: $_numeroDeVoltas");
   }
 
-  void teste2() {
-    var cadastro = {
-      1: nomeDaEquipe,
-      2: numeroDoCarro.toString(),
-      3: _numeroDeVoltas.toString()
-    };
-
-    myNewList() {
-      return cadastro.entries.map((e) {
-        return e.value;
-      }).toList();
-    }
-
-    print(myNewList());
-  }
-
   @override
   String toString() {
-    return "Equipes: {carro: ${numeroDoCarro}, equipe: ${nomeDaEquipe}, voltas: ${_numeroDeVoltas}}";
+    return "{carro: ${numeroDoCarro}, equipe: ${nomeDaEquipe}, voltas: ${_numeroDeVoltas}}";
   }
 }

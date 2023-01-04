@@ -64,7 +64,7 @@ class MainList extends StatelessWidget {
                         //botão de incremento
                         GestureDetector(
                           child: const Icon(
-                            Icons.arrow_upward,
+                            Icons.arrow_drop_up_sharp,
                             color: deepestBlue,
                           ),
                           onTap: () {
@@ -75,7 +75,7 @@ class MainList extends StatelessWidget {
                         //botão de decremento
                         GestureDetector(
                           child: const Icon(
-                            Icons.arrow_downward,
+                            Icons.arrow_drop_down_sharp,
                             color: deepestBlue,
                           ),
                           onTap: () {
@@ -89,8 +89,12 @@ class MainList extends StatelessWidget {
                             color: textColor,
                           ),
                           onTap: () {
+                            print(cubit.carList[index]);
                             conCubit.publishTest(cubit);
                             selectCar(context);
+                            if (state is ConnectivityDisconnected) {
+                              alertFailed(context);
+                            }
                           },
                         )
                       ],
