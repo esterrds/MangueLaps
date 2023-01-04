@@ -36,15 +36,15 @@ class MainList extends StatelessWidget {
                     key: ValueKey<dynamic>(cubit.carList[index]),
                     onDismissed: (DismissDirection direction) {
                       cubit.carList.removeAt(index);
-                      final snackBar = const SnackBar(
-                          content: Text("Carro removido.")
-                          //action: SnackBarAction(
-                          /*label: 'Desfazer',
-                              onPressed: (() {
-                                //retorna com o carro excluído (falta fazer)
-                              }),
-                                )*/
-                          );
+                      final snackBar = SnackBar(
+                        content: const Text('Carro removido.'),
+                        action: SnackBarAction(
+                          label: 'Desfazer',
+                          onPressed: () {
+                            // Código para desfazer a ação!
+                          },
+                        ),
+                      );
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: Row(
