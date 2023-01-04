@@ -142,7 +142,6 @@ class _MainListState extends State<MainList> {
 
   oneCar(index, ContadorCubit carCubit) {
     final builder = MqttClientPayloadBuilder();
-    List<Car> carList = carCubit.carList;
 
     builder.addString("${carCubit.carList[index]}");
     client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
