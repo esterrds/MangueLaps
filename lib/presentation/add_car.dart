@@ -26,6 +26,8 @@ class CarAdder extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Text("Não use acentos ou caracteres especiais!"),
+
               Row(
                 children: [
                   //caixa para receber nome das equipes
@@ -52,7 +54,7 @@ class CarAdder extends StatelessWidget {
                   ),
                 ],
               ),
-              //botão de confirmar, que manda os dados cadastrados para o contador
+              //botão de confirmar, manda os dados cadastrados para o contador
               Padding(
                 padding: const EdgeInsets.all(18.0),
                 child: ElevatedButton(
