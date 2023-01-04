@@ -1,16 +1,24 @@
 import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
+import 'package:enduro_app/config/const/connectivity.dart';
 import 'package:enduro_app/presentation/colors.dart';
 import 'package:enduro_app/presentation/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mqtt_client/mqtt_client.dart';
 
 import '../bloc/ContadorCubit/contador_cubit.dart';
+import '../repo/models/car.dart';
 
 //página do contador
 
-class MainList extends StatelessWidget {
+class MainList extends StatefulWidget {
   const MainList({super.key});
 
+  @override
+  State<MainList> createState() => _MainListState();
+}
+
+class _MainListState extends State<MainList> {
   @override
   Widget build(BuildContext context) {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
@@ -30,18 +38,18 @@ class MainList extends StatelessWidget {
                   height: 100,
                   child: Dismissible(
                     //excluir itens da lista
-                    background: Container(
-                      color: Colors.red,
-                    ),
+                    background: deleteBgItem(),
                     key: ValueKey<dynamic>(cubit.carList[index]),
                     onDismissed: (DismissDirection direction) {
+                      var equipes = cubit.carList[index];
                       cubit.carList.removeAt(index);
                       final snackBar = SnackBar(
                         content: const Text('Carro removido.'),
+                        //desfazer ação
                         action: SnackBarAction(
                           label: 'Desfazer',
                           onPressed: () {
-                            // Código para desfazer a ação!
+                            undoDelete(index, equipes);
                           },
                         ),
                       );
@@ -90,8 +98,8 @@ class MainList extends StatelessWidget {
                           ),
                           onTap: () {
                             print(cubit.carList[index]);
-                            conCubit.publishTest(cubit);
                             selectCar(context);
+                            oneCar(index, cubit);
                             if (state is ConnectivityDisconnected) {
                               alertFailed(context);
                             }
@@ -111,5 +119,32 @@ class MainList extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget deleteBgItem() {
+    return Container(
+      alignment: Alignment.centerRight,
+      padding: EdgeInsets.only(right: 20),
+      color: Colors.red,
+      child: const Icon(
+        Icons.delete,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  undoDelete(index, equipes) {
+    ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
+    setState(() {
+      cubit.carList.insert(index, equipes);
+    });
+  }
+
+  oneCar(index, ContadorCubit carCubit) {
+    final builder = MqttClientPayloadBuilder();
+    List<Car> carList = carCubit.carList;
+
+    builder.addString("${carCubit.carList[index]}");
+    client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 }
