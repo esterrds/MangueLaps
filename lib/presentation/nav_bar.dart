@@ -69,7 +69,6 @@ class NavBar extends StatelessWidget {
                             alertFailed(context);
                           } else if (state is ConnectivityConnected) {
                             conCubit.publishTest(carCubit);
-                            //selectCar(context);
                             alertSucess(context);
                           } else {
                             wait(context);
