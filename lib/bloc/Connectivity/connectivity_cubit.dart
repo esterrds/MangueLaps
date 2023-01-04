@@ -58,19 +58,11 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
   }
 
   void publishTest(ContadorCubit carCubit) {
-    var numero;
-    var nome;
-
     final builder = MqttClientPayloadBuilder();
     List<Car> carList = carCubit.carList;
-    // print(carList);
 
-    //for (Car car in carList) {
-    // print(car);
-    //}
-
-    builder.addString("${carList}");
-    client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
+    builder.addString("$carList");
+    client.publishMessage(mqttPubTopic2, MqttQos.atLeastOnce, builder.payload!);
   }
 
   //desconectar
