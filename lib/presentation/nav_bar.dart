@@ -100,7 +100,7 @@ selectCar(BuildContext context) {
   Widget okButton = ElevatedButton(
     child: const Text("OK"),
     onPressed: () {
-      Navigator.pushNamed(context, initRoute);
+      Navigator.of(context).pop();
     },
   );
   // configura o  AlertDialog
@@ -124,9 +124,9 @@ selectCar(BuildContext context) {
 alertFailed(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
-    child: const Text("Toque em qualquer lugar da tela"),
+    child: const Text("OK"),
     onPressed: () {
-      Navigator.pushNamed(context, initRoute);
+      Navigator.of(context).pop();
     },
   );
   // configura o  AlertDialog
@@ -150,9 +150,9 @@ alertFailed(BuildContext context) {
 alertSucess(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
-    child: const Text("Toque em qualquer lugar da tela"),
+    child: const Text("OK"),
     onPressed: () {
-      Navigator.pushNamed(context, initRoute);
+      Navigator.of(context).pop();
     },
   );
   // configura o  AlertDialog
@@ -175,9 +175,9 @@ alertSucess(BuildContext context) {
 wait(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
-    child: const Text("Toque em qualquer lugar da tela"),
+    child: const Text("OK"),
     onPressed: () {
-      Navigator.pushNamed(context, initRoute);
+      Navigator.of(context).pop();
     },
   );
   // configura o  AlertDialog
