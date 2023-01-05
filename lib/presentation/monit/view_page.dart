@@ -62,13 +62,14 @@ class ViewPageState extends State<ViewPage> {
       ),
       body: Column(
         children: <Widget>[
-          ElevatedButton(
+          /*ElevatedButton(
             onPressed: _getCustomer,
             child: const Text("Atualizar"),
-          ),
-          const Text(
+          ),*/
+          const Center(
+              child: Text(
             '\nRelatório das Equipes:',
-          ),
+          )),
           Text(
             '\nAtualizações ${cubit.carList}\n',
             style: Theme.of(context).textTheme.bodyText1,

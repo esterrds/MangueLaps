@@ -39,7 +39,7 @@ class _MainListState extends State<MainList> {
                   child: Dismissible(
                     //excluir itens da lista
                     background: deleteBgItem(),
-                    key: ValueKey<dynamic>(cubit.carList[index]),
+                    key: UniqueKey(),
                     onDismissed: (DismissDirection direction) {
                       var equipes = cubit.carList[index];
                       cubit.carList.removeAt(index);

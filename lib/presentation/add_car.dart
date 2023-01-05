@@ -27,7 +27,9 @@ class CarAdder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text("Não use acentos ou caracteres especiais!"),
-
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 children: [
                   //caixa para receber nome das equipes
