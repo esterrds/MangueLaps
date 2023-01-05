@@ -1,6 +1,5 @@
 import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
 import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
-import 'package:enduro_app/config/navigator/routes.dart';
 import 'package:enduro_app/presentation/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -78,7 +77,7 @@ class NavBar extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: 100,
                 height: 400,
                 child: Image.asset('assets/images/logoVerde.jpeg'),

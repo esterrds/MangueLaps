@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
 import '../bloc/ContadorCubit/contador_cubit.dart';
-import '../repo/models/car.dart';
 
 //página do contador
 
@@ -22,7 +21,6 @@ class _MainListState extends State<MainList> {
   @override
   Widget build(BuildContext context) {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
-    ConnectivityCubit conCubit = BlocProvider.of<ConnectivityCubit>(context);
 
     return BlocBuilder<ContadorCubit, ContadorState>(
       builder: (context, state) {
@@ -97,10 +95,12 @@ class _MainListState extends State<MainList> {
                             color: textColor,
                           ),
                           onTap: () {
-                            print(cubit.carList[index]);
-                            selectCar(context);
-                            oneCar(index, cubit);
-                            if (state is ConnectivityDisconnected) {
+                            if (client.connectionStatus!.state ==
+                                MqttConnectionState.connected) {
+                              selectCar(context);
+                              oneCar(index, cubit);
+                            } else if (client.connectionStatus!.state ==
+                                MqttConnectionState.disconnected) {
                               alertFailed(context);
                             }
                           },
@@ -124,7 +124,7 @@ class _MainListState extends State<MainList> {
   Widget deleteBgItem() {
     return Container(
       alignment: Alignment.centerRight,
-      padding: EdgeInsets.only(right: 20),
+      padding: const EdgeInsets.only(right: 20),
       color: Colors.red,
       child: const Icon(
         Icons.delete,

@@ -43,8 +43,7 @@ class ViewPageState extends State<ViewPage> {
     var dataStr = jsonEncode(
         {"id": 'id', "carro": 'carro', "equipe": "equipe", "voltas": 'voltas'});
     var url = Uri.parse(
-        "http://64.227.19.172/phpmyadmin/index.php?route=/sql&db=EnduroApp&table=Equipes&pos=0" +
-            dataStr);
+        "http://64.227.19.172/phpmyadmin/index.php?route=/sql&db=EnduroApp&table=Equipes&pos=0$dataStr");
     var result = await http.get(url);
     setState(() {
       var jsonItems = jsonDecode(result.body) as List<dynamic>;
