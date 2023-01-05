@@ -1,6 +1,9 @@
 //bibliotecas
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
 import 'package:enduro_app/config/navigator/routes.dart';
+import 'package:enduro_app/presentation/colors.dart';
+import 'package:enduro_app/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,10 +40,34 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.green,
           ),
         ),
+        home: const SplashScreen(),
         //próxima página
         onGenerateRoute: RouteGenerator.generateRoute,
         initialRoute: initRoute,
       ),
+    );
+  }
+}
+
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSplashScreen(
+      splash: Column(
+        // ignore: prefer_const_literals_to_create_immutables
+        children: [
+          const Text(
+            'Enduro App',
+            style: TextStyle(
+                fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
+          )
+        ],
+      ),
+      backgroundColor: midBlue,
+      nextScreen: const MyHomePage(),
+      //splashIconSize: 100,
     );
   }
 }
