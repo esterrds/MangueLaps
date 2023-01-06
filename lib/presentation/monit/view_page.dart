@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:enduro_app/presentation/monit/mysql_connection.dart';
+//import 'package:enduro_app/presentation/monit/mysql_connection.dart';
 
 class ViewPage extends StatefulWidget {
   @override
@@ -56,31 +56,27 @@ class ViewPageState extends State<ViewPage> {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text("Monitoramento")),
-      ),
-      body: Column(
-        children: <Widget>[
-          /*ElevatedButton(
-            onPressed: _getCustomer,
-            child: const Text("Atualizar"),
-          ),*/
-          const Center(
-              child: Text(
-            '\nRelatório das Equipes:',
-          )),
-          Text(
-            '\nAtualizações ${cubit.carList}\n',
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-
-          //
-
-          Column(
-              //children: data.map((item) => Text(item.name)).toList(),
-              ),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: const Center(child: Text("Monitoramento")),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.swap_vert_circle),
+              onPressed: () {},
+            )
+          ],
+        ),
+        body: ListView.separated(
+            itemCount: cubit.getListLenght(),
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: CircleAvatar(
+                  child: ClipRRect(),
+                ),
+                title: Text('Equipe: ${cubit.carList[index].nomeDaEquipe}'),
+                subtitle: Text('Voltas: ${cubit.carList[index].getVoltas()}'),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider()));
   }
 }
