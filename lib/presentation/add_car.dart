@@ -50,7 +50,7 @@ class CarAdder extends StatelessWidget {
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Numero",
+                        labelText: "Número",
                       ),
                     ),
                   ),
