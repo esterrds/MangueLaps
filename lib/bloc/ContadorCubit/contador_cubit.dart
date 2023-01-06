@@ -13,6 +13,16 @@ class ContadorCubit extends Cubit<ContadorState> {
   ContadorCubit() : super(ContadorInitial());
 
   List<Car> carList = [];
+  bool isSort = false;
+
+  /*sort() {
+    if (!isSort) {
+      carList = carList.sort(Car a, Car b) => a.getVoltas().compareTo(b.getVoltas());
+      isSort = true;
+    } else {
+
+    }
+  }*/
 
   int getListLenght() => carList.length;
 

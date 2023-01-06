@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
+import 'package:enduro_app/presentation/colors.dart';
+import 'package:enduro_app/repo/models/car.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -61,7 +63,9 @@ class ViewPageState extends State<ViewPage> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.swap_vert_circle),
-              onPressed: () {},
+              onPressed: () {
+                //Car.sort();
+              },
             )
           ],
         ),
@@ -70,8 +74,7 @@ class ViewPageState extends State<ViewPage> {
             itemBuilder: (context, index) {
               return ListTile(
                 leading: CircleAvatar(
-                  child: ClipRRect(),
-                ),
+                    backgroundColor: midBlue, child: Icon(Icons.numbers)),
                 title: Text('Equipe: ${cubit.carList[index].nomeDaEquipe}'),
                 subtitle: Text('Voltas: ${cubit.carList[index].getVoltas()}'),
               );
