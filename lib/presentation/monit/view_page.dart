@@ -16,30 +16,30 @@ class ViewPage extends StatefulWidget {
 
 class ViewPageState extends State<ViewPage> {
   //teste mysql
-  var db = Mysql();
+  //var db = Mysql();
   var id;
   var carro;
   var equipe;
   var voltas;
 
-  void _getCustomer() {
-    db.getConnection().then((conn) {
-      String sql = 'SELECT * FROM Equipes;';
-      conn.query(sql).then((results) {
-        for (var row in results) {
-          setState(() {
-            id = row[0];
-            carro = row[0];
-            equipe = row[0];
-            voltas = row[0];
-          });
-        }
-      });
-      conn.close();
-    });
-  }
+  //void _getCustomer() {
+  //db.getConnection().then((conn) {
+  // String sql = 'SELECT * FROM Equipes;';
+  // conn.query(sql).then((results) {
+  //   for (var row in results) {
+  //    setState(() {
+  //      id = row[0];
+  //     carro = row[0];
+  //     equipe = row[0];
+  //     voltas = row[0];
+  //  });
+  // }
+  //  });
+  //   conn.close();
+  // });
+  //}
 
-  refreshData() async {
+  /*refreshData() async {
     var dataStr = jsonEncode(
         {"id": 'id', "carro": 'carro', "equipe": "equipe", "voltas": 'voltas'});
     var url = Uri.parse(
@@ -49,7 +49,7 @@ class ViewPageState extends State<ViewPage> {
       var jsonItems = jsonDecode(result.body) as List<dynamic>;
       jsonItems.forEach((item) {});
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {

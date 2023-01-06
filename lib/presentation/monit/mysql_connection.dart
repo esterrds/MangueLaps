@@ -1,4 +1,4 @@
-import 'package:mysql1/mysql1.dart';
+/*import 'package:mysql1/mysql1.dart';
 
 class Mysql {
   static String host = '64.227.19.172',
@@ -14,4 +14,4 @@ class Mysql {
         host: host, port: port, user: user, password: password, db: db);
     return await MySqlConnection.connect(settings);
   }
-}
+}*/
