@@ -1,13 +1,9 @@
 import 'dart:convert';
 
-import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
-import 'package:enduro_app/presentation/colors.dart';
-import 'package:enduro_app/repo/models/car.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-//import 'package:enduro_app/presentation/monit/mysql_connection.dart';
+import 'package:enduro_app/presentation/monit/mysql_connection.dart';
 
 class ViewPage extends StatefulWidget {
   @override
@@ -16,70 +12,43 @@ class ViewPage extends StatefulWidget {
   }
 }
 
+class Item {
+  String id;
+  String numero;
+  String equipe;
+  String voltas;
+  Item(this.id, this.numero, this.equipe, this.voltas);
+}
+
 class ViewPageState extends State<ViewPage> {
   //teste mysql
-  //var db = Mysql();
-  var id;
-  var carro;
-  var equipe;
-  var voltas;
+  List<Item> data = [];
+  String response = "Atualize para mais informações.";
 
-  //void _getCustomer() {
-  //db.getConnection().then((conn) {
-  // String sql = 'SELECT * FROM Equipes;';
-  // conn.query(sql).then((results) {
-  //   for (var row in results) {
-  //    setState(() {
-  //      id = row[0];
-  //     carro = row[0];
-  //     equipe = row[0];
-  //     voltas = row[0];
-  //  });
-  // }
-  //  });
-  //   conn.close();
-  // });
-  //}
-
-  /*refreshData() async {
-    var dataStr = jsonEncode(
-        {"id": 'id', "carro": 'carro', "equipe": "equipe", "voltas": 'voltas'});
-    var url = Uri.parse(
-        "http://64.227.19.172/phpmyadmin/index.php?route=/sql&db=EnduroApp&table=Equipes&pos=0$dataStr");
+  refreshData() async {
+    var url = Uri.parse("http://64.227.19.172:2023/");
     var result = await http.get(url);
     setState(() {
-      var jsonItems = jsonDecode(result.body) as List<dynamic>;
-      jsonItems.forEach((item) {});
+      print(result.body);
+      response = result.body;
     });
-  }*/
+  }
 
   @override
   Widget build(BuildContext context) {
-    ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
-
     return Scaffold(
-        appBar: AppBar(
-          title: const Center(child: Text("Monitoramento")),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.swap_vert_circle),
-              onPressed: () {
-                //Car.sort();
-              },
-            )
-          ],
-        ),
-        body: ListView.separated(
-            itemCount: cubit.getListLenght(),
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: CircleAvatar(
-                    backgroundColor: midBlue, child: Icon(Icons.numbers)),
-                title: Text('Equipe: ${cubit.carList[index].nomeDaEquipe}'),
-                subtitle: Text('Voltas: ${cubit.carList[index].getVoltas()}'),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                const Divider()));
+      appBar: AppBar(
+        title: Text("Monitoramento"),
+      ),
+      body: Column(
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: refreshData,
+            child: Text("Atualizar"),
+          ),
+          Text(response)
+        ],
+      ),
+    );
   }
 }

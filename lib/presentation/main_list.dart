@@ -1,12 +1,12 @@
 import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
 import 'package:enduro_app/config/const/connectivity.dart';
 import 'package:enduro_app/presentation/colors.dart';
-import 'package:enduro_app/presentation/nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
 import '../bloc/ContadorCubit/contador_cubit.dart';
+import 'alert/msg_alerta.dart';
 
 //página do contador
 
