@@ -58,20 +58,21 @@ class _MainListState extends State<MainList> {
                       children: [
                         Text(cubit.carList[index].numeroDoCarro.toString(),
                             style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                                fontSize: 18, fontWeight: FontWeight.bold)),
                         Text(cubit.carList[index].nomeDaEquipe,
                             style: const TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w500)),
+                                fontSize: 18, fontWeight: FontWeight.w500)),
                         Text(
                           cubit.carList[index].getVoltas().toString(),
                           style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold),
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         //botão de incremento
                         GestureDetector(
                           child: const Icon(
                             Icons.arrow_drop_up_sharp,
                             color: deepestBlue,
+                            size: 30,
                           ),
                           onTap: () {
                             cubit.carList[index].increment();
@@ -83,6 +84,7 @@ class _MainListState extends State<MainList> {
                           child: const Icon(
                             Icons.arrow_drop_down_sharp,
                             color: deepestBlue,
+                            size: 30,
                           ),
                           onTap: () {
                             cubit.carList[index].decrement();

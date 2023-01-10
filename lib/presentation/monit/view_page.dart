@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:enduro_app/presentation/monit/mysql_connection.dart';
-
 class ViewPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
