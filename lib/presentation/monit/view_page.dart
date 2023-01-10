@@ -29,8 +29,12 @@ class ViewPageState extends State<ViewPage> {
     var url = Uri.parse("http://64.227.19.172:2023/");
     var result = await http.get(url);
     setState(() {
-      print(result.body);
-      response = result.body;
+      data.clear();
+      var jsonItems = jsonDecode(result.body) as List<dynamic>;
+      jsonItems.forEach((item) {
+        data.add(Item(item['id'] as String, item['carro'] as String,
+            item['equipe'] as String, item['voltas'] as String));
+      });
     });
   }
 
@@ -46,7 +50,12 @@ class ViewPageState extends State<ViewPage> {
             onPressed: refreshData,
             child: Text("Atualizar"),
           ),
-          Text(response)
+          Column(
+            children: data
+                .map((item) => Text(
+                    "Carro: ${item.numero} | Equipe: ${item.equipe} | Voltas: ${item.voltas}"))
+                .toList(),
+          )
         ],
       ),
     );
