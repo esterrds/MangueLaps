@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+//página de monitoramento
 class ViewPage extends StatefulWidget {
+  const ViewPage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return ViewPageState();
@@ -19,10 +22,10 @@ class Item {
 }
 
 class ViewPageState extends State<ViewPage> {
-  //teste mysql
   List<Item> data = [];
   String response = "Atualize para mais informações.";
 
+  //recebe os dados da API e converte em Json
   refreshData() async {
     var url = Uri.parse("http://64.227.19.172:2023/");
     var result = await http.get(url);
@@ -40,14 +43,17 @@ class ViewPageState extends State<ViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Monitoramento"),
+        title: const Text("Monitoramento"),
       ),
       body: Column(
         children: <Widget>[
+          //botão de atualizar
           ElevatedButton(
             onPressed: refreshData,
-            child: Text("Atualizar"),
+            child: const Text("Atualizar"),
           ),
+
+          //informações listadas
           Column(
             children: data
                 .map((item) => Text(

@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:enduro_app/config/preferences_keys.dart';
 import 'package:enduro_app/repo/models/car.dart';
 
-//repositório (salvar os dados em formato json)
+//repositório local(salvar os dados em formato json)
 
 class CarRepository {
   late SharedPreferences sharedPreferences;

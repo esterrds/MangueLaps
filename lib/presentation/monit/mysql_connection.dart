@@ -1,3 +1,5 @@
+/*
+//teste conexão direta com o banco de dados
 import 'package:mysql1/mysql1.dart';
 
 class Mysql {
@@ -14,4 +16,4 @@ class Mysql {
         host: host, port: port, user: user, password: password, db: db);
     return await MySqlConnection.connect(settings);
   }
-}
+}*/

@@ -57,6 +57,7 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     emit(ConnectivityConnected());
   }
 
+  //manda lista completa para o broker
   void publishTest(ContadorCubit carCubit) {
     final builder = MqttClientPayloadBuilder();
     List<Car> carList = carCubit.carList;

@@ -7,7 +7,7 @@ import '../../repo/models/car.dart';
 
 part 'contador_state.dart';
 
-//parte do código que trabalha com as listas registradas
+//trabalha com as listas registradas
 
 class ContadorCubit extends Cubit<ContadorState> {
   ContadorCubit() : super(ContadorInitial());

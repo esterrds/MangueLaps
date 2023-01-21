@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
-//botão da tela principal para a tela de cadastro (+)
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -15,11 +14,12 @@ class MyHomePage extends StatelessWidget {
         body: const MainList(),
         appBar: AppBar(
           title: const Center(child: Text("Contador de voltas")),
+
+          //botão da página de monitoramento
           actions: <Widget>[
             IconButton(
               icon: const Icon(
                 Icons.monitor,
-                //color: Colors.white,
               ),
               onPressed: () {
                 Navigator.pushNamed(context, viewPage);
@@ -28,6 +28,8 @@ class MyHomePage extends StatelessWidget {
             )
           ],
         ),
+
+        //botão para tela de cadastro (inferior central)
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, carAdder);

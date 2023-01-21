@@ -30,6 +30,6 @@ class Car {
 
   @override
   String toString() {
-    return "{carro: ${numeroDoCarro}, equipe: ${nomeDaEquipe}, voltas: ${_numeroDeVoltas}}";
+    return "{carro: $numeroDoCarro, equipe: $nomeDaEquipe, voltas: $_numeroDeVoltas}";
   }
 }

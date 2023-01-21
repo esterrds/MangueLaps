@@ -1,4 +1,4 @@
-//informações importantes para a conexão com o broker
+//dados para conexão com o broker
 
 const String mqttBroker = '64.227.19.172';
 const int mqttPort = 1883;

@@ -1,3 +1,5 @@
+//estados de funcionamento (dados contador)
+
 part of 'contador_cubit.dart';
 
 @immutable

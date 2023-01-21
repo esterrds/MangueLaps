@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.green,
           ),
         ),
+        //chamada da animação
         home: const SplashScreen(),
         //próxima página
         onGenerateRoute: RouteGenerator.generateRoute,
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//Animação inicial
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
@@ -56,7 +58,6 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Column(
-        // ignore: prefer_const_literals_to_create_immutables
         children: [
           const Text(
             'Enduro App',

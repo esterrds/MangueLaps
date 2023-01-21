@@ -43,6 +43,7 @@ class _MainListState extends State<MainList> {
                       cubit.carList.removeAt(index);
                       final snackBar = SnackBar(
                         content: const Text('Carro removido.'),
+
                         //desfazer ação
                         action: SnackBarAction(
                           label: 'Desfazer',
@@ -54,6 +55,7 @@ class _MainListState extends State<MainList> {
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: Row(
+                      //organização da lista
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(cubit.carList[index].numeroDoCarro.toString(),
@@ -91,6 +93,7 @@ class _MainListState extends State<MainList> {
                             cubit.rebuild();
                           },
                         ),
+                        //botão de enviar dados individuais
                         GestureDetector(
                           child: const Icon(
                             Icons.send,
@@ -123,6 +126,7 @@ class _MainListState extends State<MainList> {
     );
   }
 
+  //ícone lixeira
   Widget deleteBgItem() {
     return Container(
       alignment: Alignment.centerRight,
@@ -135,6 +139,7 @@ class _MainListState extends State<MainList> {
     );
   }
 
+  //desfazer item excluído
   undoDelete(index, equipes) {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
     setState(() {
@@ -142,6 +147,7 @@ class _MainListState extends State<MainList> {
     });
   }
 
+  //função de enviar dados individuais
   oneCar(index, ContadorCubit carCubit) {
     final builder = MqttClientPayloadBuilder();
 

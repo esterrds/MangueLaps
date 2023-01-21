@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+//biblioteca de AlertDialogs
 
 selectCar(BuildContext context) {
   // configura o button

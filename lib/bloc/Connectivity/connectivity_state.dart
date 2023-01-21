@@ -1,4 +1,4 @@
-//estados de funcionamento
+//estados de funcionamento (conexão)
 
 part of 'connectivity_cubit.dart';
 

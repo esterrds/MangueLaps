@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/ContadorCubit/contador_cubit.dart';
 
 //tela de cadastro
-
 class CarAdder extends StatelessWidget {
   final TextEditingController numberController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -42,6 +41,7 @@ class CarAdder extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   //caixa para receber número do carro
                   SizedBox(
                     width: 100,
@@ -56,6 +56,7 @@ class CarAdder extends StatelessWidget {
                   ),
                 ],
               ),
+
               //botão de confirmar, manda os dados cadastrados para o contador
               Padding(
                 padding: const EdgeInsets.all(18.0),
@@ -67,11 +68,10 @@ class CarAdder extends StatelessWidget {
                         int.parse(numberController.text),
                         nameController.text,
                       );
-                      print(
-                          "carro: ${numberController.text}, equipe: ${nameController.text}");
+                      /*print(
+                          "carro: ${numberController.text}, equipe: ${nameController.text}");*/
                       Navigator.pop(context);
                     }
-                    //repository.Equipes(carros);
                   },
                   child: const Text("Confirmar"),
                 ),

@@ -14,7 +14,9 @@ class NavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     //conexão mqtt
     ConnectivityCubit conCubit = BlocProvider.of<ConnectivityCubit>(context);
+    //dados da lista
     ContadorCubit carCubit = BlocProvider.of<ContadorCubit>(context);
+
     return Drawer(
       child: BlocBuilder<ConnectivityCubit, ConnectivityState>(
         builder: (context, state) {
@@ -79,6 +81,8 @@ class NavBar extends StatelessWidget {
                   ],
                 ),
               ),
+
+              //logo mangue baja
               SizedBox(
                 width: 100,
                 height: 400,

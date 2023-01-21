@@ -1,4 +1,4 @@
-//nomeia outras páginas (principal e registro)
+//biblioteca de atalhos
 
 const String initRoute = '/';
 const String carAdder = '/CARADDER';
