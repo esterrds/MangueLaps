@@ -1,6 +1,6 @@
 {
-    "name": "enduro_app",
-    "short_name": "enduro_app",
+    "name": "mangue_laps",
+    "short_name": "mangue_laps",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

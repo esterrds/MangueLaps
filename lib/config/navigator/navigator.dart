@@ -1,8 +1,8 @@
-import 'package:enduro_app/config/navigator/routes.dart';
-import 'package:enduro_app/presentation/add_car.dart';
-import 'package:enduro_app/presentation/home_page.dart';
-import 'package:enduro_app/presentation/nav_bar.dart';
-import 'package:enduro_app/presentation/monit/view_page.dart';
+import 'package:mangue_laps/config/navigator/routes.dart';
+import 'package:mangue_laps/presentation/add_car.dart';
+import 'package:mangue_laps/presentation/home_page.dart';
+import 'package:mangue_laps/presentation/nav_bar.dart';
+import 'package:mangue_laps/presentation/monit/view_page.dart';
 import 'package:flutter/material.dart';
 
 //chamada das páginas

@@ -1,9 +1,9 @@
 //bibliotecas
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
-import 'package:enduro_app/config/navigator/routes.dart';
-import 'package:enduro_app/presentation/colors.dart';
-import 'package:enduro_app/presentation/home_page.dart';
+import 'package:mangue_laps/bloc/Connectivity/connectivity_cubit.dart';
+import 'package:mangue_laps/config/navigator/routes.dart';
+import 'package:mangue_laps/presentation/colors.dart';
+import 'package:mangue_laps/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Enduro App',
+        title: 'Mangue Laps',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
             primarySwatch: Colors.green,
@@ -60,7 +60,7 @@ class SplashScreen extends StatelessWidget {
       splash: Column(
         children: [
           const Text(
-            'Enduro App',
+            'Mangue Laps',
             style: TextStyle(
                 fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
           )

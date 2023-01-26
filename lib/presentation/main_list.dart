@@ -1,6 +1,6 @@
-import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
-import 'package:enduro_app/config/const/connectivity.dart';
-import 'package:enduro_app/presentation/colors.dart';
+import 'package:mangue_laps/bloc/Connectivity/connectivity_cubit.dart';
+import 'package:mangue_laps/config/const/connectivity.dart';
+import 'package:mangue_laps/presentation/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mqtt_client/mqtt_client.dart';

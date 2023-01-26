@@ -1,6 +1,6 @@
-import 'package:enduro_app/config/navigator/routes.dart';
-import 'package:enduro_app/presentation/main_list.dart';
-import 'package:enduro_app/presentation/nav_bar.dart';
+import 'package:mangue_laps/config/navigator/routes.dart';
+import 'package:mangue_laps/presentation/main_list.dart';
+import 'package:mangue_laps/presentation/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatelessWidget {

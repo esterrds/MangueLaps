@@ -1,4 +1,4 @@
-package com.example.enduro_app
+package com.example.mangue_laps
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
-import 'package:enduro_app/repo/models/car.dart';
+import 'package:mangue_laps/bloc/ContadorCubit/contador_cubit.dart';
+import 'package:mangue_laps/repo/models/car.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

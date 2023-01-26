@@ -1,6 +1,6 @@
-import 'package:enduro_app/bloc/Connectivity/connectivity_cubit.dart';
-import 'package:enduro_app/bloc/ContadorCubit/contador_cubit.dart';
-import 'package:enduro_app/presentation/colors.dart';
+import 'package:mangue_laps/bloc/Connectivity/connectivity_cubit.dart';
+import 'package:mangue_laps/bloc/ContadorCubit/contador_cubit.dart';
+import 'package:mangue_laps/presentation/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -86,7 +86,7 @@ class NavBar extends StatelessWidget {
               SizedBox(
                 width: 100,
                 height: 400,
-                child: Image.asset('assets/images/logoVerde.jpeg'),
+                child: Image.asset('assets/images/logoVerde.png'),
               ),
               Row(
                 children: const [],
