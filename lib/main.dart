@@ -58,8 +58,8 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Column(
-        children: [
-          const Text(
+        children: const [
+          Text(
             'Mangue Laps',
             style: TextStyle(
                 fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),

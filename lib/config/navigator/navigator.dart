@@ -1,5 +1,6 @@
 import 'package:mangue_laps/config/navigator/routes.dart';
 import 'package:mangue_laps/presentation/add_car.dart';
+import 'package:mangue_laps/presentation/cronometro.dart';
 import 'package:mangue_laps/presentation/home_page.dart';
 import 'package:mangue_laps/presentation/nav_bar.dart';
 import 'package:mangue_laps/presentation/monit/view_page.dart';
@@ -9,8 +10,6 @@ import 'package:flutter/material.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    //final Object? args = settings.arguments;
-
     switch (settings.name) {
       case initRoute:
         return MaterialPageRoute(builder: (_) => const MyHomePage());
@@ -20,6 +19,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const NavBar());
       case viewPage:
         return MaterialPageRoute(builder: (_) => const ViewPage());
+      case timePage:
+        return MaterialPageRoute(builder: (_) => const TimePage());
       default:
         return MaterialPageRoute(builder: (_) => const MyHomePage());
     }
