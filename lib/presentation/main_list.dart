@@ -73,7 +73,7 @@ class _MainListState extends State<MainList> {
                         GestureDetector(
                           child: const Icon(
                             Icons.arrow_drop_up_sharp,
-                            color: deepestBlue,
+                            color: darkerGreen,
                             size: 30,
                           ),
                           onTap: () {
@@ -85,7 +85,7 @@ class _MainListState extends State<MainList> {
                         GestureDetector(
                           child: const Icon(
                             Icons.arrow_drop_down_sharp,
-                            color: deepestBlue,
+                            color: darkerGreen,
                             size: 30,
                           ),
                           onTap: () {

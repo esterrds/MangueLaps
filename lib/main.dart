@@ -36,9 +36,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Mangue Laps',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: Colors.green,
-          ),
+          primaryColor: Color.fromRGBO(0, 125, 83, 49),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
+              .copyWith(secondary: Colors.blueAccent[700]),
         ),
         //chamada da animação
         home: const SplashScreen(),
@@ -66,7 +66,7 @@ class SplashScreen extends StatelessWidget {
           )
         ],
       ),
-      backgroundColor: midBlue,
+      backgroundColor: darkerGreen,
       nextScreen: const MyHomePage(),
       //splashIconSize: 100,
     );
