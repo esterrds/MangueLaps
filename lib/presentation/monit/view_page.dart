@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../colors.dart';
+
 //página de monitoramento
 class ViewPage extends StatefulWidget {
   const ViewPage({super.key});
@@ -48,8 +50,10 @@ class ViewPageState extends State<ViewPage> {
       body: Column(
         children: <Widget>[
           //botão de atualizar
-          ElevatedButton(
+          RawMaterialButton(
             onPressed: refreshData,
+            shape:
+                const OutlineInputBorder(borderSide: BorderSide(color: green)),
             child: const Text("Atualizar"),
           ),
 

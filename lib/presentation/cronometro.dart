@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mangue_laps/presentation/colors.dart';
 
 class TimePage extends StatefulWidget {
   const TimePage({super.key});
@@ -14,6 +15,8 @@ class _TimePageState extends State<TimePage> {
   String _stopWatchText = '00:00:00';
   final stopWatch = Stopwatch();
   final timeout = const Duration(seconds: 1);
+  List laps = [];
+  int getLapsLenght() => laps.length;
 
   void _startTimeout() {
     Timer(timeout, _handleTimeout);
@@ -56,6 +59,12 @@ class _TimePageState extends State<TimePage> {
         '${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
+  void _addLaps() {
+    String lap =
+        "${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}";
+    laps.add(lap);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -75,20 +84,76 @@ class _TimePageState extends State<TimePage> {
         fit: BoxFit.none,
         child: Text(
           _stopWatchText,
-          style: const TextStyle(fontSize: 72),
+          style: const TextStyle(fontSize: 50),
         ),
       )),
+      //
+      const SizedBox(height: 10.0),
+      //
+      Container(
+        height: 400.0,
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 197, 250, 180),
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: ListView.builder(
+          itemCount: getLapsLenght(),
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Lap nº${index + 1}",
+                    style: const TextStyle(color: Colors.black, fontSize: 16.0),
+                  ),
+                  Text(
+                    "${laps[index]}",
+                    style: const TextStyle(color: Colors.black, fontSize: 16.0),
+                  )
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+      //
+      const SizedBox(height: 20.0),
+      //
       Center(
-          child: Column(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          ElevatedButton(
+          Expanded(
+              child: RawMaterialButton(
             onPressed: _startStopButtonPressed,
-            child: Icon(isStart ? Icons.play_arrow : Icons.stop),
+            shape:
+                const OutlineInputBorder(borderSide: BorderSide(color: green)),
+            child: Icon(
+              isStart ? Icons.play_arrow : Icons.stop,
+              color: green,
+            ),
+          )),
+          //
+          const SizedBox(height: 10.0),
+          //
+          IconButton(
+            onPressed: _addLaps,
+            icon: const Icon(Icons.flag),
+            color: green,
           ),
-          ElevatedButton(
+
+          const SizedBox(height: 10.0),
+          //
+          Expanded(
+              child: RawMaterialButton(
             onPressed: _resetButtonPressed,
-            child: const Text('Resetar'),
-          )
+            fillColor: green,
+            shape:
+                const OutlineInputBorder(borderSide: BorderSide(color: green)),
+            child: const Text('Resetar', style: TextStyle(color: Colors.white)),
+          ))
         ],
       )),
     ]);

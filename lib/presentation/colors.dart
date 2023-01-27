@@ -6,6 +6,7 @@ const Color darkerGreen = Color.fromRGBO(0, 125, 83, 49);
 const Color clearestBlue = Color.fromRGBO(0, 240, 92, 94);
 const Color midBlue = Color.fromRGBO(11, 217, 142, 85);
 const Color darkerBlue = Color.fromRGBO(12, 247, 236, 97);
+const Color green = Colors.green;
 
 Map<int, Color> color = const {
   50: Color.fromRGBO(0, 125, 83, .1),
