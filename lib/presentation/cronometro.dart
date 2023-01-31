@@ -91,9 +91,9 @@ class _TimePageState extends State<TimePage> {
       const SizedBox(height: 10.0),
       //
       Container(
-        height: 400.0,
+        height: 200.0,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 197, 250, 180),
+          color: verdeClarinho,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: ListView.builder(
@@ -119,7 +119,7 @@ class _TimePageState extends State<TimePage> {
         ),
       ),
       //
-      const SizedBox(height: 20.0),
+      const SizedBox(height: 100.0),
       //
       Center(
           child: Row(
@@ -132,7 +132,7 @@ class _TimePageState extends State<TimePage> {
                 const OutlineInputBorder(borderSide: BorderSide(color: green)),
             child: Icon(
               isStart ? Icons.play_arrow : Icons.stop,
-              color: green,
+              color: isStart ? green : Colors.red,
             ),
           )),
           //
@@ -142,6 +142,7 @@ class _TimePageState extends State<TimePage> {
             onPressed: _addLaps,
             icon: const Icon(Icons.flag),
             color: green,
+            iconSize: 40,
           ),
 
           const SizedBox(height: 10.0),

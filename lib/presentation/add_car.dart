@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mangue_laps/presentation/alert/msg_alerta.dart';
 import '../bloc/ContadorCubit/contador_cubit.dart';
 
 //tela de cadastro
@@ -70,6 +69,10 @@ class CarAdder extends StatelessWidget {
                     /*print(
                           "carro: ${numberController.text}, equipe: ${nameController.text}");*/
                     Navigator.pop(context);
+                  } else if (nameController.toString().isNotEmpty) {
+                    nomeVazio(context);
+                  } else if (numberController.toString().isNotEmpty) {
+                    numeroVazio(context);
                   }
                 },
                 child: const Text("Confirmar"),

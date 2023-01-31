@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
 import '../bloc/ContadorCubit/contador_cubit.dart';
+import '../config/navigator/routes.dart';
 import 'alert/msg_alerta.dart';
 
 //página do contador
@@ -61,9 +62,14 @@ class _MainListState extends State<MainList> {
                         Text(cubit.carList[index].numeroDoCarro.toString(),
                             style: const TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold)),
-                        Text(cubit.carList[index].nomeDaEquipe,
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w500)),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, detailsPage);
+                          },
+                          child: Text(cubit.carList[index].nomeDaEquipe,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w500)),
+                        ),
                         Text(
                           cubit.carList[index].getVoltas().toString(),
                           style: const TextStyle(

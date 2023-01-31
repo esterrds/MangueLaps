@@ -36,6 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
         Navigator.pushNamed(context, viewPage);
         retVal = const Center(child: Text("monitoramento"));
         break;
+      case 3:
+        Navigator.pushNamed(context, detailsPage);
+        retVal = const Center(child: Text("detalhes"));
+        break;
       default:
         retVal = const Center(child: Text("bem vindo(a)"));
     }

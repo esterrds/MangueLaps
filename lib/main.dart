@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Mangue Laps',
         theme: ThemeData(
-          primaryColor: Color.fromRGBO(0, 125, 83, 49),
+          primaryColor: darkerGreen,
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
               .copyWith(secondary: Colors.blueAccent[700]),
         ),
