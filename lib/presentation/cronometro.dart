@@ -23,12 +23,14 @@ class _TimePageState extends State<TimePage> {
   }
 
   void _handleTimeout() {
-    if (stopWatch.isRunning) {
-      _startTimeout();
+    if (!mounted) {
+      stopWatch.stop();
+    } else {
+      if (stopWatch.isRunning) {
+        _startTimeout();
+      }
+      setState(() {});
     }
-    setState(() {
-      _setstopwatchText();
-    });
   }
 
   void _startStopButtonPressed() {

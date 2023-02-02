@@ -32,11 +32,13 @@ class _DetailsCarState extends State<DetailsCar> {
   }
 
   void _handleTimeout() {
-    if (stopWatch.isRunning) {
-      _startTimeout();
-      setState(() {
-        _setstopwatchText();
-      });
+    if (!mounted) {
+      stopWatch.stop();
+    } else {
+      if (stopWatch.isRunning) {
+        _startTimeout();
+      }
+      setState(() {});
     }
   }
 
