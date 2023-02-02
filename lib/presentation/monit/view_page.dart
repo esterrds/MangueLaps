@@ -58,11 +58,14 @@ class ViewPageState extends State<ViewPage> {
           ),
 
           //informações listadas
-          Column(
-            children: data
-                .map((item) => Text(
-                    "Carro: ${item.numero} | Equipe: ${item.equipe} | Voltas: ${item.voltas}"))
-                .toList(),
+          Expanded(
+            flex: 1000,
+            child: Column(
+              children: data
+                  .map((item) =>
+                      Text("${item.numero}#${item.equipe} - ${item.voltas}"))
+                  .toList(),
+            ),
           )
         ],
       ),

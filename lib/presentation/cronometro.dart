@@ -11,26 +11,28 @@ class TimePage extends StatefulWidget {
 }
 
 class _TimePageState extends State<TimePage> {
+  bool isMount = true;
   bool isStart = true;
+
   String _stopWatchText = '00:00:00';
+  int getLapsLenght() => laps.length;
+
   final stopWatch = Stopwatch();
   final timeout = const Duration(seconds: 1);
+
   List laps = [];
-  int getLapsLenght() => laps.length;
 
   void _startTimeout() {
     Timer(timeout, _handleTimeout);
   }
 
   void _handleTimeout() {
-    if (!mounted) {
-      stopWatch.stop();
-    } else {
-      if (stopWatch.isRunning) {
-        _startTimeout();
-      }
-      setState(() {});
+    if (stopWatch.isRunning) {
+      _startTimeout();
     }
+    setState(() {
+      _setstopwatchText();
+    });
   }
 
   void _startStopButtonPressed() {

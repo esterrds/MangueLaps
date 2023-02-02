@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/presentation/colors.dart';
+import 'package:mangue_laps/repo/models/breakTime.dart';
+import 'package:mangue_laps/repo/models/gasolineTime.dart';
 
 import '../../bloc/ContadorCubit/contador_cubit.dart';
 
@@ -14,32 +16,83 @@ class DetailsCar extends StatefulWidget {
 }
 
 class _DetailsCarState extends State<DetailsCar> {
+  //validação dos botões
+  bool isMount = true;
   bool isStart = true;
   bool isBreak = false;
   bool isFull = true;
 
+  //tempos
   String _stopWatchText = '00:00:00';
+  String gasolineTimeText = '00:00:00';
+  String breakTimeText = '00:00:00';
 
-  int getLapsLenght() => laps.length;
-
+  //cronômetro geral
   final stopWatch = Stopwatch();
   final timeout = const Duration(seconds: 1);
 
-  List laps = [];
+  //cronômetro do abastecimento
+  final gasolineTime = Stopwatch();
+  final timeoutGT = const Duration(seconds: 1);
 
+  //cronômetro do conserto/box
+  final breakTime = Stopwatch();
+  final timeoutBT = const Duration(seconds: 1);
+
+  //lista de voltas
+  List laps = [];
+  int getLapsLenght() => laps.length;
+
+  //lista GT
+  List tempoG = [];
+  int getGTLenght() => tempoG.length;
+
+  //lista BT
+  List tempoB = [];
+  int getBTLenght() => tempoB.length;
+
+  //tempo limite geral
   void _startTimeout() {
     Timer(timeout, _handleTimeout);
   }
 
   void _handleTimeout() {
-    if (!mounted) {
-      stopWatch.stop();
-    } else {
-      if (stopWatch.isRunning) {
-        _startTimeout();
-      }
-      setState(() {});
+    if (stopWatch.isRunning) {
+      _startTimeout();
     }
+    if (mounted) {
+      setState(() {
+        _setstopwatchText();
+      });
+    }
+  }
+
+  //tempo limite abastecimento
+  void startGasolineTime() {
+    Timer(timeoutGT, _handleTimeoutGT);
+  }
+
+  void _handleTimeoutGT() {
+    if (gasolineTime.isRunning) {
+      startGasolineTime();
+    }
+    setState(() {
+      _setGasolineTimeText();
+    });
+  }
+
+  //tempo limite conserto/box
+  void startBreakTime() {
+    Timer(timeoutBT, _handleTimeoutBT);
+  }
+
+  void _handleTimeoutBT() {
+    if (breakTime.isRunning) {
+      startBreakTime();
+    }
+    setState(() {
+      _setBreakTimeText();
+    });
   }
 
   void botaoStartStop() {
@@ -55,6 +108,69 @@ class _DetailsCarState extends State<DetailsCar> {
     });
   }
 
+  void cabouGasolina() {
+    setState(() {
+      if (gasolineTime.isRunning) {
+        isFull = true;
+        gasolineTime.stop();
+
+        if (stopWatch.isRunning) {
+          isStart = true;
+          stopWatch.stop();
+        } else {
+          isStart = false;
+          stopWatch.start();
+          _startTimeout();
+        }
+      } else {
+        isFull = false;
+        gasolineTime.start();
+        startGasolineTime();
+
+        if (stopWatch.isRunning) {
+          isStart = true;
+          stopWatch.stop();
+        } else {
+          isStart = false;
+          stopWatch.start();
+          _startTimeout();
+        }
+      }
+    });
+  }
+
+  void carroQuebrou() {
+    setState(() {
+      if (breakTime.isRunning) {
+        isBreak = false;
+        breakTime.stop();
+
+        if (stopWatch.isRunning) {
+          isStart = true;
+          stopWatch.stop();
+        } else {
+          isStart = false;
+          stopWatch.start();
+          _startTimeout();
+        }
+      } else {
+        isBreak = true;
+        breakTime.start();
+        startBreakTime();
+
+        if (stopWatch.isRunning) {
+          isStart = true;
+          stopWatch.stop();
+        } else {
+          isStart = false;
+          stopWatch.start();
+          _startTimeout();
+        }
+      }
+    });
+  }
+
+  //reset tempo geral
   void botaoReset() {
     if (stopWatch.isRunning) {
       botaoStartStop();
@@ -65,35 +181,31 @@ class _DetailsCarState extends State<DetailsCar> {
     });
   }
 
+  //tempo geral
   void _setstopwatchText() {
     _stopWatchText =
         '${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
   }
 
+  //tempo de abastecimento
+  void _setGasolineTimeText() {
+    gasolineTimeText =
+        '${gasolineTime.elapsed.inHours.toString().padLeft(2, '0')}:${(gasolineTime.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(gasolineTime.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
+    tempoG.add(gasolineTimeText);
+  }
+
+  //tempo de conserto/box
+  void _setBreakTimeText() {
+    breakTimeText =
+        '${breakTime.elapsed.inHours.toString().padLeft(2, '0')}:${(breakTime.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(breakTime.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
+    tempoB.add(breakTimeText);
+  }
+
+  //adicionar voltas
   void addVoltas() {
     String lap =
         "${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}";
     laps.add(lap);
-  }
-
-  void carroQuebrou() {
-    setState(() {
-      if (isBreak == false) {
-        isBreak = true;
-      } else {
-        isBreak = false;
-      }
-    });
-  }
-
-  void cabouGasolina() {
-    setState(() {
-      if (isFull == true) {
-        isFull = false;
-      } else {
-        isFull = true;
-      }
-    });
   }
 
   @override
@@ -143,10 +255,10 @@ class _DetailsCarState extends State<DetailsCar> {
         ),
       )),
       //
-      const SizedBox(height: 10.0),
+      const SizedBox(height: 3),
       //Tabela de tempo
       Container(
-        height: 200.0,
+        height: 150.0,
         decoration: BoxDecoration(
           color: verdeClarinho,
           borderRadius: BorderRadius.circular(8.0),
@@ -174,7 +286,7 @@ class _DetailsCarState extends State<DetailsCar> {
         ),
       ),
       //
-      const SizedBox(height: 50.0),
+      const SizedBox(height: 30.0),
 
       //Contador
       Center(
@@ -261,24 +373,32 @@ class _DetailsCarState extends State<DetailsCar> {
         ],
       )),
 
-      //
-      const SizedBox(height: 50),
+      //tempos de gasolina e quebra
+      Expanded(
+          child: FittedBox(
+        fit: BoxFit.none,
+        //18 espaços entre eles
+        child: Text(
+          "$gasolineTimeText                  $breakTimeText",
+          style: const TextStyle(fontSize: 22),
+        ),
+      )),
 
-      //Botão de Start/Stop
+      const SizedBox(height: 10),
+
       Center(
           child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Expanded(
-              child: RawMaterialButton(
+          //Botão de Start/Stop
+          IconButton(
+            iconSize: 60,
             onPressed: botaoStartStop,
-            shape:
-                const OutlineInputBorder(borderSide: BorderSide(color: green)),
-            child: Icon(
+            icon: Icon(
               isStart ? Icons.play_arrow : Icons.stop,
               color: isStart ? green : Colors.red,
             ),
-          )),
+          ),
           //
           const SizedBox(height: 10.0),
 
@@ -293,14 +413,10 @@ class _DetailsCarState extends State<DetailsCar> {
           const SizedBox(height: 10.0),
 
           //Botão de reset
-          Expanded(
-              child: RawMaterialButton(
-            onPressed: botaoReset,
-            fillColor: green,
-            shape:
-                const OutlineInputBorder(borderSide: BorderSide(color: green)),
-            child: const Text('Resetar', style: TextStyle(color: Colors.white)),
-          ))
+          IconButton(
+              iconSize: 60,
+              onPressed: botaoReset,
+              icon: const Icon(Icons.replay, color: green)),
         ],
       )),
     ]);

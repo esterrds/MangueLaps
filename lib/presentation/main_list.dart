@@ -64,6 +64,14 @@ class _MainListState extends State<MainList> {
                                 fontSize: 18, fontWeight: FontWeight.bold)),
                         ElevatedButton(
                           onPressed: () {
+                            setState(() {
+                              Title(
+                                  color: Colors.black,
+                                  child: Text(cubit.carList[index].nomeDaEquipe,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)));
+                            });
                             Navigator.pushNamed(context, detailsPage);
                           },
                           child: Text(cubit.carList[index].nomeDaEquipe,
