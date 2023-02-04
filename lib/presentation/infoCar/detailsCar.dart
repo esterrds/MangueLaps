@@ -97,23 +97,7 @@ class _DetailsCarState extends State<DetailsCar> {
 
   void botaoStartStop() {
     setState(() {
-      if (stopWatch.isRunning) {
-        isStart = true;
-        stopWatch.stop();
-      } else {
-        isStart = false;
-        stopWatch.start();
-        _startTimeout();
-      }
-    });
-  }
-
-  void cabouGasolina() {
-    setState(() {
-      if (gasolineTime.isRunning) {
-        isFull = true;
-        gasolineTime.stop();
-
+      if (!breakTime.isRunning && !gasolineTime.isRunning) {
         if (stopWatch.isRunning) {
           isStart = true;
           stopWatch.stop();
@@ -122,18 +106,40 @@ class _DetailsCarState extends State<DetailsCar> {
           stopWatch.start();
           _startTimeout();
         }
-      } else {
-        isFull = false;
-        gasolineTime.start();
-        startGasolineTime();
+      }
+    });
+  }
 
-        if (stopWatch.isRunning) {
-          isStart = true;
-          stopWatch.stop();
+  void cabouGasolina() {
+    setState(() {
+      if (_stopWatchText != '00:00:00' && !breakTime.isRunning) {
+        if (gasolineTime.isRunning) {
+          isFull = true;
+          gasolineTime.stop();
+
+          if (stopWatch.isRunning) {
+            isStart = true;
+            stopWatch.stop();
+          } else if (stopWatch.isRunning && gasolineTime.isRunning) {
+            stopWatch.stop();
+          } else {
+            isStart = false;
+            stopWatch.start();
+            _startTimeout();
+          }
         } else {
-          isStart = false;
-          stopWatch.start();
-          _startTimeout();
+          isFull = false;
+          gasolineTime.start();
+          startGasolineTime();
+
+          if (stopWatch.isRunning) {
+            isStart = true;
+            stopWatch.stop();
+          } else {
+            isStart = false;
+            stopWatch.start();
+            _startTimeout();
+          }
         }
       }
     });
@@ -141,30 +147,34 @@ class _DetailsCarState extends State<DetailsCar> {
 
   void carroQuebrou() {
     setState(() {
-      if (breakTime.isRunning) {
-        isBreak = false;
-        breakTime.stop();
+      if (_stopWatchText != '00:00:00' && !gasolineTime.isRunning) {
+        if (breakTime.isRunning) {
+          isBreak = false;
+          breakTime.stop();
 
-        if (stopWatch.isRunning) {
-          isStart = true;
-          stopWatch.stop();
+          if (stopWatch.isRunning) {
+            isStart = true;
+            stopWatch.stop();
+          } else if (stopWatch.isRunning && breakTime.isRunning) {
+            stopWatch.stop();
+          } else {
+            isStart = false;
+            stopWatch.start();
+            _startTimeout();
+          }
         } else {
-          isStart = false;
-          stopWatch.start();
-          _startTimeout();
-        }
-      } else {
-        isBreak = true;
-        breakTime.start();
-        startBreakTime();
+          isBreak = true;
+          breakTime.start();
+          startBreakTime();
 
-        if (stopWatch.isRunning) {
-          isStart = true;
-          stopWatch.stop();
-        } else {
-          isStart = false;
-          stopWatch.start();
-          _startTimeout();
+          if (stopWatch.isRunning) {
+            isStart = true;
+            stopWatch.stop();
+          } else {
+            isStart = false;
+            stopWatch.start();
+            _startTimeout();
+          }
         }
       }
     });
@@ -286,7 +296,13 @@ class _DetailsCarState extends State<DetailsCar> {
         ),
       ),
       //
-      const SizedBox(height: 30.0),
+      const SizedBox(
+        height: 10.0,
+      ),
+      const SizedBox(
+        height: 20.0,
+        child: Text('Voltas:'),
+      ),
 
       //Contador
       Center(
@@ -377,9 +393,9 @@ class _DetailsCarState extends State<DetailsCar> {
       Expanded(
           child: FittedBox(
         fit: BoxFit.none,
-        //18 espaços entre eles
+        //30 espaços entre eles
         child: Text(
-          "$gasolineTimeText                  $breakTimeText",
+          "$gasolineTimeText                              $breakTimeText",
           style: const TextStyle(fontSize: 22),
         ),
       )),
