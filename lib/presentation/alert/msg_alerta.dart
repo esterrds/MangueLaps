@@ -179,7 +179,7 @@ contaVolta(BuildContext context) {
   );
 }
 
-abastecendo(BuildContext context) {
+fuelAlert(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
     child: const Text("OK"),
@@ -204,7 +204,7 @@ abastecendo(BuildContext context) {
   );
 }
 
-quebrado(BuildContext context) {
+breakAlert(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
     child: const Text("OK"),

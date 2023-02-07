@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/presentation/colors.dart';
+import 'package:mangue_laps/repo/models/breaktime.dart';
+import 'package:mangue_laps/repo/models/gasolinetime.dart';
 
 import '../../bloc/ContadorCubit/contador_cubit.dart';
 import '../alert/msg_alerta.dart';
@@ -15,6 +17,12 @@ class DetailsCar extends StatefulWidget {
 }
 
 class _DetailsCarState extends State<DetailsCar> {
+  //chamada de classes
+  late BreakTime quebrado =
+      BreakTime(tempoBox: breakTimeText, isbreak: isBreak);
+  late GasolineTime gasolina =
+      GasolineTime(tempoGasolina: gasolineTimeText, gasolina: isFull);
+
   //validação dos botões
   bool isMount = true;
   bool isStart = true;
@@ -313,23 +321,26 @@ class _DetailsCarState extends State<DetailsCar> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              if (stopWatch.isRunning &&
-                                  !gasolineTime.isRunning &&
-                                  !breakTime.isRunning) {
-                                cubit.carList[cubit.pressedIndex!].increment();
-                                cubit.rebuild();
-                              } else {
-                                contaVolta(context);
-                              }
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.add,
-                            color: darkerGreen,
-                            size: 30,
+                        Expanded(
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                if (stopWatch.isRunning &&
+                                    !gasolineTime.isRunning &&
+                                    !breakTime.isRunning) {
+                                  cubit.carList[cubit.pressedIndex!]
+                                      .increment();
+                                  cubit.rebuild();
+                                } else {
+                                  contaVolta(context);
+                                }
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.add,
+                              color: darkerGreen,
+                              size: 30,
+                            ),
                           ),
                         ),
                         Text(
@@ -339,17 +350,16 @@ class _DetailsCarState extends State<DetailsCar> {
                           style: const TextStyle(
                               color: Colors.black, fontSize: 14),
                         ),
-                        IconButton(
-                          onPressed: () {
-                            cubit.carList[cubit.pressedIndex!].decrement();
-                            cubit.rebuild();
-                          },
-                          icon: const Icon(
-                            Icons.replay,
-                            color: darkerGreen,
-                            size: 30,
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            '-',
+                            style: TextStyle(
+                                fontSize: 100,
+                                color: Colors.black,
+                                backgroundColor: Colors.white),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -363,9 +373,21 @@ class _DetailsCarState extends State<DetailsCar> {
                 child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
+                //reset gasolina
+                IconButton(
+                  onPressed: () {
+                    gasolineTime.reset();
+                  },
+                  icon: const Icon(Icons.replay),
+                  color: Colors.red,
+                  iconSize: 20,
+                ),
                 //Botão de gasolina
                 Expanded(
                     child: RawMaterialButton(
+                  onLongPress: () {
+                    gasolineTime.reset();
+                  },
                   onPressed: cabouGasolina,
                   shape: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
@@ -382,12 +404,23 @@ class _DetailsCarState extends State<DetailsCar> {
                 //Botão de carro quebrado
                 Expanded(
                     child: RawMaterialButton(
+                  onLongPress: () {
+                    breakTime.reset();
+                  },
                   onPressed: carroQuebrou,
                   shape: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   child: Icon(isBreak ? Icons.build : Icons.build,
                       color: isBreak ? Colors.red : green),
-                ))
+                )),
+                IconButton(
+                  onPressed: () {
+                    breakTime.reset();
+                  },
+                  icon: const Icon(Icons.replay),
+                  color: Colors.red,
+                  iconSize: 20,
+                )
               ],
             )),
 
