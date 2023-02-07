@@ -153,3 +153,78 @@ nomeVazio(BuildContext context) {
     },
   );
 }
+
+contaVolta(BuildContext context) {
+  // configura o button
+  Widget okButton = ElevatedButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  // configura o  AlertDialog
+  AlertDialog alerta = AlertDialog(
+    title: const Text("Cronômetro desligado"),
+    content: const Text("Para contar, ligue o cronômetro principal."),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
+  );
+}
+
+abastecendo(BuildContext context) {
+  // configura o button
+  Widget okButton = ElevatedButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  // configura o  AlertDialog
+  AlertDialog alerta = AlertDialog(
+    title: const Text("O carro está abastecendo."),
+    //content: const Text("Para contar, ligue o cronômetro principal."),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
+  );
+}
+
+quebrado(BuildContext context) {
+  // configura o button
+  Widget okButton = ElevatedButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  // configura o  AlertDialog
+  AlertDialog alerta = AlertDialog(
+    title: const Text("O carro está quebrado ou no box."),
+    //content: const Text("Para contar, ligue o cronômetro principal."),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
+  );
+}

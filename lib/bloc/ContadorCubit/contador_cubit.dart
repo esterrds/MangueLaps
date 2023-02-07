@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -12,6 +10,7 @@ part 'contador_state.dart';
 class ContadorCubit extends Cubit<ContadorState> {
   ContadorCubit() : super(ContadorInitial());
 
+  int? pressedIndex;
   List<Car> carList = [];
 
   int getListLenght() => carList.length;

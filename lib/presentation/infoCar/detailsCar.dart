@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/presentation/colors.dart';
-import 'package:mangue_laps/repo/models/breakTime.dart';
-import 'package:mangue_laps/repo/models/gasolineTime.dart';
 
 import '../../bloc/ContadorCubit/contador_cubit.dart';
+import '../alert/msg_alerta.dart';
 
 class DetailsCar extends StatefulWidget {
   const DetailsCar({super.key});
@@ -233,208 +232,214 @@ class _DetailsCarState extends State<DetailsCar> {
   Widget _buildBody() {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
 
-    return Column(children: <Widget>[
-      //Nome da equipe e numero do carro
-      Expanded(
-          child: ListView.builder(
-        itemCount: cubit.getListLenght(),
-        itemBuilder: (BuildContext context, int index) {
-          return Center(
-            child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${cubit.carList[index].nomeDaEquipe}#${cubit.carList[index].numeroDoCarro}",
-                        style: const TextStyle(fontSize: 25),
-                      )
-                    ])),
-          );
-        },
-      )),
-
-      //Cronômetro
-      Expanded(
-          child: FittedBox(
-        fit: BoxFit.none,
-        child: Text(
-          _stopWatchText,
-          style: const TextStyle(fontSize: 24),
-        ),
-      )),
-      //
-      const SizedBox(height: 3),
-      //Tabela de tempo
-      Container(
-        height: 150.0,
-        decoration: BoxDecoration(
-          color: verdeClarinho,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: ListView.builder(
-          itemCount: getLapsLenght(),
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Lap nº${index + 1}",
-                    style: const TextStyle(color: Colors.black, fontSize: 16.0),
-                  ),
-                  Text(
-                    "${laps[index]}",
-                    style: const TextStyle(color: Colors.black, fontSize: 16.0),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-      ),
-      //
-      const SizedBox(
-        height: 10.0,
-      ),
-      const SizedBox(
-        height: 20.0,
-        child: Text('Voltas:'),
-      ),
-
-      //Contador
-      Center(
-        child: Container(
-          height: 50.0,
-          decoration: BoxDecoration(
-            color: verdeClarinho,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: ListView.builder(
-            itemCount: cubit.getListLenght(),
-            itemBuilder: (context, index) {
-              return Center(
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: <Widget>[
+            //Nome da equipe e numero do carro
+            Expanded(
+              child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          cubit.carList[index].increment();
-                          cubit.rebuild();
-                        },
-                        icon: const Icon(
-                          Icons.arrow_drop_up_sharp,
-                          color: darkerGreen,
-                          size: 50,
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${cubit.carList[cubit.pressedIndex!].nomeDaEquipe}#${cubit.carList[cubit.pressedIndex!].numeroDoCarro}",
+                            style: const TextStyle(fontSize: 23),
+                          )
+                        ])),
+              ),
+            ),
+
+            //Cronômetro
+            Expanded(
+                child: FittedBox(
+              fit: BoxFit.none,
+              child: Text(
+                _stopWatchText,
+                style: const TextStyle(fontSize: 24),
+              ),
+            )),
+            //
+            const SizedBox(height: 3),
+            //Tabela de tempo
+            Container(
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: verdeClarinho,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: ListView.builder(
+                itemCount: getLapsLenght(),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Volta nº${index + 1}",
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 14),
                         ),
-                      ),
-                      Text(
-                        cubit.carList[index].getVoltas().toString(),
-                        style: const TextStyle(
-                            color: Colors.black, fontSize: 16.0),
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          cubit.carList[index].decrement();
-                          cubit.rebuild();
-                        },
-                        icon: const Icon(
-                          Icons.arrow_drop_down_sharp,
-                          color: darkerGreen,
-                          size: 50,
+                        Text(
+                          "${laps[index]}",
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 14),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            //
+            const SizedBox(height: 20.0),
+
+            //Contador
+            Center(
+              child: Container(
+                height: 50.0,
+                decoration: BoxDecoration(
+                  color: verdeClarinho,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              if (stopWatch.isRunning &&
+                                  !gasolineTime.isRunning &&
+                                  !breakTime.isRunning) {
+                                cubit.carList[cubit.pressedIndex!].increment();
+                                cubit.rebuild();
+                              } else {
+                                contaVolta(context);
+                              }
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.add,
+                            color: darkerGreen,
+                            size: 30,
+                          ),
+                        ),
+                        Text(
+                          cubit.carList[cubit.pressedIndex!]
+                              .getVoltas()
+                              .toString(),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 14),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            cubit.carList[cubit.pressedIndex!].decrement();
+                            cubit.rebuild();
+                          },
+                          icon: const Icon(
+                            Icons.replay,
+                            color: darkerGreen,
+                            size: 30,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            Center(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                //Botão de gasolina
+                Expanded(
+                    child: RawMaterialButton(
+                  onPressed: cabouGasolina,
+                  shape: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black)),
+                  child: Icon(
+                    isFull ? Icons.local_gas_station : Icons.local_gas_station,
+                    color: isFull
+                        ? green
+                        : const Color.fromARGB(255, 231, 209, 11),
+                  ),
+                )),
+                //
+                const SizedBox(height: 10.0),
+
+                //Botão de carro quebrado
+                Expanded(
+                    child: RawMaterialButton(
+                  onPressed: carroQuebrou,
+                  shape: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black)),
+                  child: Icon(isBreak ? Icons.build : Icons.build,
+                      color: isBreak ? Colors.red : green),
+                ))
+              ],
+            )),
+
+            //tempos de gasolina e quebra
+            Expanded(
+                child: FittedBox(
+              fit: BoxFit.none,
+              //18 espaços entre eles
+              child: Text(
+                "$gasolineTimeText                  $breakTimeText",
+                style: const TextStyle(fontSize: 22),
+              ),
+            )),
+
+            const SizedBox(height: 10),
+
+            Center(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                //Botão de Start/Stop
+                IconButton(
+                  iconSize: 60,
+                  onPressed: botaoStartStop,
+                  icon: Icon(
+                    isStart ? Icons.play_arrow : Icons.stop,
+                    color: isStart ? green : Colors.red,
+                  ),
+                ),
+                //
+                const SizedBox(height: 10.0),
+
+                //Botão de voltas
+                IconButton(
+                  iconSize: 60,
+                  onPressed: addVoltas,
+                  icon: const Icon(Icons.flag),
+                  color: green,
+                ),
+
+                const SizedBox(height: 10.0),
+
+                //Botão de reset
+                IconButton(
+                    iconSize: 60,
+                    onPressed: botaoReset,
+                    icon: const Icon(Icons.replay, color: green)),
+              ],
+            )),
+          ]),
         ),
       ),
-
-      const SizedBox(height: 10),
-
-      Center(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          //Botão de gasolina
-          Expanded(
-              child: RawMaterialButton(
-            onPressed: cabouGasolina,
-            shape: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black)),
-            child: Icon(
-              isFull ? Icons.local_gas_station : Icons.local_gas_station,
-              color: isFull ? green : const Color.fromARGB(255, 231, 209, 11),
-            ),
-          )),
-          //
-          const SizedBox(height: 10.0),
-
-          //Botão de carro quebrado
-          Expanded(
-              child: RawMaterialButton(
-            onPressed: carroQuebrou,
-            shape: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black)),
-            child: Icon(isBreak ? Icons.build : Icons.build,
-                color: isBreak ? Colors.red : green),
-          ))
-        ],
-      )),
-
-      //tempos de gasolina e quebra
-      Expanded(
-          child: FittedBox(
-        fit: BoxFit.none,
-        //30 espaços entre eles
-        child: Text(
-          "$gasolineTimeText                              $breakTimeText",
-          style: const TextStyle(fontSize: 22),
-        ),
-      )),
-
-      const SizedBox(height: 10),
-
-      Center(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          //Botão de Start/Stop
-          IconButton(
-            iconSize: 60,
-            onPressed: botaoStartStop,
-            icon: Icon(
-              isStart ? Icons.play_arrow : Icons.stop,
-              color: isStart ? green : Colors.red,
-            ),
-          ),
-          //
-          const SizedBox(height: 10.0),
-
-          //Botão de voltas
-          IconButton(
-            iconSize: 60,
-            onPressed: addVoltas,
-            icon: const Icon(Icons.flag),
-            color: green,
-          ),
-
-          const SizedBox(height: 10.0),
-
-          //Botão de reset
-          IconButton(
-              iconSize: 60,
-              onPressed: botaoReset,
-              icon: const Icon(Icons.replay, color: green)),
-        ],
-      )),
-    ]);
+    );
   }
 }

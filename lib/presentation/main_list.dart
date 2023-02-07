@@ -65,6 +65,8 @@ class _MainListState extends State<MainList> {
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
+                              cubit.pressedIndex = index;
+
                               Title(
                                   color: Colors.black,
                                   child: Text(cubit.carList[index].nomeDaEquipe,

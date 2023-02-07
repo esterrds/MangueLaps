@@ -109,7 +109,7 @@ class _TimePageState extends State<TimePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Lap nº${index + 1}",
+                    "Volta nº${index + 1}",
                     style: const TextStyle(color: Colors.black, fontSize: 16.0),
                   ),
                   Text(
