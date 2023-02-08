@@ -54,21 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: const MainList(),
         appBar: AppBar(
           title: const Center(child: Text("Contador de voltas")),
-
-          //botão da página de monitoramento
-          /*actions: <Widget>[
-            IconButton(
-              icon: const Icon(
-                Icons.monitor,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, viewPage);
-                // do something
-              },
-            )
-          ],*/
         ),
-
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -92,15 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedLabelStyle: const TextStyle(color: Colors.grey),
           backgroundColor: Colors.white,
         ),
-
-        //botão para tela de cadastro (inferior central)
-        /*floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushNamed(context, carAdder);
-          },
-          child: const Icon(Icons.directions_car_filled),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,*/
       ),
     );
   }

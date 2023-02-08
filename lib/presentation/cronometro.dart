@@ -115,7 +115,7 @@ class _TimePageState extends State<TimePage> {
                   Text(
                     "${laps[index]}",
                     style: const TextStyle(color: Colors.black, fontSize: 16.0),
-                  )
+                  ),
                 ],
               ),
             );

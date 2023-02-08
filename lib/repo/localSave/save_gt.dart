@@ -5,19 +5,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const gasolinetimeKey = 'gasolinelist';
 
-class CarRepository {
-  late SharedPreferences sharedPreferences;
+class GasolineTimeRepo {
+  SharedPreferences? prefs3;
 
-  Future<List<GasolineTime>> getCarList() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-    final String jsonString =
-        sharedPreferences.getString(gasolinetimeKey) ?? '[]';
+  Future<List<GasolineTime>> getGasTime() async {
+    prefs3 = await SharedPreferences.getInstance();
+    final String jsonString = prefs3?.getString(gasolinetimeKey) ?? '[]';
     final List jsonDecoded = jsonDecode(jsonString) as List;
     return jsonDecoded.map((e) => GasolineTime.fromJson(e)).toList();
   }
 
-  void saveCarList(List<GasolineTime> gasolinetimes) {
-    final String jsonString = json.encode(gasolinetimes);
-    sharedPreferences.setString(gasolinetimeKey, jsonString);
+  void saveGTList(List<GasolineTime> gasolinetimes) {
+    String jsonString = json.encode(gasolinetimes);
+    prefs3?.setString(gasolinetimeKey, jsonString);
   }
 }

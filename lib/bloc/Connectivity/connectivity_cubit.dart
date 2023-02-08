@@ -9,7 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/const/connectivity.dart';
+import '../../repo/localSave/save_car.dart';
 
 part 'connectivity_state.dart';
 
@@ -22,6 +24,7 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
     mqttConnect();
   }
   bool flag = true;
+  SharedPreferences? sharedPreferences;
 
   void mqttConnect() async {
     //cadastro com o broker para a conexão iniciar
@@ -60,7 +63,7 @@ class ConnectivityCubit extends Cubit<ConnectivityState> {
   //manda lista completa para o broker
   void publishTest(ContadorCubit carCubit) {
     final builder = MqttClientPayloadBuilder();
-    List<Car> carList = carCubit.carList;
+    List<Carro> carList = carCubit.carList;
 
     builder.addString("$carList");
     client.publishMessage(mqttPubTopic2, MqttQos.atLeastOnce, builder.payload!);

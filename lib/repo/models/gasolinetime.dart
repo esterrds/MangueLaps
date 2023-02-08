@@ -1,8 +1,7 @@
 class GasolineTime {
   GasolineTime.fromJson(Map<String, dynamic> json)
       : tempoGasolina = json['tempoGasolina'],
-        idTG = json['idTG'],
-        abastecendo = json['abastecendo'];
+        gasolina = json['gasolina'];
 
   GasolineTime({required this.tempoGasolina, required this.gasolina});
   String tempoGasolina = '00:00:00';
@@ -19,10 +18,11 @@ class GasolineTime {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'tempoGasolina': tempoGasolina,
-      'numero': idTG,
-      'abastecendo': abastecendo
-    };
+    return {'tempoGasolina': tempoGasolina, 'abastecendo': abastecendo};
+  }
+
+  @override
+  String toString() {
+    return '{tempo: $tempoGasolina, abastecendo: $abastecendo}';
   }
 }

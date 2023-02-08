@@ -1,14 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/presentation/alert/msg_alerta.dart';
+import 'package:mangue_laps/presentation/slidable_config.dart';
+import 'package:mangue_laps/repo/localSave/save_car.dart';
+import 'package:mangue_laps/repo/models/car.dart';
 import '../bloc/ContadorCubit/contador_cubit.dart';
 
 //tela de cadastro
-class CarAdder extends StatelessWidget {
+class CarAdder extends StatefulWidget {
+  CarAdder({super.key});
+
+  @override
+  State<CarAdder> createState() => _CarAdderState();
+}
+
+class _CarAdderState extends State<CarAdder> {
   final TextEditingController numberController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
 
-  CarAdder({super.key});
+  CarRepository carRepo = CarRepository();
+  List<Carro> carros = [];
+  Carro? deletedCarro;
+  int? deletedCarroPos;
+
+  @override
+  void initState() {
+    super.initState();
+    carRepo.getCarList().then((value) {
+      setState(() {
+        carros = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +57,9 @@ class CarAdder extends StatelessWidget {
                   child: TextField(
                     controller: nameController,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Equipe",
-                    ),
+                        border: OutlineInputBorder(),
+                        labelText: "Equipe",
+                        hintText: "Ex.: Mangue Baja"),
                   ),
                 ),
 
@@ -47,9 +70,9 @@ class CarAdder extends StatelessWidget {
                     controller: numberController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Número",
-                    ),
+                        border: OutlineInputBorder(),
+                        labelText: "Número",
+                        hintText: "Ex.: 50"),
                   ),
                 ),
               ],
@@ -63,9 +86,15 @@ class CarAdder extends StatelessWidget {
                   if (nameController.toString().isNotEmpty &&
                       numberController.toString().isNotEmpty) {
                     BlocProvider.of<ContadorCubit>(context).createCar(
-                      int.parse(numberController.text),
-                      nameController.text,
-                    );
+                        int.parse(numberController.text), nameController.text);
+
+                    Carro newCarro = Carro(
+                        nome: nameController.text,
+                        numero: int.parse(numberController.text));
+                    carros.add(newCarro);
+                    carRepo.saveCarList(carros);
+                    nameController.clear();
+                    numberController.clear();
                     /*print(
                           "carro: ${numberController.text}, equipe: ${nameController.text}");*/
                     Navigator.pop(context);
@@ -78,9 +107,41 @@ class CarAdder extends StatelessWidget {
                 child: const Text("Confirmar"),
               ),
             ),
+
+            Flexible(
+              child: ListView(shrinkWrap: true, children: [
+                for (Carro carro in carros)
+                  CarListIten(
+                    carro: carro,
+                    onDelete: onDelete,
+                  ),
+              ]),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  onDelete(Carro carro) {
+    deletedCarro = carro;
+    deletedCarroPos = carros.indexOf(carro);
+    setState(() {
+      carros.remove(carro);
+    });
+    carRepo.saveCarList(carros);
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content:
+            Text('Carro: ${carro.nome} de nº ${carro.numero} foi removido'),
+        action: SnackBarAction(
+            label: 'Desfazer',
+            onPressed: () {
+              setState(() {
+                carros.insert(deletedCarroPos!, deletedCarro!);
+              });
+              carRepo.saveCarList(carros);
+            }),
+        duration: const Duration(seconds: 5)));
   }
 }

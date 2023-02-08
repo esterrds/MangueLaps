@@ -1,35 +1,39 @@
-//lista de carros e contador
-class Car {
-  int _numeroDeVoltas = 0;
-  final int numeroDoCarro;
-  final String nomeDaEquipe;
+class Carro {
+  Carro.fromJson(Map<String, dynamic> json)
+      : nome = json['nome'],
+        numero = json['numero'] ?? 123;
 
-  Car(this.nomeDaEquipe, this.numeroDoCarro);
+  Carro({required this.nome, required this.numero});
+  String nome;
+  int numero;
+  int voltas = 0;
 
-  int getVoltas() => _numeroDeVoltas;
+  int getVoltas() => voltas;
 
   void increment() {
-    if (_numeroDeVoltas >= 300) {
-      _numeroDeVoltas = 300;
+    if (voltas >= 300) {
+      voltas = 300;
     } else {
-      _numeroDeVoltas++;
+      voltas++;
     }
-    _numeroDeVoltas = _numeroDeVoltas;
-    print("carro: $numeroDoCarro, voltas: $_numeroDeVoltas");
+    print("carro: $nome, voltas: $voltas");
   }
 
   void decrement() {
-    if (_numeroDeVoltas <= 0) {
-      _numeroDeVoltas = 0;
+    if (voltas <= 0) {
+      voltas = 0;
     } else {
-      _numeroDeVoltas--;
+      voltas--;
     }
-    _numeroDeVoltas = _numeroDeVoltas;
-    print("carro: $numeroDoCarro, voltas: $_numeroDeVoltas");
+    print("carro: $numero, voltas: $voltas");
   }
 
   @override
   String toString() {
-    return "{carro: $numeroDoCarro, equipe: $nomeDaEquipe, voltas: $_numeroDeVoltas}";
+    return "{carro: $numero, equipe: $nome, voltas: $voltas}";
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'nome': nome, 'numero': numero};
   }
 }

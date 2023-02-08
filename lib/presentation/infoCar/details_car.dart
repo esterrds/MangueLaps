@@ -2,9 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mangue_laps/config/navigator/routes.dart';
 import 'package:mangue_laps/presentation/colors.dart';
+import 'package:mangue_laps/repo/localSave/save_bt.dart';
+import 'package:mangue_laps/repo/localSave/save_geral_time.dart';
+import 'package:mangue_laps/repo/localSave/save_gt.dart';
 import 'package:mangue_laps/repo/models/breaktime.dart';
 import 'package:mangue_laps/repo/models/gasolinetime.dart';
+import 'package:mangue_laps/repo/models/geral_time.dart';
 
 import '../../bloc/ContadorCubit/contador_cubit.dart';
 import '../alert/msg_alerta.dart';
@@ -17,7 +22,12 @@ class DetailsCar extends StatefulWidget {
 }
 
 class _DetailsCarState extends State<DetailsCar> {
+  GeralTimeRepo geralRepo = GeralTimeRepo();
+  GasolineTimeRepo gasRepo = GasolineTimeRepo();
+  BreakTimeRepo breakRepo = BreakTimeRepo();
+
   //chamada de classes
+  late GeralTime geral = GeralTime(tempo: _stopWatchText);
   late BreakTime quebrado =
       BreakTime(tempoBox: breakTimeText, isbreak: isBreak);
   late GasolineTime gasolina =
@@ -48,15 +58,19 @@ class _DetailsCarState extends State<DetailsCar> {
 
   //lista de voltas
   List laps = [];
-  int getLapsLenght() => laps.length;
+  int getLapsLength() => laps.length;
+
+  //lista cronômetro geral
+  List<GeralTime> tempoGeral = [];
+  int getGeralLength() => tempoGeral.length;
 
   //lista GT
-  List tempoG = [];
-  int getGTLenght() => tempoG.length;
+  List<GasolineTime> gasolinetimes = [];
+  int getGTLength() => gasolinetimes.length;
 
   //lista BT
-  List tempoB = [];
-  int getBTLenght() => tempoB.length;
+  List<BreakTime> breaktimes = [];
+  int getBTLength() => breaktimes.length;
 
   //tempo limite geral
   void _startTimeout() {
@@ -121,8 +135,17 @@ class _DetailsCarState extends State<DetailsCar> {
     setState(() {
       if (_stopWatchText != '00:00:00' && !breakTime.isRunning) {
         if (gasolineTime.isRunning) {
-          isFull = true;
           gasolineTime.stop();
+
+          setState(() {
+            isFull = true;
+
+            GasolineTime newGT = GasolineTime(
+                tempoGasolina: gasolineTimeText.toString(), gasolina: isFull);
+            gasolinetimes.add(newGT);
+          });
+          gasRepo.saveGTList(gasolinetimes);
+          print(gasolinetimes);
 
           if (stopWatch.isRunning) {
             isStart = true;
@@ -135,9 +158,17 @@ class _DetailsCarState extends State<DetailsCar> {
             _startTimeout();
           }
         } else {
-          isFull = false;
           gasolineTime.start();
           startGasolineTime();
+
+          setState(() {
+            isFull = false;
+
+            GasolineTime newGT = GasolineTime(
+                tempoGasolina: gasolineTimeText.toString(), gasolina: isFull);
+            gasolinetimes.add(newGT);
+          });
+          gasRepo.saveGTList(gasolinetimes);
 
           if (stopWatch.isRunning) {
             isStart = true;
@@ -156,8 +187,17 @@ class _DetailsCarState extends State<DetailsCar> {
     setState(() {
       if (_stopWatchText != '00:00:00' && !gasolineTime.isRunning) {
         if (breakTime.isRunning) {
-          isBreak = false;
           breakTime.stop();
+
+          setState(() {
+            isBreak = false;
+
+            BreakTime newBT =
+                BreakTime(tempoBox: breakTimeText.toString(), isbreak: isBreak);
+            breaktimes.add(newBT);
+          });
+          breakRepo.saveBTList(breaktimes);
+          print(breaktimes);
 
           if (stopWatch.isRunning) {
             isStart = true;
@@ -173,6 +213,15 @@ class _DetailsCarState extends State<DetailsCar> {
           isBreak = true;
           breakTime.start();
           startBreakTime();
+
+          setState(() {
+            isBreak = true;
+
+            BreakTime newBT =
+                BreakTime(tempoBox: breakTimeText.toString(), isbreak: isBreak);
+            breaktimes.add(newBT);
+          });
+          breakRepo.saveBTList(breaktimes);
 
           if (stopWatch.isRunning) {
             isStart = true;
@@ -208,14 +257,12 @@ class _DetailsCarState extends State<DetailsCar> {
   void _setGasolineTimeText() {
     gasolineTimeText =
         '${gasolineTime.elapsed.inHours.toString().padLeft(2, '0')}:${(gasolineTime.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(gasolineTime.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
-    tempoG.add(gasolineTimeText);
   }
 
   //tempo de conserto/box
   void _setBreakTimeText() {
     breakTimeText =
         '${breakTime.elapsed.inHours.toString().padLeft(2, '0')}:${(breakTime.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(breakTime.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
-    tempoB.add(breakTimeText);
   }
 
   //adicionar voltas
@@ -223,6 +270,12 @@ class _DetailsCarState extends State<DetailsCar> {
     String lap =
         "${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}";
     laps.add(lap);
+    setState(() {
+      GeralTime geral = GeralTime(tempo: lap.toString());
+      tempoGeral.add(geral);
+    });
+    geralRepo.saveGeralTimes(tempoGeral);
+    print(tempoGeral);
   }
 
   @override
@@ -231,6 +284,16 @@ class _DetailsCarState extends State<DetailsCar> {
       child: Scaffold(
         appBar: AppBar(
           title: const Center(child: Text("Detalhes")),
+          actions: <Widget>[
+            //botão teste
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, listTimes);
+                },
+                icon: const Icon(Icons.library_add)),
+            //botão enviar dados
+            IconButton(onPressed: () {}, icon: const Icon(Icons.send))
+          ],
         ),
         body: _buildBody(),
       ),
@@ -255,7 +318,7 @@ class _DetailsCarState extends State<DetailsCar> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "${cubit.carList[cubit.pressedIndex!].nomeDaEquipe}#${cubit.carList[cubit.pressedIndex!].numeroDoCarro}",
+                            "${cubit.carList[cubit.pressedIndex!].nome}#${cubit.carList[cubit.pressedIndex!].numero}",
                             style: const TextStyle(fontSize: 23),
                           )
                         ])),
@@ -281,7 +344,7 @@ class _DetailsCarState extends State<DetailsCar> {
                 borderRadius: BorderRadius.circular(8.0),
               ),
               child: ListView.builder(
-                itemCount: getLapsLenght(),
+                itemCount: getLapsLength(),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -321,27 +384,20 @@ class _DetailsCarState extends State<DetailsCar> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                if (stopWatch.isRunning &&
-                                    !gasolineTime.isRunning &&
-                                    !breakTime.isRunning) {
-                                  cubit.carList[cubit.pressedIndex!]
-                                      .increment();
-                                  cubit.rebuild();
-                                } else {
-                                  contaVolta(context);
-                                }
-                              });
-                            },
-                            icon: const Icon(
-                              Icons.add,
-                              color: darkerGreen,
-                              size: 30,
-                            ),
-                          ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (stopWatch.isRunning &&
+                                  !gasolineTime.isRunning &&
+                                  !breakTime.isRunning) {
+                                cubit.carList[cubit.pressedIndex!].increment();
+                                cubit.rebuild();
+                              } else {
+                                contaVolta(context);
+                              }
+                            });
+                          },
+                          child: const Icon(Icons.add),
                         ),
                         Text(
                           cubit.carList[cubit.pressedIndex!]
@@ -351,13 +407,15 @@ class _DetailsCarState extends State<DetailsCar> {
                               color: Colors.black, fontSize: 14),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            cubit.carList[cubit.pressedIndex!].decrement();
+                          },
                           child: const Text(
                             '-',
                             style: TextStyle(
                                 fontSize: 100,
                                 color: Colors.black,
-                                backgroundColor: Colors.white),
+                                backgroundColor: green),
                           ),
                         ),
                       ],
