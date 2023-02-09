@@ -57,103 +57,81 @@ class _MainListState extends State<MainList> {
                     alignment: Alignment.center,
                     width: 100,
                     height: 100,
-                    child: Dismissible(
-                      //excluir itens da lista
-                      background: deleteBgItem(),
-                      key: UniqueKey(),
-                      onDismissed: (DismissDirection direction) {
-                        var equipes =
-                            carRepo.sharedPreferences?.getString(carListKey);
-                        cubit.carList.removeAt(index);
-                        final snackBar = SnackBar(
-                          content: const Text('Carro removido.'),
+                    child: Row(
+                      //organização da lista
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          '${cubit.carList[index].numero}',
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w400),
+                        ),
 
-                          //desfazer ação
-                          action: SnackBarAction(
-                            label: 'Desfazer',
-                            onPressed: () {
-                              undoDelete(index, equipes);
-                            },
-                          ),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      },
-                      child: Row(
-                        //organização da lista
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            '${cubit.carList[index].numero}',
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
+                        TextButton(
+                          onPressed: () {
+                            setState(() {
+                              cubit.pressedIndex = index;
 
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                cubit.pressedIndex = index;
-
-                                Title(
-                                    color: Colors.black,
-                                    child: Text(cubit.carList[index].nome,
-                                        style: const TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500)));
-                              });
-                              Navigator.pushNamed(context, detailsPage);
-                            },
-                            child: Text(cubit.carList[index].nome,
-                                style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w500)),
+                              Title(
+                                  color: Colors.black,
+                                  child: Text(cubit.carList[index].nome,
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500)));
+                            });
+                            Navigator.pushNamed(context, detailsPage);
+                          },
+                          child: Text(cubit.carList[index].nome,
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w500)),
+                        ),
+                        Text(
+                          cubit.carList[index].getVoltas().toString(),
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        //botão de incremento
+                        GestureDetector(
+                          child: const Icon(
+                            Icons.arrow_drop_up_sharp,
+                            color: darkerGreen,
+                            size: 30,
                           ),
-                          Text(
-                            cubit.carList[index].getVoltas().toString(),
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                          onTap: () {
+                            cubit.carList[index].increment();
+                            cubit.rebuild();
+                          },
+                        ),
+                        //botão de decremento
+                        GestureDetector(
+                          child: const Icon(
+                            Icons.arrow_drop_down_sharp,
+                            color: darkerGreen,
+                            size: 30,
                           ),
-                          //botão de incremento
-                          GestureDetector(
-                            child: const Icon(
-                              Icons.arrow_drop_up_sharp,
-                              color: darkerGreen,
-                              size: 30,
-                            ),
-                            onTap: () {
-                              cubit.carList[index].increment();
-                              cubit.rebuild();
-                            },
+                          onTap: () {
+                            cubit.carList[index].decrement();
+                            cubit.rebuild();
+                          },
+                        ),
+                        //botão de enviar dados individuais
+                        GestureDetector(
+                          child: const Icon(
+                            Icons.send,
+                            color: textColor,
                           ),
-                          //botão de decremento
-                          GestureDetector(
-                            child: const Icon(
-                              Icons.arrow_drop_down_sharp,
-                              color: darkerGreen,
-                              size: 30,
-                            ),
-                            onTap: () {
-                              cubit.carList[index].decrement();
-                              cubit.rebuild();
-                            },
-                          ),
-                          //botão de enviar dados individuais
-                          GestureDetector(
-                            child: const Icon(
-                              Icons.send,
-                              color: textColor,
-                            ),
-                            onTap: () {
-                              if (client.connectionStatus!.state ==
-                                  MqttConnectionState.connected) {
-                                selectCar(context);
-                                oneCar(index, cubit);
-                              } else if (client.connectionStatus!.state ==
-                                  MqttConnectionState.disconnected) {
-                                alertFailed(context);
-                              }
-                            },
-                          )
-                        ],
-                      ),
+                          onTap: () {
+                            if (client.connectionStatus!.state ==
+                                MqttConnectionState.connected) {
+                              selectCar(context);
+                              oneCar(index, cubit);
+                            } else if (client.connectionStatus!.state ==
+                                MqttConnectionState.disconnected) {
+                              alertFailed(context);
+                            }
+                          },
+                        )
+                      ],
                     ),
                   );
                 });

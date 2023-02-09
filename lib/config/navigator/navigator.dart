@@ -23,7 +23,7 @@ class RouteGenerator {
       case navBar:
         return MaterialPageRoute(builder: (_) => const NavBar());
       case viewPage:
-        return MaterialPageRoute(builder: (_) => const ViewPage());
+        return MaterialPageRoute(builder: (_) => ViewPage());
       case timePage:
         return MaterialPageRoute(builder: (_) => const TimePage());
       case detailsPage:

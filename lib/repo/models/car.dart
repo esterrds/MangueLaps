@@ -1,7 +1,8 @@
 class Carro {
   Carro.fromJson(Map<String, dynamic> json)
       : nome = json['nome'],
-        numero = json['numero'] ?? 123;
+        numero = json['numero'] ?? 123,
+        voltas = json['voltas'];
 
   Carro({required this.nome, required this.numero});
   String nome;
@@ -34,6 +35,6 @@ class Carro {
   }
 
   Map<String, dynamic> toJson() {
-    return {'nome': nome, 'numero': numero};
+    return {'nome': nome, 'numero': numero, 'voltas': getVoltas()};
   }
 }

@@ -36,7 +36,7 @@ class CarListIten extends StatelessWidget {
                 //),
 
                 Text(
-                  '${carro.numero} - ${carro.nome}  voltas: ${carro.getVoltas()}',
+                  '${carro.numero} - ${carro.nome}',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w400),
                 ),
