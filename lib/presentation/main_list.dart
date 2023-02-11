@@ -38,6 +38,7 @@ class _MainListState extends State<MainList> {
   @override
   Widget build(BuildContext context) {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
+
     carRepo.getCarList().then((value) {
       setState(() {
         cubit.setCarList(value);
@@ -90,6 +91,7 @@ class _MainListState extends State<MainList> {
                           style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
+
                         //botão de incremento
                         GestureDetector(
                           child: const Icon(
@@ -98,8 +100,10 @@ class _MainListState extends State<MainList> {
                             size: 30,
                           ),
                           onTap: () {
-                            cubit.carList[index].increment();
-                            cubit.rebuild();
+                            setState(() {
+                              cubit.carList[index].increment();
+                              cubit.rebuild();
+                            });
                           },
                         ),
                         //botão de decremento
@@ -110,8 +114,10 @@ class _MainListState extends State<MainList> {
                             size: 30,
                           ),
                           onTap: () {
-                            cubit.carList[index].decrement();
-                            cubit.rebuild();
+                            setState(() {
+                              cubit.carList[index].decrement();
+                              cubit.rebuild();
+                            });
                           },
                         ),
                         //botão de enviar dados individuais

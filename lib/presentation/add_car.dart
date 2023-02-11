@@ -86,11 +86,14 @@ class _CarAdderState extends State<CarAdder> {
                   if (nameController.toString().isNotEmpty &&
                       numberController.toString().isNotEmpty) {
                     BlocProvider.of<ContadorCubit>(context).createCar(
-                        int.parse(numberController.text), nameController.text);
+                        int.parse(numberController.text),
+                        nameController.text,
+                        0);
 
                     Carro newCarro = Carro(
                         nome: nameController.text,
-                        numero: int.parse(numberController.text));
+                        numero: int.parse(numberController.text),
+                        voltas: 0);
                     carros.add(newCarro);
                     carRepo.saveCarList(carros);
                     nameController.clear();

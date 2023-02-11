@@ -1,7 +1,7 @@
 class GasolineTime {
   GasolineTime.fromJson(Map<String, dynamic> json)
       : tempoGasolina = json['tempoGasolina'],
-        gasolina = json['gasolina'];
+        gasolina = json['gasolina'] ?? true;
 
   GasolineTime({required this.tempoGasolina, required this.gasolina});
   String tempoGasolina = '00:00:00';

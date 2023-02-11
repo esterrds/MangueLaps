@@ -1,6 +1,7 @@
 //bibliotecas
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:mangue_laps/bloc/Connectivity/connectivity_cubit.dart';
+import 'package:mangue_laps/bloc/TimerCubit/timer_cubit.dart';
 import 'package:mangue_laps/config/navigator/routes.dart';
 import 'package:mangue_laps/presentation/colors.dart';
 import 'package:mangue_laps/presentation/home_page.dart';
@@ -31,6 +32,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ConnectivityCubit(),
         ),
+        //timer
+        /*BlocProvider(
+          create: (context) => TimerCubit(),
+        ),*/
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

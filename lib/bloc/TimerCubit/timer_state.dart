@@ -1,4 +1,9 @@
-// part of 'timer_cubit.dart';
+part of 'timer_cubit.dart';
 
-// @immutable
-// abstract class TimerState{}
+abstract class TimerState {}
+
+class TimerInit extends TimerState {}
+
+class TimerReset extends TimerState {}
+
+class TimerPause extends TimerState {}

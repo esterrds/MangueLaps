@@ -4,7 +4,7 @@ class Carro {
         numero = json['numero'] ?? 123,
         voltas = json['voltas'];
 
-  Carro({required this.nome, required this.numero});
+  Carro({required this.nome, required this.numero, required this.voltas});
   String nome;
   int numero;
   int voltas = 0;

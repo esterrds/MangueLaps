@@ -11,7 +11,6 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../config/const/connectivity.dart';
-import '../../repo/localSave/save_car.dart';
 
 part 'connectivity_state.dart';
 

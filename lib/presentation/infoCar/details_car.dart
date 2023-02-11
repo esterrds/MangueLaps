@@ -9,9 +9,12 @@ import 'package:mangue_laps/repo/localSave/save_geral_time.dart';
 import 'package:mangue_laps/repo/localSave/save_gt.dart';
 import 'package:mangue_laps/repo/models/breaktime.dart';
 import 'package:mangue_laps/repo/models/gasolinetime.dart';
-import 'package:mangue_laps/repo/models/geral_time.dart';
+import 'package:mangue_laps/repo/models/lap_time.dart';
+import 'package:mqtt_client/mqtt_client.dart';
 
+import '../../bloc/Connectivity/connectivity_cubit.dart';
 import '../../bloc/ContadorCubit/contador_cubit.dart';
+import '../../config/const/connectivity.dart';
 import '../alert/msg_alerta.dart';
 
 class DetailsCar extends StatefulWidget {
@@ -22,12 +25,12 @@ class DetailsCar extends StatefulWidget {
 }
 
 class _DetailsCarState extends State<DetailsCar> {
-  GeralTimeRepo geralRepo = GeralTimeRepo();
+  LapTimeRepo lapRepo = LapTimeRepo();
   GasolineTimeRepo gasRepo = GasolineTimeRepo();
   BreakTimeRepo breakRepo = BreakTimeRepo();
 
   //chamada de classes
-  late GeralTime geral = GeralTime(tempo: _stopWatchText);
+  late LapTime geral = LapTime(tempo: _stopWatchText);
   late BreakTime quebrado =
       BreakTime(tempoBox: breakTimeText, isbreak: isBreak);
   late GasolineTime gasolina =
@@ -61,7 +64,7 @@ class _DetailsCarState extends State<DetailsCar> {
   int getLapsLength() => laps.length;
 
   //lista cronômetro geral
-  List<GeralTime> tempoGeral = [];
+  List<LapTime> tempoGeral = [];
   int getGeralLength() => tempoGeral.length;
 
   //lista GT
@@ -193,7 +196,7 @@ class _DetailsCarState extends State<DetailsCar> {
             isBreak = false;
 
             BreakTime newBT =
-                BreakTime(tempoBox: breakTimeText.toString(), isbreak: isBreak);
+                BreakTime(tempoBox: breakTimeText.toString(), isbreak: false);
             breaktimes.add(newBT);
           });
           breakRepo.saveBTList(breaktimes);
@@ -218,10 +221,10 @@ class _DetailsCarState extends State<DetailsCar> {
             isBreak = true;
 
             BreakTime newBT =
-                BreakTime(tempoBox: breakTimeText.toString(), isbreak: isBreak);
+                BreakTime(tempoBox: breakTimeText.toString(), isbreak: true);
             breaktimes.add(newBT);
+            breakRepo.saveBTList(breaktimes);
           });
-          breakRepo.saveBTList(breaktimes);
 
           if (stopWatch.isRunning) {
             isStart = true;
@@ -271,11 +274,34 @@ class _DetailsCarState extends State<DetailsCar> {
         "${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}";
     laps.add(lap);
     setState(() {
-      GeralTime geral = GeralTime(tempo: lap.toString());
+      LapTime geral = LapTime(tempo: lap.toString());
       tempoGeral.add(geral);
     });
-    geralRepo.saveGeralTimes(tempoGeral);
+    lapRepo.saveLapTimes(tempoGeral);
     print(tempoGeral);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    lapRepo.getLapTime().then((value) {
+      setState(() {
+        tempoGeral = value;
+      });
+    });
+
+    gasRepo.getGasTime().then((value) {
+      setState(() {
+        gasolinetimes = value;
+      });
+    });
+
+    breakRepo.getBreakTime().then((value) {
+      setState(() {
+        breaktimes = value;
+      });
+    });
   }
 
   @override
@@ -523,14 +549,22 @@ class _DetailsCarState extends State<DetailsCar> {
 
                 //Botão de reset
                 IconButton(
-                    iconSize: 60,
+                    iconSize: 45,
                     onPressed: botaoReset,
-                    icon: const Icon(Icons.replay, color: green)),
+                    icon: const Icon(Icons.replay, color: Colors.red)),
               ],
             )),
           ]),
         ),
       ),
     );
+  }
+
+  oneCar(index, ContadorCubit carCubit) {
+    final builder = MqttClientPayloadBuilder();
+
+    builder.addString(
+        "${carCubit.carList[carCubit.pressedIndex!]},$isFull,$isBreak");
+    client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 }

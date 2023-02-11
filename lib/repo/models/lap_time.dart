@@ -1,7 +1,8 @@
-class GeralTime {
-  GeralTime.fromJson(Map<String, dynamic> json) : tempo = json['tempoGeral'];
+class LapTime {
+  LapTime.fromJson(Map<String, dynamic> json)
+      : tempo = json['tempoGeral'] ?? '00:00:00';
 
-  GeralTime({required this.tempo});
+  LapTime({required this.tempo});
   String tempo = '00:00:00';
   late int id;
 

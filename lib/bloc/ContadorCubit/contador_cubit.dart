@@ -20,14 +20,12 @@ class ContadorCubit extends Cubit<ContadorState> {
 
   int getListLenght() => carList.length;
 
-  void createCar(int numero, String nome) {
-    Carro carro = Carro(nome: nome, numero: numero);
+  void createCar(int numero, String nome, int voltas) {
+    Carro carro = Carro(nome: nome, numero: numero, voltas: voltas);
     carList.add(carro);
     carRepo.saveCarList(carList);
     emit(ContadorIdle());
   }
-
-  void retrieveCar() {}
 
   void removeCar(Carro carro) {
     carList.remove(carro);

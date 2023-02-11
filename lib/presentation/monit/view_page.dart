@@ -69,6 +69,30 @@ class _ViewPageState extends State<ViewPage> {
   Widget getCard(index) {
     var equipe = '${index['equipe']}#${index['carro']}';
     var voltas = 'Voltas: ${index['voltas']}';
+    var quebrado = '${index['quebrado']}';
+    var abastecendo = '${index['abastecendo']}';
+
+    bool isbreak = false;
+    bool isempty = false;
+    bool validation = false;
+
+    if (quebrado == 'false') {
+      isbreak = false;
+    } else if (quebrado == 'true') {
+      isbreak = true;
+    } else if (abastecendo == 'false') {
+      isempty = false;
+    } else if (abastecendo == 'true') {
+      isempty = true;
+    }
+
+    if (isbreak == false && isempty == true ||
+        isbreak == true && isempty == false) {
+      validation = true;
+    } else {
+      validation = false;
+    }
+
     return Card(
       elevation: 1.5,
       child: Padding(
@@ -77,14 +101,17 @@ class _ViewPageState extends State<ViewPage> {
           title: Row(
             children: <Widget>[
               Container(
-                  //FAZER VALIDAÇÃO PARA CARRO QUEBRADO E ABASTECENDO!!!
-                  width: 60,
-                  height: 60,
-                  decoration: BoxDecoration(
-                    color: verdeClarinho,
-                    borderRadius: BorderRadius.circular(60 / 2),
-                  ),
-                  child: const Icon(Icons.no_crash)),
+                //FAZER VALIDAÇÃO PARA CARRO QUEBRADO E ABASTECENDO!!!
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: verdeClarinho,
+                  borderRadius: BorderRadius.circular(60 / 2),
+                ),
+
+                child: Icon(validation ? Icons.car_crash : Icons.no_crash,
+                    color: validation ? Colors.red : green),
+              ),
               const SizedBox(
                 width: 20,
               ),
