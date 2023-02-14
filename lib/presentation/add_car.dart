@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/presentation/alert/msg_alerta.dart';
-import 'package:mangue_laps/presentation/slidable_config.dart';
 import 'package:mangue_laps/repo/localSave/save_car.dart';
 import 'package:mangue_laps/repo/models/car.dart';
 import '../bloc/ContadorCubit/contador_cubit.dart';
@@ -35,7 +34,6 @@ class _CarAdderState extends State<CarAdder> {
 
   @override
   Widget build(BuildContext context) {
-    ContadorCubit cubit = ContadorCubit();
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -86,8 +84,10 @@ class _CarAdderState extends State<CarAdder> {
                 onPressed: () {
                   if (nameController.toString().isNotEmpty &&
                       numberController.toString().isNotEmpty) {
-                    cubit.createCar(int.parse(numberController.text),
-                        nameController.text, 0);
+                    BlocProvider.of<ContadorCubit>(context).createCar(
+                        int.parse(numberController.text),
+                        nameController.text,
+                        0);
 
                     Carro newCarro = Carro(
                         nome: nameController.text,
@@ -131,7 +131,6 @@ class _CarAdderState extends State<CarAdder> {
             onPressed: () {
               setState(() {
                 carros.insert(deletedCarroPos!, deletedCarro!);
-                //undoDelete(carros.indexOf(carro), );
               });
               carRepo.saveCarList(carros);
             }),

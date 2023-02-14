@@ -17,7 +17,7 @@ class Carro {
     } else {
       voltas++;
     }
-    print("carro: $nome, voltas: $voltas");
+    print("equipe: $nome, voltas: $voltas");
   }
 
   void decrement() {
@@ -26,7 +26,7 @@ class Carro {
     } else {
       voltas--;
     }
-    print("carro: $numero, voltas: $voltas");
+    print("equipe: $nome, voltas: $voltas");
   }
 
   @override

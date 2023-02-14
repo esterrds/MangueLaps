@@ -7,3 +7,4 @@ const String mqttPassword = 'aratucampeao';
 const String clientIdentifier = 'enduroApp';
 const String mqttPubTopic = '/enduroapp';
 const String mqttPubTopic2 = '/lista';
+const String mqttPubTopic3 = '/update';
