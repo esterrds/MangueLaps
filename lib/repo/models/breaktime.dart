@@ -1,6 +1,6 @@
 class BreakTime {
   BreakTime.fromJson(Map<String, dynamic> json)
-      : tempoBox = json['tempoBox'],
+      : tempoBox = json['tempoBox'] ?? '00:00:00',
         isbreak = json['isbreak'] ?? false;
 
   BreakTime({required this.tempoBox, required this.isbreak});

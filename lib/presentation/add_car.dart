@@ -35,6 +35,7 @@ class _CarAdderState extends State<CarAdder> {
 
   @override
   Widget build(BuildContext context) {
+    ContadorCubit cubit = ContadorCubit();
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -85,10 +86,8 @@ class _CarAdderState extends State<CarAdder> {
                 onPressed: () {
                   if (nameController.toString().isNotEmpty &&
                       numberController.toString().isNotEmpty) {
-                    BlocProvider.of<ContadorCubit>(context).createCar(
-                        int.parse(numberController.text),
-                        nameController.text,
-                        0);
+                    cubit.createCar(int.parse(numberController.text),
+                        nameController.text, 0);
 
                     Carro newCarro = Carro(
                         nome: nameController.text,

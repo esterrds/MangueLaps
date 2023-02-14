@@ -86,8 +86,9 @@ class _ViewPageState extends State<ViewPage> {
       isempty = true;
     }
 
-    if (isbreak == false && isempty == true ||
-        isbreak == true && isempty == false) {
+    if (isbreak == true) {
+      validation = true;
+    } else if (isempty == true) {
       validation = true;
     } else {
       validation = false;
@@ -100,18 +101,24 @@ class _ViewPageState extends State<ViewPage> {
         child: ListTile(
           title: Row(
             children: <Widget>[
-              Container(
-                //FAZER VALIDAÇÃO PARA CARRO QUEBRADO E ABASTECENDO!!!
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  color: verdeClarinho,
-                  borderRadius: BorderRadius.circular(60 / 2),
-                ),
-
-                child: Icon(validation ? Icons.car_crash : Icons.no_crash,
-                    color: validation ? Colors.red : green),
-              ),
+              validation
+                  ? Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: verdeClarinho,
+                        borderRadius: BorderRadius.circular(60 / 2),
+                      ),
+                      child: Icon(Icons.car_crash,
+                          color: isempty ? Colors.yellow : Colors.red))
+                  : Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        color: verdeClarinho,
+                        borderRadius: BorderRadius.circular(60 / 2),
+                      ),
+                      child: const Icon(Icons.no_crash, color: green)),
               const SizedBox(
                 width: 20,
               ),

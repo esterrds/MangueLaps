@@ -39,11 +39,8 @@ class _MainListState extends State<MainList> {
   Widget build(BuildContext context) {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
 
-    carRepo.getCarList().then((value) {
-      setState(() {
-        cubit.setCarList(value);
-      });
-    });
+    cubit.setCarList(carros);
+    carRepo.saveCarList(carros);
 
     return BlocBuilder<ContadorCubit, ContadorState>(
       builder: (context, state) {

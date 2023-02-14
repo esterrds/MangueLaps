@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:mangue_laps/bloc/ContadorCubit/contador_cubit.dart';
+import 'package:mangue_laps/repo/localSave/save_car.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../repo/models/car.dart';
 
@@ -16,6 +18,8 @@ class CarListIten extends StatefulWidget {
 }
 
 class _CarListItenState extends State<CarListIten> {
+  CarRepository carRepo = CarRepository();
+  List<Carro> carros = [];
   @override
   Widget build(BuildContext context) {
     ContadorCubit carCubit = ContadorCubit();
@@ -38,19 +42,14 @@ class _CarListItenState extends State<CarListIten> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  '${widget.carro.numero} - ${widget.carro.nome}  ---  Voltas: ${widget.carro.getVoltas()}',
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w400),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '${widget.carro.numero} - ${widget.carro.nome}  ---  Voltas: ${widget.carro.getVoltas()}',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w400),
+                  ),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.carro.increment();
-                        carCubit.rebuild();
-                      });
-                    },
-                    child: const Icon(Icons.add))
               ],
             ),
           ),
