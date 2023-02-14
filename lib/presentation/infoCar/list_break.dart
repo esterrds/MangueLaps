@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mangue_laps/config/navigator/routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../repo/localSave/save_bt.dart';
 import '../colors.dart';
 
 class ListBreakTime extends StatelessWidget {
@@ -14,7 +10,7 @@ class ListBreakTime extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tempo de box'),
+        title: const Text('Tempo de abastecimento'),
       ),
       body: const LisTileExample(),
     );
@@ -29,48 +25,46 @@ class LisTileExample extends StatefulWidget {
 }
 
 class _LisTileExampleState extends State<LisTileExample> {
-  int _counter = 0;
-  late SharedPreferences _prefs;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadCounter();
-  }
-
-  _loadCounter() async {
-    _prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _counter = _prefs.getInt('counter') ?? 0;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            _counter++;
+    return Padding(
+      //organização dos itens na lista
+      padding: const EdgeInsets.symmetric(horizontal: 13.0),
+      child: ListView.separated(
+        itemBuilder: (BuildContext context, int index) {
+          return Builder(builder: (context) {
+            return Container(
+              alignment: Alignment.center,
+              width: 100,
+              height: 100,
+              child: Row(
+                //organização da lista
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  const Text('',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
+                  const Text(
+                    '',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  //botão de enviar dados individuais
+                  GestureDetector(
+                    child: const Icon(
+                      Icons.send,
+                      color: textColor,
+                    ),
+                    onTap: () {},
+                  )
+                ],
+              ),
+            );
           });
-          _prefs.setInt('counter', _counter);
         },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        //adicionar equipe registrada na lista
+        itemCount: 5,
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),
     );
   }

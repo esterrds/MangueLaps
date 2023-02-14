@@ -109,16 +109,6 @@ class _CarAdderState extends State<CarAdder> {
                 child: const Text("Confirmar"),
               ),
             ),
-
-            Flexible(
-              child: ListView(shrinkWrap: true, children: [
-                for (Carro carro in carros)
-                  CarListIten(
-                    carro: carro,
-                    onDelete: onDelete,
-                  ),
-              ]),
-            ),
           ],
         ),
       ),
@@ -141,6 +131,7 @@ class _CarAdderState extends State<CarAdder> {
             onPressed: () {
               setState(() {
                 carros.insert(deletedCarroPos!, deletedCarro!);
+                //undoDelete(carros.indexOf(carro), );
               });
               carRepo.saveCarList(carros);
             }),
