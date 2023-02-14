@@ -1,4 +1,4 @@
-/*import 'package:bloc/bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:mangue_laps/repo/localSave/save_bt.dart';
 import 'package:mangue_laps/repo/localSave/save_geral_time.dart';
 import 'package:mangue_laps/repo/localSave/save_gt.dart';
@@ -102,4 +102,4 @@ class TimerCubit extends Cubit<TimerState> {
 // while (1) {
 //   CONTADOR++
 //   SLEEP(1)
-// }*/
+// }

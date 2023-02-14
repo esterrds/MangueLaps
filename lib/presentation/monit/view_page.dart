@@ -80,15 +80,17 @@ class _ViewPageState extends State<ViewPage> {
       isbreak = false;
     } else if (quebrado == 'true') {
       isbreak = true;
-    } else if (abastecendo == 'false') {
+    }
+
+    if (abastecendo == 'false') {
       isempty = false;
     } else if (abastecendo == 'true') {
       isempty = true;
     }
 
-    if (isbreak == true) {
+    if (isbreak == true && isempty == false) {
       validation = true;
-    } else if (isempty == true) {
+    } else if (isempty == true && isbreak == false) {
       validation = true;
     } else {
       validation = false;
@@ -109,8 +111,10 @@ class _ViewPageState extends State<ViewPage> {
                         color: verdeClarinho,
                         borderRadius: BorderRadius.circular(60 / 2),
                       ),
-                      child: Icon(Icons.car_crash,
-                          color: isempty ? Colors.yellow : Colors.red))
+                      child: Icon(Icons.car_crash_outlined,
+                          color: isempty
+                              ? const Color.fromARGB(255, 230, 207, 5)
+                              : Colors.red))
                   : Container(
                       width: 60,
                       height: 60,
@@ -118,7 +122,7 @@ class _ViewPageState extends State<ViewPage> {
                         color: verdeClarinho,
                         borderRadius: BorderRadius.circular(60 / 2),
                       ),
-                      child: const Icon(Icons.no_crash, color: green)),
+                      child: const Icon(Icons.no_crash_outlined, color: green)),
               const SizedBox(
                 width: 20,
               ),

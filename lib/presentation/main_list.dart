@@ -260,10 +260,12 @@ class _MainListState extends State<MainList> {
         break;
 
       case 15:
+        //
         id = 31;
         break;
 
       case 16:
+        //
         id = 32;
         break;
 
@@ -273,6 +275,7 @@ class _MainListState extends State<MainList> {
         break;
 
       case 18:
+        //
         id = 34;
         break;
 
@@ -292,34 +295,42 @@ class _MainListState extends State<MainList> {
         break;
 
       case 22:
+        //
         id = 38;
         break;
 
       case 23:
+        //
         id = 39;
         break;
 
       case 24:
+        //
         id = 40;
         break;
 
       case 25:
+        //
         id = 41;
         break;
 
       case 26:
+        //
         id = 42;
         break;
 
       case 27:
+        //
         id = 43;
         break;
 
       case 28:
+        //
         id = 44;
         break;
 
       case 29:
+        //
         id = 45;
         break;
 
@@ -479,7 +490,7 @@ class _MainListState extends State<MainList> {
       default:
     }
 
-    builder.addString("$id,${carCubit.carList[index].voltas},false,false");
-    client.publishMessage(mqttPubTopic3, MqttQos.atLeastOnce, builder.payload!);
+    builder.addString("$id,${carCubit.carList[index].voltas}");
+    client.publishMessage(mqttPubTopic, MqttQos.atLeastOnce, builder.payload!);
   }
 }

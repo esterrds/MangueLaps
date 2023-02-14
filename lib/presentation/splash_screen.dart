@@ -13,6 +13,11 @@ class SplashScreen extends StatelessWidget {
     return AnimatedSplashScreen(
       splash: Column(
         children: const [
+          // Image.asset(
+          //   "assets/garrinha.png",
+          //   width: 200,
+          //   height: 200,
+          // ),
           Text(
             'Mangue Laps',
             style: TextStyle(

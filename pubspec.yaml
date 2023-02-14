@@ -76,6 +76,7 @@ flutter:
   - assets/images/logoVerde.png
   - assets/images/degrade.png
   - assets/images/logoAzul.png
+  - assets/garrinha.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
