@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/presentation/splash_screen.dart';
 
 import 'bloc/ContadorCubit/contador_cubit.dart';
+import 'bloc/TimerCubit/timer_cubit.dart';
 import 'config/navigator/navigator.dart';
 
 //início
@@ -31,9 +32,9 @@ class MyApp extends StatelessWidget {
           create: (context) => ConnectivityCubit(),
         ),
         //timer
-        /*BlocProvider(
+        BlocProvider(
           create: (context) => TimerCubit(),
-        ),*/
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

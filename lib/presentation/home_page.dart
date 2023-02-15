@@ -12,6 +12,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectIndex = 0;
+  final stopWatch = Stopwatch();
+  final timeout = const Duration(seconds: 1);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -44,6 +46,18 @@ class _MyHomePageState extends State<MyHomePage> {
         retVal = const Center(child: Text("bem vindo(a)"));
     }
     return retVal;
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      if (!stopWatch.isRunning) {
+        stopWatch.start();
+        super.initState();
+        debugPrint(
+            '${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}');
+      }
+    });
   }
 
   @override

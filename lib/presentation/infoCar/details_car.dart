@@ -62,6 +62,9 @@ class _DetailsCarState extends State<DetailsCar> {
 
   //lista de voltas
   List laps = [];
+  List hour = [];
+  List minutes = [];
+  List seconds = [];
   int getLapsLength() => laps.length;
 
   //lista cronômetro geral
@@ -273,9 +276,17 @@ class _DetailsCarState extends State<DetailsCar> {
 
   //adicionar voltas
   void addVoltas() {
+    int horas = stopWatch.elapsed.inHours;
+    int minutos = stopWatch.elapsed.inMinutes % 60;
+    int segundos = stopWatch.elapsed.inSeconds % 60;
+    hour.add(horas);
+    minutes.add(minutos);
+    seconds.add(segundos);
+
     String lap =
-        "${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}";
+        "${horas.toString().padLeft(2, '0')}:${minutos.toString().padLeft(2, '0')}:${segundos.toString().padLeft(2, '0')}";
     laps.add(lap);
+
     setState(() {
       LapTime geral = LapTime(tempo: lap.toString());
       tempoGeral.add(geral);
@@ -394,6 +405,22 @@ class _DetailsCarState extends State<DetailsCar> {
               child: ListView.builder(
                 itemCount: getLapsLength(),
                 itemBuilder: (context, index) {
+                  var lapResult;
+                  int hourResult;
+                  int minutesResult;
+                  int secondsResult;
+
+                  if (index == 0) {
+                    lapResult = laps[index];
+                  } else if (index > 0) {
+                    hourResult = hour[index] - hour[index - 1];
+                    minutesResult = minutes[index] - minutes[index - 1];
+                    secondsResult = seconds[index] - seconds[index - 1];
+
+                    lapResult =
+                        '${hourResult.toString().padLeft(2, '0')}:${minutesResult.toString().padLeft(2, '0')}:${secondsResult.toString().padLeft(2, '0')}';
+                  }
+
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -405,7 +432,7 @@ class _DetailsCarState extends State<DetailsCar> {
                               color: Colors.black, fontSize: 14),
                         ),
                         Text(
-                          "${laps[index]}",
+                          "$lapResult",
                           style: const TextStyle(
                               color: Colors.black, fontSize: 14),
                         ),

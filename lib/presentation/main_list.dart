@@ -62,6 +62,7 @@ class _MainListState extends State<MainList> {
                           var equipes = cubit.carList[index];
                           cubit.carList.removeAt(index);
                           cubit.rebuild();
+                          carRepo.saveCarList(carros);
                           final snackBar = SnackBar(
                             content: const Text('Carro removido.'),
 
@@ -117,8 +118,7 @@ class _MainListState extends State<MainList> {
                                 size: 30,
                               ),
                               onTap: () {
-                                cubit.carList[index].increment();
-                                cubit.rebuild();
+                                increment(cubit, index);
                               },
                             ),
                             //botão de decremento
@@ -129,8 +129,7 @@ class _MainListState extends State<MainList> {
                                 size: 30,
                               ),
                               onTap: () {
-                                cubit.carList[index].decrement();
-                                cubit.rebuild();
+                                decrement(cubit, index);
                               },
                             ),
                             //botão de enviar dados individuais
@@ -166,6 +165,18 @@ class _MainListState extends State<MainList> {
     );
   }
 
+  increment(ContadorCubit cubit, index) {
+    cubit.carList[index].increment();
+    carRepo.saveCarList(carros);
+    cubit.rebuild();
+  }
+
+  decrement(ContadorCubit cubit, index) {
+    cubit.carList[index].decrement();
+    carRepo.saveCarList(carros);
+    cubit.rebuild();
+  }
+
   //ícone lixeira
   Widget deleteBgItem() {
     return Container(
@@ -184,6 +195,7 @@ class _MainListState extends State<MainList> {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
     setState(() {
       cubit.carList.insert(index, equipes);
+      carRepo.saveCarList(carros);
       cubit.rebuild();
     });
   }
