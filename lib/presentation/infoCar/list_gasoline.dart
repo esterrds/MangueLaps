@@ -5,7 +5,7 @@ import 'package:mangue_laps/repo/localSave/save_gt.dart';
 import 'package:mangue_laps/repo/models/gasolinetime.dart';
 
 import '../../bloc/TimerCubit/timer_cubit.dart';
-import '../colors.dart';
+import '../design/colors.dart';
 
 class ListGasTime extends StatelessWidget {
   const ListGasTime({super.key});

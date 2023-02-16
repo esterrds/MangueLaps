@@ -1,4 +1,5 @@
 import 'package:mangue_laps/config/navigator/routes.dart';
+import 'package:mangue_laps/presentation/cron%C3%B4metro.dart';
 import 'package:mangue_laps/presentation/main_list.dart';
 import 'package:mangue_laps/presentation/nav_bar.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectIndex = 0;
-  final stopWatch = Stopwatch();
-  final timeout = const Duration(seconds: 1);
 
   void _onItemTapped(int index) {
     setState(() {
@@ -26,21 +25,17 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget retVal;
 
     switch (_selectIndex) {
+      // case 0:
+      //   Navigator.pushNamed(context, carAdder);
+      //   retVal = const Center(child: Text("adicione um carro"));
+      //   break;
       case 0:
-        Navigator.pushNamed(context, carAdder);
-        retVal = const Center(child: Text("adicione um carro"));
-        break;
-      case 1:
-        Navigator.pushNamed(context, timePage);
+        Navigator.pushNamed(context, carList);
         retVal = const Center(child: Text("cronometro"));
         break;
-      case 2:
+      case 1:
         Navigator.pushNamed(context, viewPage);
         retVal = const Center(child: Text("monitoramento"));
-        break;
-      case 3:
-        Navigator.pushNamed(context, detailsPage);
-        retVal = const Center(child: Text("detalhes"));
         break;
       default:
         retVal = const Center(child: Text("bem vindo(a)"));
@@ -49,36 +44,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void initState() {
-    setState(() {
-      if (!stopWatch.isRunning) {
-        stopWatch.start();
-        super.initState();
-        debugPrint(
-            '${stopWatch.elapsed.inHours.toString().padLeft(2, '0')}:${(stopWatch.elapsed.inMinutes % 60).toString().padLeft(2, '0')}:${(stopWatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}');
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         drawer: const NavBar(),
-        body: const MainList(),
+        body: const TimePage(),
         appBar: AppBar(
-          title: const Center(child: Text("Contador de voltas")),
+          title: const Center(child: Text("Tempo de Enduro")),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, carAdder);
+                },
+                icon: const Icon(Icons.add))
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
+            // BottomNavigationBarItem(
+            //     icon: Icon(Icons.add),
+            //     activeIcon: Icon(Icons.add),
+            //     label: "Adicionar carro"),
             BottomNavigationBarItem(
-                icon: Icon(Icons.add),
-                activeIcon: Icon(Icons.add),
-                label: "Adicionar carro"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.access_time_filled),
-                activeIcon: Icon(Icons.access_time_filled),
-                label: "Cronômetro"),
+                icon: Icon(Icons.format_list_bulleted_add),
+                activeIcon: Icon(Icons.format_list_bulleted_add),
+                label: "Contador de voltas"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.monitor),
                 activeIcon: Icon(Icons.monitor),

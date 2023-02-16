@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/repo/localSave/save_bt.dart';
 import 'package:mangue_laps/repo/models/breaktime.dart';
 import '../../bloc/TimerCubit/timer_cubit.dart';
-import '../colors.dart';
+import '../design/colors.dart';
 
 class ListBreakTime extends StatelessWidget {
   const ListBreakTime({super.key});

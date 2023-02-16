@@ -5,7 +5,7 @@ import 'package:mangue_laps/repo/localSave/save_geral_time.dart';
 import 'package:mangue_laps/repo/models/lap_time.dart';
 
 import '../../bloc/TimerCubit/timer_cubit.dart';
-import '../colors.dart';
+import '../design/colors.dart';
 
 class ListTimes extends StatelessWidget {
   const ListTimes({super.key});

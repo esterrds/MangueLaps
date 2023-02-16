@@ -3,7 +3,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
-import 'home_page.dart';
+import '../home_page.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

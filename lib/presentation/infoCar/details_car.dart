@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/bloc/TimerCubit/timer_cubit.dart';
 import 'package:mangue_laps/config/navigator/routes.dart';
-import 'package:mangue_laps/presentation/colors.dart';
+import 'package:mangue_laps/presentation/design/colors.dart';
 import 'package:mangue_laps/repo/localSave/save_bt.dart';
 import 'package:mangue_laps/repo/localSave/save_car.dart';
 import 'package:mangue_laps/repo/localSave/save_geral_time.dart';
@@ -13,9 +13,11 @@ import 'package:mangue_laps/repo/models/breaktime.dart';
 import 'package:mangue_laps/repo/models/gasolinetime.dart';
 import 'package:mangue_laps/repo/models/lap_time.dart';
 import 'package:mqtt_client/mqtt_client.dart';
+import 'package:provider/provider.dart';
 
 import '../../bloc/Connectivity/connectivity_cubit.dart';
 import '../../bloc/ContadorCubit/contador_cubit.dart';
+import '../../bloc/Provider/timer_provider.dart';
 import '../../config/const/connectivity.dart';
 import '../../repo/models/car.dart';
 import '../alert/msg_alerta.dart';
@@ -32,6 +34,8 @@ class _DetailsCarState extends State<DetailsCar> {
   LapTimeRepo lapRepo = LapTimeRepo();
   GasolineTimeRepo gasRepo = GasolineTimeRepo();
   BreakTimeRepo breakRepo = BreakTimeRepo();
+
+  var timer;
 
   //chamada de classes
   late LapTime geral = LapTime(tempo: _stopWatchText);
@@ -132,10 +136,12 @@ class _DetailsCarState extends State<DetailsCar> {
       if (!breakTime.isRunning && !gasolineTime.isRunning) {
         if (stopWatch.isRunning) {
           isStart = true;
+          //timer.stotTimer;
           stopWatch.stop();
         } else {
           isStart = false;
           stopWatch.start();
+          timer.startTimer;
           _startTimeout();
         }
       }
@@ -301,6 +307,8 @@ class _DetailsCarState extends State<DetailsCar> {
   void initState() {
     super.initState();
 
+    timer = Provider.of<TimerProvider>(context, listen: false);
+
     lapRepo.getLapTime().then((value1) {
       setState(() {
         tempoGeral = value1;
@@ -326,8 +334,11 @@ class _DetailsCarState extends State<DetailsCar> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
+
+    stopWatch.stop();
+    gasolineTime.stop();
+    breakTime.stop();
   }
 
   @override
@@ -608,7 +619,9 @@ class _DetailsCarState extends State<DetailsCar> {
                 //Botão de Start/Stop
                 IconButton(
                   iconSize: 60,
-                  onPressed: botaoStartStop,
+                  onPressed: () {
+                    botaoStartStop();
+                  },
                   icon: Icon(
                     isStart ? Icons.play_arrow : Icons.stop,
                     color: isStart ? green : Colors.red,
@@ -648,6 +661,20 @@ class _DetailsCarState extends State<DetailsCar> {
         ),
       ),
     );
+  }
+
+  Widget buildTime() {
+    return Consumer<TimerProvider>(builder: (context, timeprovider, widget) {
+      return Center(
+        child: Text(
+          '${timer.hour.toString().padLeft(2, '0')} : ${timer.minute.toString().padLeft(2, '0')} : ${timer.seconds.toString().padLeft(2, '0')} ',
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 40,
+          ),
+        ),
+      );
+    });
   }
 
   sendData(index, ContadorCubit carCubit) {

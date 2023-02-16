@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-import '../colors.dart';
+import '../design/colors.dart';
 
 class InfoGroup extends StatefulWidget {
   const InfoGroup({super.key});

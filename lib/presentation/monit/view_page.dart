@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mangue_laps/config/navigator/routes.dart';
 
-import '../colors.dart';
+import '../design/colors.dart';
 
 class ViewPage extends StatefulWidget {
   const ViewPage({super.key});

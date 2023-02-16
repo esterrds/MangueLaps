@@ -7,10 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/repo/localSave/save_car.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 
-import '../bloc/ContadorCubit/contador_cubit.dart';
-import '../config/navigator/routes.dart';
-import '../repo/models/car.dart';
-import 'alert/msg_alerta.dart';
+import '../../bloc/ContadorCubit/contador_cubit.dart';
+import '../../config/navigator/routes.dart';
+import '../../repo/models/car.dart';
+import '../alert/msg_alerta.dart';
 
 //página do contador
 
