@@ -3,7 +3,7 @@ class BreakTime {
       : tempoBox = json['tempoBox'] ?? '00:00:00',
         isbreak = json['isbreak'] ?? false;
 
-  BreakTime({required this.tempoBox, required this.isbreak});
+  BreakTime({required this.tempoBox});
   String tempoBox = '00:00:00';
   late int idTB;
   bool isbreak = false;
@@ -18,11 +18,11 @@ class BreakTime {
   }
 
   Map<String, dynamic> toJson() {
-    return {'tempoBox': tempoBox, 'quebrado': quebrado};
+    return {'tempoBox': tempoBox};
   }
 
   @override
   String toString() {
-    return '{tempo: $tempoBox, quebrado: $quebrado}';
+    return '{tempo: $tempoBox}';
   }
 }

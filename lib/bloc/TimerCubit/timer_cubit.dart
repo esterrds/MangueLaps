@@ -22,6 +22,7 @@ class TimerCubit extends Cubit<TimerState> {
   int getLapListLenght() => lapList.length;
   int getGasListLenght() => gasolineList.length;
   int getBreakListLenght() => breakList.length;
+  int? pressedTimerIndex;
 
   void setLapList(List<LapTime> futureLapList) {
     lapList = futureLapList;
@@ -36,22 +37,21 @@ class TimerCubit extends Cubit<TimerState> {
   }
 
   void createLap(String tempo) {
-    LapTime laptime = LapTime(tempo: '');
+    LapTime laptime = LapTime(tempo: tempo);
     lapList.add(laptime);
     lapRepo.saveLapTimes(lapList);
     emit(TimerReset());
   }
 
   void createGas(bool gasolina, String tempoGas) {
-    GasolineTime gastime =
-        GasolineTime(gasolina: gasolina, tempoGasolina: tempoGas);
+    GasolineTime gastime = GasolineTime(tempoGasolina: tempoGas);
     gasolineList.add(gastime);
     gasRepo.saveGTList(gasolineList);
     emit(TimerReset());
   }
 
   void createBreak(bool isbreak, String tempobox) {
-    BreakTime boxtime = BreakTime(isbreak: isbreak, tempoBox: tempobox);
+    BreakTime boxtime = BreakTime(tempoBox: tempobox);
     breakList.add(boxtime);
     breakRepo.saveBTList(breakList);
     emit(TimerReset());

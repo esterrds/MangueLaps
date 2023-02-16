@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mangue_laps/config/navigator/routes.dart';
 
 import '../colors.dart';
 
@@ -46,7 +47,7 @@ class _ViewPageState extends State<ViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Monitoramento"),
+        title: const Center(child: Text("Monitoramento")),
       ),
       body: getBody(),
     );
@@ -143,11 +144,13 @@ class _ViewPageState extends State<ViewPage> {
                     style: const TextStyle(
                         color: Color.fromARGB(255, 116, 114, 114)),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.info),
-                    color: Colors.grey,
-                    onPressed: () {},
-                  )
+                  // IconButton(
+                  //   icon: const Icon(Icons.info),
+                  //   color: Colors.grey,
+                  //   onPressed: () {
+                  //     Navigator.pushNamed(context, infoGroup);
+                  //   },
+                  // )
                 ],
               )
             ],

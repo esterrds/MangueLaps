@@ -9,3 +9,4 @@ const String detailsPage = '/details';
 const String listTimes = '/times';
 const String breakTimes = '/listbt';
 const String gasolineTimes = '/listgt';
+const String infoGroup = '/info';

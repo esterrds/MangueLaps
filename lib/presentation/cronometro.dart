@@ -105,7 +105,7 @@ class _TimePageState extends State<TimePage> {
       const SizedBox(height: 10.0),
       //
       Container(
-        height: 200.0,
+        height: 300.0,
         decoration: BoxDecoration(
           color: verdeClarinho,
           borderRadius: BorderRadius.circular(8.0),
@@ -148,7 +148,7 @@ class _TimePageState extends State<TimePage> {
         ),
       ),
       //
-      const SizedBox(height: 100.0),
+      const SizedBox(height: 50.0),
       //
       Center(
           child: Row(

@@ -6,6 +6,7 @@ import 'package:mangue_laps/bloc/TimerCubit/timer_cubit.dart';
 import 'package:mangue_laps/config/navigator/routes.dart';
 import 'package:mangue_laps/presentation/colors.dart';
 import 'package:mangue_laps/repo/localSave/save_bt.dart';
+import 'package:mangue_laps/repo/localSave/save_car.dart';
 import 'package:mangue_laps/repo/localSave/save_geral_time.dart';
 import 'package:mangue_laps/repo/localSave/save_gt.dart';
 import 'package:mangue_laps/repo/models/breaktime.dart';
@@ -16,6 +17,7 @@ import 'package:mqtt_client/mqtt_client.dart';
 import '../../bloc/Connectivity/connectivity_cubit.dart';
 import '../../bloc/ContadorCubit/contador_cubit.dart';
 import '../../config/const/connectivity.dart';
+import '../../repo/models/car.dart';
 import '../alert/msg_alerta.dart';
 
 class DetailsCar extends StatefulWidget {
@@ -26,16 +28,15 @@ class DetailsCar extends StatefulWidget {
 }
 
 class _DetailsCarState extends State<DetailsCar> {
+  CarRepository carRepo = CarRepository();
   LapTimeRepo lapRepo = LapTimeRepo();
   GasolineTimeRepo gasRepo = GasolineTimeRepo();
   BreakTimeRepo breakRepo = BreakTimeRepo();
 
   //chamada de classes
   late LapTime geral = LapTime(tempo: _stopWatchText);
-  late BreakTime quebrado =
-      BreakTime(tempoBox: breakTimeText, isbreak: isBreak);
-  late GasolineTime gasolina =
-      GasolineTime(tempoGasolina: gasolineTimeText, gasolina: isnotFull);
+  late BreakTime quebrado = BreakTime(tempoBox: breakTimeText);
+  late GasolineTime gasolina = GasolineTime(tempoGasolina: gasolineTimeText);
 
   //validação dos botões
   bool isMount = true;
@@ -78,6 +79,9 @@ class _DetailsCarState extends State<DetailsCar> {
   //lista BT
   List<BreakTime> breaktimes = [];
   int getBTLength() => breaktimes.length;
+
+  //lista de carros
+  List<Carro> carros = [];
 
   //tempo limite geral
   void _startTimeout() {
@@ -148,8 +152,8 @@ class _DetailsCarState extends State<DetailsCar> {
             isnotFull = false;
 
             GasolineTime newGT = GasolineTime(
-                tempoGasolina: gasolineTimeText.toString(),
-                gasolina: isnotFull);
+              tempoGasolina: gasolineTimeText.toString(),
+            );
             gasolinetimes.add(newGT);
           });
           gasRepo.saveGTList(gasolinetimes);
@@ -173,8 +177,8 @@ class _DetailsCarState extends State<DetailsCar> {
             isnotFull = true;
 
             GasolineTime newGT = GasolineTime(
-                tempoGasolina: gasolineTimeText.toString(),
-                gasolina: isnotFull);
+              tempoGasolina: gasolineTimeText.toString(),
+            );
             gasolinetimes.add(newGT);
           });
           gasRepo.saveGTList(gasolinetimes);
@@ -201,8 +205,7 @@ class _DetailsCarState extends State<DetailsCar> {
           setState(() {
             isBreak = false;
 
-            BreakTime newBT =
-                BreakTime(tempoBox: breakTimeText.toString(), isbreak: false);
+            BreakTime newBT = BreakTime(tempoBox: breakTimeText.toString());
             breaktimes.add(newBT);
           });
           breakRepo.saveBTList(breaktimes);
@@ -226,8 +229,7 @@ class _DetailsCarState extends State<DetailsCar> {
           setState(() {
             isBreak = true;
 
-            BreakTime newBT =
-                BreakTime(tempoBox: breakTimeText.toString(), isbreak: true);
+            BreakTime newBT = BreakTime(tempoBox: breakTimeText.toString());
             breaktimes.add(newBT);
             breakRepo.saveBTList(breaktimes);
           });
@@ -299,22 +301,26 @@ class _DetailsCarState extends State<DetailsCar> {
   void initState() {
     super.initState();
 
-    lapRepo.getLapTime().then((value) {
+    lapRepo.getLapTime().then((value1) {
       setState(() {
-        tempoGeral = value;
+        tempoGeral = value1;
       });
     });
 
-    gasRepo.getGasTime().then((value) {
+    gasRepo.getGasTime().then((value2) {
       setState(() {
-        gasolinetimes = value;
+        gasolinetimes = value2;
       });
     });
 
-    breakRepo.getBreakTime().then((value) {
+    breakRepo.getBreakTime().then((value3) {
       setState(() {
-        breaktimes = value;
+        breaktimes = value3;
       });
+    });
+
+    carRepo.getCarList().then((value) {
+      carros = value;
     });
   }
 
@@ -339,19 +345,6 @@ class _DetailsCarState extends State<DetailsCar> {
                   Navigator.pushNamed(context, listTimes);
                 },
                 icon: const Icon(Icons.library_add)),
-            //botão enviar dados
-            IconButton(
-                onPressed: () {
-                  if (client.connectionStatus!.state ==
-                      MqttConnectionState.connected) {
-                    selectCar(context);
-                    sendData(cubit.pressedIndex, cubit);
-                  } else if (client.connectionStatus!.state ==
-                      MqttConnectionState.disconnected) {
-                    alertFailed(context);
-                  }
-                },
-                icon: const Icon(Icons.send))
           ],
         ),
         body: _buildBody(),
@@ -466,6 +459,17 @@ class _DetailsCarState extends State<DetailsCar> {
                                   !gasolineTime.isRunning &&
                                   !breakTime.isRunning) {
                                 cubit.carList[cubit.pressedIndex!].increment();
+                                carRepo.saveCarList(carros);
+                                cubit.rebuild();
+
+                                if (client.connectionStatus!.state ==
+                                    MqttConnectionState.connected) {
+                                  selectCar(context);
+                                  sendData(cubit.pressedIndex, cubit);
+                                } else if (client.connectionStatus!.state ==
+                                    MqttConnectionState.disconnected) {
+                                  alertFailed(context);
+                                }
                                 cubit.rebuild();
                               } else {
                                 contaVolta(context);
@@ -484,6 +488,17 @@ class _DetailsCarState extends State<DetailsCar> {
                         TextButton(
                           onPressed: () {
                             cubit.carList[cubit.pressedIndex!].decrement();
+                            carRepo.saveCarList(carros);
+                            cubit.rebuild();
+
+                            if (client.connectionStatus!.state ==
+                                MqttConnectionState.connected) {
+                              selectCar(context);
+                              sendData(cubit.pressedIndex, cubit);
+                            } else if (client.connectionStatus!.state ==
+                                MqttConnectionState.disconnected) {
+                              alertFailed(context);
+                            }
                           },
                           child: const Text(
                             '-',
@@ -518,10 +533,17 @@ class _DetailsCarState extends State<DetailsCar> {
                 //Botão de gasolina
                 Expanded(
                     child: RawMaterialButton(
-                  onLongPress: () {
-                    gasolineTime.reset();
+                  onPressed: () {
+                    cabouGasolina();
+                    if (client.connectionStatus!.state ==
+                        MqttConnectionState.connected) {
+                      selectCar(context);
+                      sendData(cubit.pressedIndex, cubit);
+                    } else if (client.connectionStatus!.state ==
+                        MqttConnectionState.disconnected) {
+                      alertFailed(context);
+                    }
                   },
-                  onPressed: cabouGasolina,
                   shape: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   child: Icon(
@@ -539,10 +561,17 @@ class _DetailsCarState extends State<DetailsCar> {
                 //Botão de carro quebrado
                 Expanded(
                     child: RawMaterialButton(
-                  onLongPress: () {
-                    breakTime.reset();
+                  onPressed: () {
+                    carroQuebrou();
+                    if (client.connectionStatus!.state ==
+                        MqttConnectionState.connected) {
+                      selectCar(context);
+                      sendData(cubit.pressedIndex, cubit);
+                    } else if (client.connectionStatus!.state ==
+                        MqttConnectionState.disconnected) {
+                      alertFailed(context);
+                    }
                   },
-                  onPressed: carroQuebrou,
                   shape: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black)),
                   child: Icon(isBreak ? Icons.build : Icons.build,
@@ -591,7 +620,17 @@ class _DetailsCarState extends State<DetailsCar> {
                 //Botão de voltas
                 IconButton(
                   iconSize: 60,
-                  onPressed: addVoltas,
+                  onPressed: () {
+                    addVoltas();
+                    if (client.connectionStatus!.state ==
+                        MqttConnectionState.connected) {
+                      selectCar(context);
+                      sendData(cubit.pressedIndex, cubit);
+                    } else if (client.connectionStatus!.state ==
+                        MqttConnectionState.disconnected) {
+                      alertFailed(context);
+                    }
+                  },
                   icon: const Icon(Icons.flag),
                   color: green,
                 ),

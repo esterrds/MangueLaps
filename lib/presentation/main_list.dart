@@ -1,4 +1,5 @@
 import 'package:mangue_laps/bloc/Connectivity/connectivity_cubit.dart';
+import 'package:mangue_laps/bloc/TimerCubit/timer_cubit.dart';
 import 'package:mangue_laps/config/const/connectivity.dart';
 import 'package:mangue_laps/presentation/colors.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,7 @@ class _MainListState extends State<MainList> {
   @override
   Widget build(BuildContext context) {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
+    TimerCubit tCubit = BlocProvider.of<TimerCubit>(context);
 
     cubit.setCarList(carros);
 
@@ -90,6 +92,7 @@ class _MainListState extends State<MainList> {
                               onPressed: () {
                                 setState(() {
                                   cubit.pressedIndex = index;
+                                  tCubit.pressedTimerIndex = cubit.pressedIndex;
 
                                   Title(
                                       color: Colors.black,
@@ -119,6 +122,14 @@ class _MainListState extends State<MainList> {
                               ),
                               onTap: () {
                                 increment(cubit, index);
+                                if (client.connectionStatus!.state ==
+                                    MqttConnectionState.connected) {
+                                  selectCar(context);
+                                  oneCar(index, cubit);
+                                } else if (client.connectionStatus!.state ==
+                                    MqttConnectionState.disconnected) {
+                                  alertFailed(context);
+                                }
                               },
                             ),
                             //botão de decremento
@@ -130,15 +141,6 @@ class _MainListState extends State<MainList> {
                               ),
                               onTap: () {
                                 decrement(cubit, index);
-                              },
-                            ),
-                            //botão de enviar dados individuais
-                            GestureDetector(
-                              child: const Icon(
-                                Icons.send,
-                                color: textColor,
-                              ),
-                              onTap: () {
                                 if (client.connectionStatus!.state ==
                                     MqttConnectionState.connected) {
                                   selectCar(context);
@@ -148,7 +150,7 @@ class _MainListState extends State<MainList> {
                                   alertFailed(context);
                                 }
                               },
-                            )
+                            ),
                           ],
                         ),
                       ));

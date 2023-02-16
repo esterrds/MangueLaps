@@ -5,6 +5,7 @@ import 'package:mangue_laps/presentation/home_page.dart';
 import 'package:mangue_laps/presentation/infoCar/list_break.dart';
 import 'package:mangue_laps/presentation/infoCar/list_gasoline.dart';
 import 'package:mangue_laps/presentation/infoCar/list_times.dart';
+import 'package:mangue_laps/presentation/monit/infoGroup.dart';
 import 'package:mangue_laps/presentation/nav_bar.dart';
 import 'package:mangue_laps/presentation/monit/view_page.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ListBreakTime());
       case gasolineTimes:
         return MaterialPageRoute(builder: (_) => const ListGasTime());
+      case infoGroup:
+        return MaterialPageRoute(builder: (_) => const InfoGroup());
       default:
         return MaterialPageRoute(builder: (_) => const MyHomePage());
     }

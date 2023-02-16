@@ -12,8 +12,33 @@ selectCar(BuildContext context) {
   );
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
-    title: const Text("Boa, Bajeiro(a)!"),
-    content: const Text("Você enviou um carro."),
+    //title: const Text("Boa, Bajeiro(a)!"),
+    content: const Text("Carro atualizado."),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
+  );
+}
+
+selectTime(BuildContext context) {
+  // configura o button
+  Widget okButton = ElevatedButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  // configura o  AlertDialog
+  AlertDialog alerta = AlertDialog(
+    //title: const Text("Boa, Bajeiro(a)!"),
+    content: const Text("Seu tempo foi enviado."),
     actions: [
       okButton,
     ],
@@ -64,7 +89,7 @@ alertSucess(BuildContext context) {
   );
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
-    title: const Text("Boa, Bajeiro(a)!"),
+    //title: const Text("Boa, Bajeiro(a)!"),
     content: const Text("Seus carros foram enviados."),
     actions: [
       okButton,
