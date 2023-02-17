@@ -85,7 +85,7 @@ class _TimePageState extends State<TimePage> {
                 (timer.startEnable)
                     ? ElevatedButton(
                         onPressed: timer.startTimer,
-                        child: const Text('Reiniciar'),
+                        child: const Text('Começar'),
                       )
                     : const ElevatedButton(
                         onPressed: null,

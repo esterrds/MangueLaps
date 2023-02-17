@@ -69,9 +69,11 @@ class _ViewPageState extends State<ViewPage> {
 
   Widget getCard(index) {
     var equipe = '${index['equipe']}#${index['carro']}';
-    var voltas = 'Voltas: ${index['voltas']}';
+    var voltas = 'nºv: ${index['voltas']}, ${index['tempovolta']}';
     var quebrado = '${index['quebrado']}';
+    var tempoquebra = '${index['tempoquebra']}';
     var abastecendo = '${index['abastecendo']}';
+    var tempogas = '${index['tempogas']}';
 
     bool isbreak = false;
     bool isempty = false;
@@ -106,8 +108,8 @@ class _ViewPageState extends State<ViewPage> {
             children: <Widget>[
               validation
                   ? Container(
-                      width: 60,
-                      height: 60,
+                      width: 30,
+                      height: 30,
                       decoration: BoxDecoration(
                         color: verdeClarinho,
                         borderRadius: BorderRadius.circular(60 / 2),
@@ -117,8 +119,8 @@ class _ViewPageState extends State<ViewPage> {
                               ? const Color.fromARGB(255, 230, 207, 5)
                               : Colors.red))
                   : Container(
-                      width: 60,
-                      height: 60,
+                      width: 30,
+                      height: 30,
                       decoration: BoxDecoration(
                         color: verdeClarinho,
                         borderRadius: BorderRadius.circular(60 / 2),
@@ -133,16 +135,17 @@ class _ViewPageState extends State<ViewPage> {
                   SizedBox(
                       width: MediaQuery.of(context).size.width - 140,
                       child: Text(
-                        equipe,
-                        style: const TextStyle(fontSize: 17),
+                        '$equipe  -  $voltas',
+                        style: const TextStyle(fontSize: 15),
                       )),
                   const SizedBox(
                     height: 10,
                   ),
                   Text(
-                    voltas,
+                    'Gasolina: $tempogas / Quebrou: $tempoquebra',
                     style: const TextStyle(
-                        color: Color.fromARGB(255, 116, 114, 114)),
+                        color: Color.fromARGB(255, 116, 114, 114),
+                        fontSize: 13),
                   ),
                   // IconButton(
                   //   icon: const Icon(Icons.info),

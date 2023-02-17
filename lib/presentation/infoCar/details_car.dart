@@ -14,6 +14,7 @@ import 'package:mangue_laps/repo/models/gasolinetime.dart';
 import 'package:mangue_laps/repo/models/lap_time.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../../bloc/Connectivity/connectivity_cubit.dart';
 import '../../bloc/ContadorCubit/contador_cubit.dart';
@@ -36,6 +37,13 @@ class _DetailsCarState extends State<DetailsCar> {
   BreakTimeRepo breakRepo = BreakTimeRepo();
 
   var timer;
+  var timenow = DateFormat('kk:mm:ss').format(DateTime.now());
+  var lapResult;
+  var gasResult;
+  var breakResult;
+  late int hourResult;
+  late int minutesResult;
+  late int secondsResult;
 
   //chamada de classes
   late LapTime geral = LapTime(tempo: _stopWatchText);
@@ -67,6 +75,8 @@ class _DetailsCarState extends State<DetailsCar> {
 
   //lista de voltas
   List laps = [];
+  List breaks = [];
+  List gas = [];
   List hour = [];
   List minutes = [];
   List seconds = [];
@@ -141,7 +151,6 @@ class _DetailsCarState extends State<DetailsCar> {
         } else {
           isStart = false;
           stopWatch.start();
-          timer.startTimer;
           _startTimeout();
         }
       }
@@ -307,7 +316,7 @@ class _DetailsCarState extends State<DetailsCar> {
   void initState() {
     super.initState();
 
-    timer = Provider.of<TimerProvider>(context, listen: false);
+    //timer = Provider.of<TimerProvider>(context, listen: false);
 
     lapRepo.getLapTime().then((value1) {
       setState(() {
@@ -336,9 +345,11 @@ class _DetailsCarState extends State<DetailsCar> {
   void dispose() {
     super.dispose();
 
-    stopWatch.stop();
-    gasolineTime.stop();
-    breakTime.stop();
+    if (!mounted) {
+      stopWatch.stop();
+      gasolineTime.stop();
+      breakTime.stop();
+    }
   }
 
   @override
@@ -356,6 +367,11 @@ class _DetailsCarState extends State<DetailsCar> {
                   Navigator.pushNamed(context, listTimes);
                 },
                 icon: const Icon(Icons.library_add)),
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, viewPage);
+                },
+                icon: const Icon(Icons.monitor)),
           ],
         ),
         body: _buildBody(),
@@ -409,11 +425,6 @@ class _DetailsCarState extends State<DetailsCar> {
               child: ListView.builder(
                 itemCount: getLapsLength(),
                 itemBuilder: (context, index) {
-                  var lapResult;
-                  int hourResult;
-                  int minutesResult;
-                  int secondsResult;
-
                   if (index == 0) {
                     lapResult = laps[index];
                   } else if (index > 0) {
@@ -463,62 +474,60 @@ class _DetailsCarState extends State<DetailsCar> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextButton(
-                          onPressed: () {
-                            setState(() {
-                              if (stopWatch.isRunning &&
-                                  !gasolineTime.isRunning &&
-                                  !breakTime.isRunning) {
-                                cubit.carList[cubit.pressedIndex!].increment();
-                                carRepo.saveCarList(carros);
-                                cubit.rebuild();
+                        // TextButton(
+                        //   onPressed: () {
+                        //     setState(() {
+                        //       if (stopWatch.isRunning &&
+                        //           !gasolineTime.isRunning &&
+                        //           !breakTime.isRunning) {
+                        //         cubit.carList[cubit.pressedIndex!].increment();
+                        //         carRepo.saveCarList(carros);
+                        //         cubit.rebuild();
 
-                                if (client.connectionStatus!.state ==
-                                    MqttConnectionState.connected) {
-                                  selectCar(context);
-                                  sendData(cubit.pressedIndex, cubit);
-                                } else if (client.connectionStatus!.state ==
-                                    MqttConnectionState.disconnected) {
-                                  alertFailed(context);
-                                }
-                                cubit.rebuild();
-                              } else {
-                                contaVolta(context);
-                              }
-                            });
-                          },
-                          child: const Icon(Icons.add),
-                        ),
+                        //         if (client.connectionStatus!.state ==
+                        //             MqttConnectionState.connected) {
+                        //           selectCar(context);
+                        //           sendData(cubit.pressedIndex, cubit);
+                        //         } else if (client.connectionStatus!.state ==
+                        //             MqttConnectionState.disconnected) {
+                        //           alertFailed(context);
+                        //         }
+                        //         cubit.rebuild();
+                        //       } else {
+                        //         contaVolta(context);
+                        //       }
+                        //     });
+                        //   },
+                        //   child: const Icon(Icons.add),
+                        // ),
                         Text(
-                          cubit.carList[cubit.pressedIndex!]
-                              .getVoltas()
-                              .toString(),
+                          '                          Voltas: ${cubit.carList[cubit.pressedIndex!].getVoltas().toString()}',
                           style: const TextStyle(
-                              color: Colors.black, fontSize: 14),
+                              color: Colors.black, fontSize: 17),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            cubit.carList[cubit.pressedIndex!].decrement();
-                            carRepo.saveCarList(carros);
-                            cubit.rebuild();
+                        // TextButton(
+                        //   onPressed: () {
+                        //     cubit.carList[cubit.pressedIndex!].decrement();
+                        //     carRepo.saveCarList(carros);
+                        //     cubit.rebuild();
 
-                            if (client.connectionStatus!.state ==
-                                MqttConnectionState.connected) {
-                              selectCar(context);
-                              sendData(cubit.pressedIndex, cubit);
-                            } else if (client.connectionStatus!.state ==
-                                MqttConnectionState.disconnected) {
-                              alertFailed(context);
-                            }
-                          },
-                          child: const Text(
-                            '-',
-                            style: TextStyle(
-                                fontSize: 100,
-                                color: Colors.black,
-                                backgroundColor: green),
-                          ),
-                        ),
+                        //     if (client.connectionStatus!.state ==
+                        //         MqttConnectionState.connected) {
+                        //       selectCar(context);
+                        //       sendData(cubit.pressedIndex, cubit);
+                        //     } else if (client.connectionStatus!.state ==
+                        //         MqttConnectionState.disconnected) {
+                        //       alertFailed(context);
+                        //     }
+                        //   },
+                        //   child: const Text(
+                        //     '-',
+                        //     style: TextStyle(
+                        //         fontSize: 100,
+                        //         color: Colors.black,
+                        //         backgroundColor: green),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -635,6 +644,8 @@ class _DetailsCarState extends State<DetailsCar> {
                   iconSize: 60,
                   onPressed: () {
                     addVoltas();
+                    cubit.carList[cubit.pressedIndex!].increment();
+                    carRepo.saveCarList(cubit.carList);
                     if (client.connectionStatus!.state ==
                         MqttConnectionState.connected) {
                       selectCar(context);
@@ -978,8 +989,22 @@ class _DetailsCarState extends State<DetailsCar> {
       default:
     }
 
-    builder
-        .addString("$id,${carCubit.carList[index].voltas},$isnotFull,$isBreak");
+    if (isBreak == false &&
+        isnotFull == false &&
+        carCubit.carList[index].voltas > (0)) {
+      builder.addString(
+          "$id,${carCubit.carList[index].voltas},$lapResult, $isnotFull, cheio, $isBreak, nao");
+    }
+
+    if (isBreak == true) {
+      builder.addString(
+          "$id,${carCubit.carList[index].voltas}, parado, $isnotFull, cheio, $isBreak, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
+    }
+
+    if (isnotFull == true) {
+      builder.addString(
+          "$id,${carCubit.carList[index].voltas}, parado, $isnotFull, ${DateFormat('kk:mm:ss').format(DateTime.now())}, $isBreak, nao");
+    }
     client.publishMessage(mqttPubTopic3, MqttQos.atLeastOnce, builder.payload!);
   }
 }

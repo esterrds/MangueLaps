@@ -92,7 +92,6 @@ class _MainListState extends State<MainList> {
                               onPressed: () {
                                 setState(() {
                                   cubit.pressedIndex = index;
-                                  tCubit.pressedTimerIndex = cubit.pressedIndex;
 
                                   Title(
                                       color: Colors.black,

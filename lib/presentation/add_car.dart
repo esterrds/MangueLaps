@@ -114,26 +114,4 @@ class _CarAdderState extends State<CarAdder> {
       ),
     );
   }
-
-  onDelete(Carro carro) {
-    deletedCarro = carro;
-    deletedCarroPos = carros.indexOf(carro);
-    setState(() {
-      carros.remove(carro);
-    });
-    carRepo.saveCarList(carros);
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content:
-            Text('Carro: ${carro.nome} de nº ${carro.numero} foi removido'),
-        action: SnackBarAction(
-            label: 'Desfazer',
-            onPressed: () {
-              setState(() {
-                carros.insert(deletedCarroPos!, deletedCarro!);
-              });
-              carRepo.saveCarList(carros);
-            }),
-        duration: const Duration(seconds: 5)));
-  }
 }
