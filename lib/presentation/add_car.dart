@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mangue_laps/config/navigator/routes.dart';
 import 'package:mangue_laps/presentation/alert/msg_alerta.dart';
 import 'package:mangue_laps/repo/localSave/save_car.dart';
 import 'package:mangue_laps/repo/models/car.dart';
@@ -35,11 +36,11 @@ class _CarAdderState extends State<CarAdder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text(
-        "Adicione um Carro",
-        textAlign: TextAlign.center,
-      )),
+      // appBar: AppBar(
+      //     title: const Text(
+      //   "Adicione um Carro",
+      //   textAlign: TextAlign.center,
+      // )),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
@@ -79,7 +80,7 @@ class _CarAdderState extends State<CarAdder> {
 
             //botão de confirmar, manda os dados cadastrados para o contador
             Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.all(20),
               child: ElevatedButton(
                 onPressed: () {
                   if (nameController.toString().isNotEmpty &&
@@ -99,14 +100,24 @@ class _CarAdderState extends State<CarAdder> {
                     numberController.clear();
                     /*print(
                           "carro: ${numberController.text}, equipe: ${nameController.text}");*/
-                    Navigator.pop(context);
+                    Navigator.pushNamed(context, carList);
                   } else if (nameController.toString().isNotEmpty) {
                     nomeVazio(context);
                   } else if (numberController.toString().isNotEmpty) {
                     numeroVazio(context);
                   }
                 },
-                child: const Text("Confirmar"),
+                child: const Text('GO!'),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, viewPage);
+                },
+                child: const Text('MONITORAMENTO'),
               ),
             ),
           ],

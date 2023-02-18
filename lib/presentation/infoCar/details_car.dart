@@ -57,6 +57,17 @@ class _DetailsCarState extends State<DetailsCar> {
     });
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+
+    if (!mounted) {
+      stopWatch.stop();
+      gasolineTime.stop();
+      breakTime.stop();
+    }
+  }
+
   CarRepository carRepo = CarRepository();
   LapTimeRepo lapRepo = LapTimeRepo();
   GasolineTimeRepo gasRepo = GasolineTimeRepo();
@@ -145,9 +156,11 @@ class _DetailsCarState extends State<DetailsCar> {
     if (gasolineTime.isRunning) {
       startGasolineTime();
     }
-    setState(() {
-      _setGasolineTimeText();
-    });
+    if (mounted) {
+      setState(() {
+        _setGasolineTimeText();
+      });
+    }
   }
 
   //tempo limite conserto/box
@@ -159,9 +172,11 @@ class _DetailsCarState extends State<DetailsCar> {
     if (breakTime.isRunning) {
       startBreakTime();
     }
-    setState(() {
-      _setBreakTimeText();
-    });
+    if (mounted) {
+      setState(() {
+        _setBreakTimeText();
+      });
+    }
   }
 
   void botaoStartStop() {
@@ -238,6 +253,7 @@ class _DetailsCarState extends State<DetailsCar> {
     });
   }
 
+//n guento mais
   void carroQuebrou() {
     setState(() {
       if (_stopWatchText != '00:00:00' && !gasolineTime.isRunning) {
@@ -341,16 +357,11 @@ class _DetailsCarState extends State<DetailsCar> {
     carRepo.saveCarList(cubit.carList);
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-
-    if (!mounted) {
-      stopWatch.stop();
-      gasolineTime.stop();
-      breakTime.stop();
-    }
-  }
+  //média tempo de volta
+  // double calculaTotal(List<LapTime> tempoGeral) {
+  //   var total = tempoGeral.reduce((lap1, lap2) => (lap1 + lap2));
+  //   return 1;
+  // }
 
   @override
   Widget build(BuildContext context) {

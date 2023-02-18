@@ -73,6 +73,7 @@ class _MainListState extends State<MainList> {
                               label: 'Desfazer',
                               onPressed: () {
                                 undoDelete(index, equipes);
+                                cubit.rebuild();
                               },
                             ),
                           );

@@ -18,14 +18,14 @@ class _CarPageState extends State<CarPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Contador de voltas")),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, carAdder);
-                },
-                icon: const Icon(Icons.add))
-          ],
+          title: const Center(child: Text("Lista de carros")),
+          // actions: [
+          //   IconButton(
+          //       onPressed: () {
+          //         Navigator.pushNamed(context, carAdder);
+          //       },
+          //       icon: const Icon(Icons.add))
+          // ],
         ),
         body: const MainList(),
       ),

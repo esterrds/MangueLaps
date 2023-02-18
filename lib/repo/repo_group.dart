@@ -14,7 +14,8 @@ class GroupRepository extends ChangeNotifier {
 
   sort() {
     if (!isSorted) {
-      groups.sort((Group a, Group b) => a.voltas.compareTo(b.voltas));
+      groups.sort((Group a, Group b) =>
+          b.voltas.padLeft(2, '0').compareTo(a.voltas.padLeft(2, '0')));
       isSorted = true;
     } else {
       groups = groups.reversed.toList();
@@ -31,9 +32,15 @@ class GroupRepository extends ChangeNotifier {
     for (var grupo in json) {
       groups.add(Group(
           equipe: '${grupo['equipe']}',
+          carro: grupo['carro'],
           voltas: grupo['voltas'],
+          tempovolta: grupo['tempovolta'],
           abastecendo: grupo['abastecendo'],
-          quebrado: grupo['quebrado']));
+          quebrado: grupo['quebrado'],
+          tempogas: grupo['tempogas'],
+          tempovoltagas: grupo['tempovoltagas'],
+          tempoquebra: grupo['tempoquebra'],
+          voltoupista: grupo['tempovoltapista']));
     }
   }
 }

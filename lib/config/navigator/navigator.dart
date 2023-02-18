@@ -8,6 +8,7 @@ import 'package:mangue_laps/presentation/monit/infoGroup.dart';
 import 'package:mangue_laps/presentation/nav_bar.dart';
 import 'package:mangue_laps/presentation/monit/view_page.dart';
 import 'package:flutter/material.dart';
+import 'package:mangue_laps/presentation/view_organizado.dart';
 
 import '../../presentation/counter_list.dart';
 import '../../presentation/infoCar/details_car.dart';
@@ -17,18 +18,18 @@ import '../../presentation/infoCar/details_car.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      // case initRoute:
-      //   return MaterialPageRoute(builder: (_) => const MyHomePage());
+      case initRoute:
+        return MaterialPageRoute(builder: (_) => const MyHomePage());
       case carAdder:
         return MaterialPageRoute(builder: (_) => CarAdder());
       case navBar:
         return MaterialPageRoute(builder: (_) => const NavBar());
       case viewPage:
-        return MaterialPageRoute(builder: (_) => const ViewPage());
+        return MaterialPageRoute(builder: (_) => const ListViewCar());
       case carList:
         return MaterialPageRoute(builder: (_) => const CarPage());
       case detailsPage:
-        return MaterialPageRoute(builder: (_) => const DetailsCar());
+        return MaterialPageRoute(builder: (_) => DetailsCar());
       case listTimes:
         return MaterialPageRoute(builder: (_) => const ListTimes());
       case breakTimes:
