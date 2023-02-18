@@ -30,13 +30,15 @@ class _ViewPageState extends State<ViewPage> {
     var result = await http.get(url);
 
     if (result.statusCode == 200) {
-      setState(() {
-        data.clear();
-        var jsonItems = jsonDecode(result.body);
+      if (mounted) {
+        setState(() {
+          data.clear();
+          var jsonItems = jsonDecode(result.body);
 
-        data = jsonItems;
-        isLoading = false;
-      });
+          data = jsonItems;
+          isLoading = false;
+        });
+      }
     } else {
       data = [];
       isLoading = false;

@@ -119,6 +119,14 @@ class _TimePageState extends State<TimePage> {
 
   Widget buildTime() {
     return Consumer<TimerProvider>(builder: (context, timeprovider, widget) {
+      var seconds = timer.seconds;
+      if (seconds == 1800) {
+        timer.stop;
+        return const Icon(
+          Icons.done,
+          color: verdeClarinho,
+        );
+      }
       return Center(
         child: Text(
           '${timer.hour.toString().padLeft(2, '0')} : ${timer.minute.toString().padLeft(2, '0')} : ${timer.seconds.toString().padLeft(2, '0')} ',

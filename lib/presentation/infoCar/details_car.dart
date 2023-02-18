@@ -28,6 +28,35 @@ class DetailsCar extends StatefulWidget {
 }
 
 class _DetailsCarState extends State<DetailsCar> {
+  @override
+  void initState() {
+    super.initState();
+
+    //timer = Provider.of<TimerProvider>(context, listen: false);
+
+    lapRepo.getLapTime().then((value1) {
+      setState(() {
+        tempoGeral = value1;
+      });
+    });
+
+    gasRepo.getGasTime().then((value2) {
+      setState(() {
+        gasolinetimes = value2;
+      });
+    });
+
+    breakRepo.getBreakTime().then((value3) {
+      setState(() {
+        breaktimes = value3;
+      });
+    });
+
+    carRepo.getCarList().then((value) {
+      carros = value;
+    });
+  }
+
   CarRepository carRepo = CarRepository();
   LapTimeRepo lapRepo = LapTimeRepo();
   GasolineTimeRepo gasRepo = GasolineTimeRepo();
@@ -35,8 +64,6 @@ class _DetailsCarState extends State<DetailsCar> {
 
   var timenow = DateFormat('kk:mm:ss').format(DateTime.now());
   var lapResult;
-  var gasResult;
-  var breakResult;
   late int hourResult;
   late int minutesResult;
   late int secondsResult;
@@ -47,14 +74,10 @@ class _DetailsCarState extends State<DetailsCar> {
   late GasolineTime gasolina = GasolineTime(tempoGasolina: gasolineTimeText);
 
   //validação dos botões
-  bool isMount = true;
   bool isStart = true;
   bool isBreak = false;
   bool isnotFull = false;
-  bool isBack = false;
-  bool isBackGas = false;
-  int breakCount = 0;
-  int gasCount = 0;
+  int count = 0;
 
   //tempos
   String _stopWatchText = '00:00:00';
@@ -158,7 +181,6 @@ class _DetailsCarState extends State<DetailsCar> {
   }
 
   void cabouGasolina() {
-    gasCount++;
     setState(() {
       if (_stopWatchText != '00:00:00' && !breakTime.isRunning) {
         if (gasolineTime.isRunning) {
@@ -167,7 +189,7 @@ class _DetailsCarState extends State<DetailsCar> {
           //parou de abastecer
           setState(() {
             isnotFull = false;
-            isBackGas = true;
+            count = 1;
 
             GasolineTime newGT = GasolineTime(
               tempoGasolina: gasolineTimeText.toString(),
@@ -175,7 +197,6 @@ class _DetailsCarState extends State<DetailsCar> {
             gasolinetimes.add(newGT);
           });
           gasRepo.saveGTList(gasolinetimes);
-          print(gasolinetimes);
 
           //SÓ RODAR SE O CRONOMETRO PRINCIPAL PARAR
           if (stopWatch.isRunning) {
@@ -195,7 +216,7 @@ class _DetailsCarState extends State<DetailsCar> {
           //parou pra abastecer
           setState(() {
             isnotFull = true;
-            isBackGas = false;
+            count = 2;
 
             GasolineTime newGT = GasolineTime(
               tempoGasolina: gasolineTimeText.toString(),
@@ -225,14 +246,13 @@ class _DetailsCarState extends State<DetailsCar> {
 
           setState(() {
             isBreak = false;
-            isBack = true;
-            breakCount = 0;
+
+            count = 0;
 
             BreakTime newBT = BreakTime(tempoBox: breakTimeText.toString());
             breaktimes.add(newBT);
           });
           breakRepo.saveBTList(breaktimes);
-          print(breaktimes);
 
           if (stopWatch.isRunning) {
             isStart = true;
@@ -246,8 +266,6 @@ class _DetailsCarState extends State<DetailsCar> {
           }
         } else {
           isBreak = true;
-          isBack = false;
-          breakCount++;
 
           breakTime.start();
           startBreakTime();
@@ -304,10 +322,9 @@ class _DetailsCarState extends State<DetailsCar> {
 
   //adicionar voltas
   void addVoltas() {
-    int horas = stopWatch.elapsed.inHours;
+    ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
     int minutos = stopWatch.elapsed.inMinutes % 60;
     int segundos = stopWatch.elapsed.inSeconds % 60;
-    hour.add(horas);
     minutes.add(minutos);
     seconds.add(segundos);
 
@@ -320,36 +337,8 @@ class _DetailsCarState extends State<DetailsCar> {
       tempoGeral.add(geral);
     });
     lapRepo.saveLapTimes(tempoGeral);
-    print(tempoGeral);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    //timer = Provider.of<TimerProvider>(context, listen: false);
-
-    lapRepo.getLapTime().then((value1) {
-      setState(() {
-        tempoGeral = value1;
-      });
-    });
-
-    gasRepo.getGasTime().then((value2) {
-      setState(() {
-        gasolinetimes = value2;
-      });
-    });
-
-    breakRepo.getBreakTime().then((value3) {
-      setState(() {
-        breaktimes = value3;
-      });
-    });
-
-    carRepo.getCarList().then((value) {
-      carros = value;
-    });
+    cubit.carList[cubit.pressedIndex!].increment();
+    carRepo.saveCarList(cubit.carList);
   }
 
   @override
@@ -365,8 +354,6 @@ class _DetailsCarState extends State<DetailsCar> {
 
   @override
   Widget build(BuildContext context) {
-    ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -443,7 +430,6 @@ class _DetailsCarState extends State<DetailsCar> {
                     lapResult =
                         '${minutesResult.toString().padLeft(2, '0')}:${secondsResult.toString().padLeft(2, '0')}';
                   } else if (index != 0) {
-                    //hourResult = hour[index] - hour[index - 1];
                     minutesResult = minutes[index] - minutes[index - 1];
                     secondsResult = seconds[index] - seconds[index - 1];
 
@@ -451,7 +437,6 @@ class _DetailsCarState extends State<DetailsCar> {
                         '${minutesResult.toString().padLeft(2, '0')}:${secondsResult.toString().padLeft(2, '0')}';
                     //laps.add(lapResult);
                   }
-                  //laps.add(lapResult);
 
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -613,10 +598,11 @@ class _DetailsCarState extends State<DetailsCar> {
                   onPressed: () {
                     if (!gasolineTime.isRunning || !breakTime.isRunning) {
                       addVoltas();
-                      cubit.carList[cubit.pressedIndex!].increment();
-                      carRepo.saveCarList(cubit.carList);
+                      count = 3;
+
                       if (client.connectionStatus!.state ==
                           MqttConnectionState.connected) {
+                        count = 3;
                         selectCar(context);
                         sendData(cubit.pressedIndex, cubit);
                       } else if (client.connectionStatus!.state ==
@@ -950,7 +936,7 @@ class _DetailsCarState extends State<DetailsCar> {
           "$id, $isBreak, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
       client.publishMessage(
           mqttPubTopic6, MqttQos.atLeastOnce, builder.payload!);
-    } else if (stopWatch.isRunning && (breakCount % 2) == 0) {
+    } else if (stopWatch.isRunning && count == 0) {
       builder.addString(
           "$id, $isBreak, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
       client.publishMessage(
@@ -962,18 +948,18 @@ class _DetailsCarState extends State<DetailsCar> {
           "$id, $isnotFull, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
       client.publishMessage(
           mqttPubTopic5, MqttQos.atLeastOnce, builder.payload!);
-    } else if (stopWatch.isRunning && (gasCount % 2) == 0) {
+    } else if (stopWatch.isRunning && count == 1) {
       builder.addString(
           "$id, $isnotFull, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
       client.publishMessage(
           mqttPubTopic7, MqttQos.atLeastOnce, builder.payload!);
     }
 
-    // if (stopWatch.isRunning) {
-    //   builder.addString(
-    //       "$id,${carCubit.carList[index].voltas},${laps[index]}, $isnotFull, $isBreak");
-    //   client.publishMessage(
-    //       mqttPubTopic3, MqttQos.atLeastOnce, builder.payload!);
-    // }
+    if (stopWatch.isRunning && count == 3) {
+      builder.addString(
+          "$id,${carCubit.carList[index].voltas},$lapResult, $isnotFull, $isBreak");
+      client.publishMessage(
+          mqttPubTopic3, MqttQos.atLeastOnce, builder.payload!);
+    }
   }
 }
