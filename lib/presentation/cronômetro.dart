@@ -60,7 +60,7 @@ class _TimePageState extends State<TimePage> {
                 CircularProgressIndicator(
                   value: seconds / finaltime,
                   valueColor: const AlwaysStoppedAnimation(darkerGreen),
-                  strokeWidth: 17,
+                  strokeWidth: 12,
                   backgroundColor: verdeClarinho,
                 ),
                 Center(

@@ -4,14 +4,12 @@ import 'package:mangue_laps/bloc/Provider/timer_provider.dart';
 import 'package:mangue_laps/presentation/design/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mangue_laps/presentation/design/splash_screen.dart';
 import 'package:mangue_laps/presentation/home_page.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/ContadorCubit/contador_cubit.dart';
 import 'bloc/TimerCubit/timer_cubit.dart';
 import 'config/navigator/navigator.dart';
-import 'config/navigator/routes.dart';
 
 //início
 void main() {

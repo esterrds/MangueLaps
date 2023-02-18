@@ -48,13 +48,18 @@ class _ViewPageState extends State<ViewPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text("Monitoramento")),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.swap_vert_circle_outlined))
+        ],
       ),
       body: getBody(),
     );
   }
 
   Widget getBody() {
-    if (data.contains(null) || data.length < 0 || isLoading) {
+    if (data.contains(null) || isLoading) {
       return const Center(
           child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(green),
@@ -69,11 +74,13 @@ class _ViewPageState extends State<ViewPage> {
 
   Widget getCard(index) {
     var equipe = '${index['equipe']}#${index['carro']}';
-    var voltas = 'nºv: ${index['voltas']}, ${index['tempovolta']}';
+    var voltas = 'V: ${index['voltas']}, ${index['tempovolta']}';
     var quebrado = '${index['quebrado']}';
     var tempoquebra = '${index['tempoquebra']}';
+    var voltoupista = '${index['tempovoltapista']}';
     var abastecendo = '${index['abastecendo']}';
     var tempogas = '${index['tempogas']}';
+    var tempovoltagas = '${index['tempovoltagas']}';
 
     bool isbreak = false;
     bool isempty = false;
@@ -142,7 +149,13 @@ class _ViewPageState extends State<ViewPage> {
                     height: 10,
                   ),
                   Text(
-                    'Gasolina: $tempogas / Quebrou: $tempoquebra',
+                    'E.Gas: $tempogas / Parou: $tempoquebra',
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 116, 114, 114),
+                        fontSize: 13),
+                  ),
+                  Text(
+                    'S.Gas: $tempovoltagas / Voltou: $voltoupista',
                     style: const TextStyle(
                         color: Color.fromARGB(255, 116, 114, 114),
                         fontSize: 13),
