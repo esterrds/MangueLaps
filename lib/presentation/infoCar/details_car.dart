@@ -353,8 +353,6 @@ class _DetailsCarState extends State<DetailsCar> {
       tempoGeral.add(geral);
     });
     lapRepo.saveLapTimes(tempoGeral);
-    cubit.carList[cubit.pressedIndex!].increment();
-    carRepo.saveCarList(cubit.carList);
   }
 
   //média tempo de volta
@@ -604,8 +602,8 @@ class _DetailsCarState extends State<DetailsCar> {
                 const SizedBox(height: 10.0),
 
                 //Botão de voltas
-                IconButton(
-                  iconSize: 60,
+                ElevatedButton(
+                  //iconSize: 60,
                   onPressed: () {
                     if (!gasolineTime.isRunning || !breakTime.isRunning) {
                       addVoltas();
@@ -615,6 +613,8 @@ class _DetailsCarState extends State<DetailsCar> {
                           MqttConnectionState.connected) {
                         count = 3;
                         selectCar(context);
+                        cubit.carList[cubit.pressedIndex!].increment();
+                        carRepo.saveCarList(cubit.carList);
                         sendData(cubit.pressedIndex, cubit);
                       } else if (client.connectionStatus!.state ==
                           MqttConnectionState.disconnected) {
@@ -622,8 +622,15 @@ class _DetailsCarState extends State<DetailsCar> {
                       }
                     }
                   },
-                  icon: const Icon(Icons.flag),
-                  color: green,
+                  onLongPress: () {
+                    cubit.carList[cubit.pressedIndex!].decrement();
+                    carRepo.saveCarList(cubit.carList);
+                  },
+
+                  child: const Icon(
+                    Icons.flag,
+                    //color: green,
+                  ),
                 ),
 
                 const SizedBox(height: 10.0),
@@ -944,31 +951,31 @@ class _DetailsCarState extends State<DetailsCar> {
 
     if (breakTime.isRunning) {
       builder.addString(
-          "$id, $isBreak, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
+          "$id,$isBreak,${DateFormat('kk:mm:ss').format(DateTime.now())}");
       client.publishMessage(
           mqttPubTopic6, MqttQos.atLeastOnce, builder.payload!);
     } else if (stopWatch.isRunning && count == 0) {
       builder.addString(
-          "$id, $isBreak, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
+          "$id,$isBreak,${DateFormat('kk:mm:ss').format(DateTime.now())}");
       client.publishMessage(
           mqttPubTopic4, MqttQos.atLeastOnce, builder.payload!);
     }
 
     if (gasolineTime.isRunning) {
       builder.addString(
-          "$id, $isnotFull, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
+          "$id,$isnotFull,${DateFormat('kk:mm:ss').format(DateTime.now())}");
       client.publishMessage(
           mqttPubTopic5, MqttQos.atLeastOnce, builder.payload!);
     } else if (stopWatch.isRunning && count == 1) {
       builder.addString(
-          "$id, $isnotFull, ${DateFormat('kk:mm:ss').format(DateTime.now())}");
+          "$id,$isnotFull,${DateFormat('kk:mm:ss').format(DateTime.now())}");
       client.publishMessage(
           mqttPubTopic7, MqttQos.atLeastOnce, builder.payload!);
     }
 
     if (stopWatch.isRunning && count == 3) {
       builder.addString(
-          "$id,${carCubit.carList[index].voltas},$lapResult, $isnotFull, $isBreak");
+          "$id,${carCubit.carList[index].voltas},$lapResult,$isnotFull,$isBreak");
       client.publishMessage(
           mqttPubTopic3, MqttQos.atLeastOnce, builder.payload!);
     }

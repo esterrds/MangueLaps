@@ -63,7 +63,7 @@ class _MainListState extends State<MainList> {
                           var equipes = cubit.carList[index];
                           cubit.carList.removeAt(index);
                           cubit.rebuild();
-                          //carRepo.saveCarList(carros);
+                          cubit.setCarList(carros);
                           final snackBar = SnackBar(
                             content: const Text('Carro removido.'),
 
@@ -89,7 +89,7 @@ class _MainListState extends State<MainList> {
                                 Navigator.pushNamed(context, detailsPage);
                               },
                               child: Text(
-                                  'Equipe ${cubit.carList[index].nome}, carro ${cubit.carList[index].numero}',
+                                  '${cubit.carList[index].nome} #${cubit.carList[index].numero}',
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,

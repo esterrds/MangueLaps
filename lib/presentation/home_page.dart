@@ -45,6 +45,11 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -52,13 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
         body: CarAdder(),
         appBar: AppBar(
           title: const Center(child: Text("Adicione um carro")),
-          // actions: [
-          //   IconButton(
-          //       onPressed: () {
-          //         Navigator.pushNamed(context, carAdder);
-          //       },
-          //       icon: const Icon(Icons.add))
-          // ],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, carList);
+                },
+                icon: Icon(Icons.arrow_right))
+          ],
         ),
         // bottomNavigationBar: BottomNavigationBar(
         //   items: const <BottomNavigationBarItem>[

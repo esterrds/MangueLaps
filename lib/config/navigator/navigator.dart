@@ -6,9 +6,8 @@ import 'package:mangue_laps/presentation/infoCar/list_gasoline.dart';
 import 'package:mangue_laps/presentation/infoCar/list_times.dart';
 import 'package:mangue_laps/presentation/monit/infoGroup.dart';
 import 'package:mangue_laps/presentation/nav_bar.dart';
-import 'package:mangue_laps/presentation/monit/view_page.dart';
 import 'package:flutter/material.dart';
-import 'package:mangue_laps/presentation/view_organizado.dart';
+import 'package:mangue_laps/presentation/monit/view_organizado.dart';
 
 import '../../presentation/counter_list.dart';
 import '../../presentation/infoCar/details_car.dart';

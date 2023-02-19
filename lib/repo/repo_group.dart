@@ -19,6 +19,7 @@ class GroupRepository extends ChangeNotifier {
       isSorted = true;
     } else {
       groups = groups.reversed.toList();
+      isSorted = false;
     }
     notifyListeners();
   }

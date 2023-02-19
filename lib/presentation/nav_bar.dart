@@ -81,12 +81,16 @@ class NavBar extends StatelessWidget {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 100,
+              ),
 
               //logo mangue baja
               SizedBox(
-                width: 100,
-                height: 400,
-                child: Image.asset('assets/images/logoVerde.png'),
+                width: 50,
+                height: 180,
+                child:
+                    Image.asset('assets/images/LOGO DA MANGUE OFICIAL 2.png'),
               ),
               Row(
                 children: const [],
