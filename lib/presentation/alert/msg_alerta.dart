@@ -253,3 +253,28 @@ breakAlert(BuildContext context) {
     },
   );
 }
+
+numeroErrado(BuildContext context) {
+  // configura o button
+  Widget okButton = ElevatedButton(
+    child: const Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
+  // configura o  AlertDialog
+  AlertDialog alerta = AlertDialog(
+    title: const Text("Carro não enviado!"),
+    content: const Text("Escolha um número de 2 a 67."),
+    actions: [
+      okButton,
+    ],
+  );
+  // exibe o dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
+  );
+}

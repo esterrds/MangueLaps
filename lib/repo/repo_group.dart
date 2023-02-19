@@ -33,6 +33,7 @@ class GroupRepository extends ChangeNotifier {
       groups.add(Group(
           equipe: '${grupo['equipe']}',
           carro: grupo['carro'],
+          tipo: grupo['qporq'],
           voltas: grupo['voltas'],
           tempovolta: grupo['tempovolta'],
           abastecendo: grupo['abastecendo'],

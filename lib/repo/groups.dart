@@ -1,6 +1,7 @@
 class Group {
   var equipe;
   var carro;
+  var tipo;
   var voltas;
   var quebrado;
   var tempoquebra;
@@ -13,6 +14,7 @@ class Group {
   Group(
       {required this.equipe,
       required this.carro,
+      required this.tipo,
       required this.voltas,
       required this.tempovolta,
       required this.abastecendo,

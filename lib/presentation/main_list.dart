@@ -10,7 +10,6 @@ import 'package:mqtt_client/mqtt_client.dart';
 import '../bloc/ContadorCubit/contador_cubit.dart';
 import '../config/navigator/routes.dart';
 import '../repo/models/car.dart';
-import 'alert/msg_alerta.dart';
 
 //página do contador
 
@@ -64,7 +63,7 @@ class _MainListState extends State<MainList> {
                           var equipes = cubit.carList[index];
                           cubit.carList.removeAt(index);
                           cubit.rebuild();
-                          carRepo.saveCarList(carros);
+                          //carRepo.saveCarList(carros);
                           final snackBar = SnackBar(
                             content: const Text('Carro removido.'),
 
@@ -73,7 +72,6 @@ class _MainListState extends State<MainList> {
                               label: 'Desfazer',
                               onPressed: () {
                                 undoDelete(index, equipes);
-                                cubit.rebuild();
                               },
                             ),
                           );
@@ -83,73 +81,20 @@ class _MainListState extends State<MainList> {
                           //organização da lista
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Text(
-                              '${cubit.carList[index].numero}',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w400),
-                            ),
-
                             ElevatedButton(
                               onPressed: () {
                                 setState(() {
                                   cubit.pressedIndex = index;
-
-                                  Title(
-                                      color: Colors.black,
-                                      child: Text(cubit.carList[index].nome,
-                                          style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500)));
                                 });
                                 Navigator.pushNamed(context, detailsPage);
                               },
-                              child: Text(cubit.carList[index].nome,
+                              child: Text(
+                                  'Equipe ${cubit.carList[index].nome}, carro ${cubit.carList[index].numero}',
                                   style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500)),
-                            ),
-                            Text(
-                              cubit.carList[index].getVoltas().toString(),
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                            //botão de incremento
-                            GestureDetector(
-                              child: const Icon(
-                                Icons.arrow_drop_up_sharp,
-                                color: darkerGreen,
-                                size: 30,
-                              ),
-                              onTap: () {
-                                increment(cubit, index);
-                                if (client.connectionStatus!.state ==
-                                    MqttConnectionState.connected) {
-                                  selectCar(context);
-                                  oneCar(index, cubit);
-                                } else if (client.connectionStatus!.state ==
-                                    MqttConnectionState.disconnected) {
-                                  alertFailed(context);
-                                }
-                              },
-                            ),
-                            //botão de decremento
-                            GestureDetector(
-                              child: const Icon(
-                                Icons.arrow_drop_down_sharp,
-                                color: darkerGreen,
-                                size: 30,
-                              ),
-                              onTap: () {
-                                decrement(cubit, index);
-                                if (client.connectionStatus!.state ==
-                                    MqttConnectionState.connected) {
-                                  selectCar(context);
-                                  oneCar(index, cubit);
-                                } else if (client.connectionStatus!.state ==
-                                    MqttConnectionState.disconnected) {
-                                  alertFailed(context);
-                                }
-                              },
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    //color: Colors.white,
+                                  )),
                             ),
                           ],
                         ),

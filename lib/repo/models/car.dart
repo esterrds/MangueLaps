@@ -2,12 +2,18 @@ class Carro {
   Carro.fromJson(Map<String, dynamic> json)
       : nome = json['nome'],
         numero = json['numero'] ?? 123,
-        voltas = json['voltas'];
+        voltas = json['voltas'],
+        tipo = json['tipo'] ?? false;
 
-  Carro({required this.nome, required this.numero, required this.voltas});
+  Carro(
+      {required this.nome,
+      required this.numero,
+      required this.voltas,
+      required this.tipo});
   String nome;
   int numero;
   int voltas = 0;
+  bool tipo;
 
   int getVoltas() => voltas;
 
@@ -35,6 +41,11 @@ class Carro {
   }
 
   Map<String, dynamic> toJson() {
-    return {'nome': nome, 'numero': numero, 'voltas': getVoltas()};
+    return {
+      'nome': nome,
+      'numero': numero,
+      'voltas': getVoltas(),
+      'tipo': tipo
+    };
   }
 }
