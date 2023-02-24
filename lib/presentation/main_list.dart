@@ -38,7 +38,7 @@ class _MainListState extends State<MainList> {
   @override
   Widget build(BuildContext context) {
     ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
-    TimerCubit tCubit = BlocProvider.of<TimerCubit>(context);
+    //TimerCubit tCubit = BlocProvider.of<TimerCubit>(context);
 
     cubit.setCarList(carros);
 
@@ -63,7 +63,7 @@ class _MainListState extends State<MainList> {
                           var equipes = cubit.carList[index];
                           cubit.carList.removeAt(index);
                           cubit.rebuild();
-                          cubit.setCarList(carros);
+                          carRepo.saveCarList(carros);
                           final snackBar = SnackBar(
                             content: const Text('Carro removido.'),
 

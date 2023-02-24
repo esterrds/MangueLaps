@@ -338,7 +338,7 @@ class _DetailsCarState extends State<DetailsCar> {
 
   //adicionar voltas
   void addVoltas() {
-    ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
+    //ContadorCubit cubit = BlocProvider.of<ContadorCubit>(context);
     int minutos = stopWatch.elapsed.inMinutes % 60;
     int segundos = stopWatch.elapsed.inSeconds % 60;
     minutes.add(minutos);
