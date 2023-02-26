@@ -12,7 +12,15 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Column(
-        children: const [
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/garrinha.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
           // Image.asset(
           //   "assets/garrinha.png",
           //   width: 200,

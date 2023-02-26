@@ -1,7 +1,7 @@
 import 'package:mangue_laps/bloc/Connectivity/connectivity_cubit.dart';
-import 'package:mangue_laps/bloc/TimerCubit/timer_cubit.dart';
+//import 'package:mangue_laps/bloc/TimerCubit/timer_cubit.dart';
 import 'package:mangue_laps/config/const/connectivity.dart';
-import 'package:mangue_laps/presentation/design/colors.dart';
+//import 'package:mangue_laps/presentation/design/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/repo/localSave/save_car.dart';

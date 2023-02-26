@@ -75,6 +75,7 @@ class _DetailsCarState extends State<DetailsCar> {
 
   var timenow = DateFormat('kk:mm:ss').format(DateTime.now());
   var lapResult;
+  var tempoVolta;
   late int hourResult;
   late int minutesResult;
   late int secondsResult;
@@ -353,6 +354,10 @@ class _DetailsCarState extends State<DetailsCar> {
       tempoGeral.add(geral);
     });
     lapRepo.saveLapTimes(tempoGeral);
+    tempoVolta =
+        "${minutos.toString().padLeft(2, '0')}:${segundos.toString().padLeft(2, '0')}";
+    print(tempoVolta);
+    stopWatch.reset();
   }
 
   //média tempo de volta
@@ -404,7 +409,7 @@ class _DetailsCarState extends State<DetailsCar> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "${cubit.carList[cubit.pressedIndex!].nome}#${cubit.carList[cubit.pressedIndex!].numero}",
+                            "${cubit.carList[cubit.pressedIndex!].nome} #${cubit.carList[cubit.pressedIndex!].numero}",
                             style: const TextStyle(fontSize: 23),
                           )
                         ])),
@@ -432,21 +437,11 @@ class _DetailsCarState extends State<DetailsCar> {
               child: ListView.builder(
                 itemCount: getLapsLength(),
                 itemBuilder: (context, index) {
-                  if (index == 0) {
-                    minutesResult = minutes[index];
-                    secondsResult = seconds[index];
+                  minutesResult = minutes[index];
+                  secondsResult = seconds[index];
 
-                    lapResult =
-                        '${minutesResult.toString().padLeft(2, '0')}:${secondsResult.toString().padLeft(2, '0')}';
-                  } else if (index != 0) {
-                    minutesResult = minutes[index] - minutes[index - 1];
-                    secondsResult = seconds[index] - seconds[index - 1];
-
-                    lapResult =
-                        '${minutesResult.toString().padLeft(2, '0')}:${secondsResult.toString().padLeft(2, '0')}';
-                    //laps.add(lapResult);
-                  }
-
+                  lapResult =
+                      '${minutesResult.toString().padLeft(2, '0')}:${secondsResult.toString().padLeft(2, '0')}';
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -485,11 +480,13 @@ class _DetailsCarState extends State<DetailsCar> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        const SizedBox(width: 50),
                         Text(
-                          '                          Voltas: ${cubit.carList[cubit.pressedIndex!].getVoltas().toString()}',
+                          'Voltas: ${cubit.carList[cubit.pressedIndex!].getVoltas().toString()}',
                           style: const TextStyle(
                               color: Colors.black, fontSize: 17),
                         ),
+                        const SizedBox(width: 50),
                       ],
                     ),
                   ),
@@ -519,7 +516,7 @@ class _DetailsCarState extends State<DetailsCar> {
                     cabouGasolina();
                     if (client.connectionStatus!.state ==
                         MqttConnectionState.connected) {
-                      selectCar(context);
+                      //selectCar(context);
                       sendData(cubit.pressedIndex, cubit);
                     } else if (client.connectionStatus!.state ==
                         MqttConnectionState.disconnected) {
@@ -547,7 +544,7 @@ class _DetailsCarState extends State<DetailsCar> {
                     carroQuebrou();
                     if (client.connectionStatus!.state ==
                         MqttConnectionState.connected) {
-                      selectCar(context);
+                      //selectCar(context);
                       sendData(cubit.pressedIndex, cubit);
                     } else if (client.connectionStatus!.state ==
                         MqttConnectionState.disconnected) {
@@ -612,7 +609,7 @@ class _DetailsCarState extends State<DetailsCar> {
                       if (client.connectionStatus!.state ==
                           MqttConnectionState.connected) {
                         count = 3;
-                        selectCar(context);
+                        //selectCar(context);
                         cubit.carList[cubit.pressedIndex!].increment();
                         carRepo.saveCarList(cubit.carList);
                         sendData(cubit.pressedIndex, cubit);
@@ -975,7 +972,7 @@ class _DetailsCarState extends State<DetailsCar> {
 
     if (stopWatch.isRunning && count == 3) {
       builder.addString(
-          "$id,${carCubit.carList[index].voltas},$lapResult,$isnotFull,$isBreak");
+          "$id,${carCubit.carList[index].voltas},$tempoVolta,$isnotFull,$isBreak");
       client.publishMessage(
           mqttPubTopic3, MqttQos.atLeastOnce, builder.payload!);
     }

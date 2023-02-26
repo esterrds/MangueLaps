@@ -204,7 +204,7 @@ contaVolta(BuildContext context) {
   );
 }
 
-fuelAlert(BuildContext context) {
+teste(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
     child: const Text("OK"),
@@ -214,7 +214,7 @@ fuelAlert(BuildContext context) {
   );
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
-    title: const Text("O carro está abastecendo."),
+    title: const Text("CONECTADO"),
     //content: const Text("Para contar, ligue o cronômetro principal."),
     actions: [
       okButton,
@@ -229,7 +229,7 @@ fuelAlert(BuildContext context) {
   );
 }
 
-breakAlert(BuildContext context) {
+testeFail(BuildContext context) {
   // configura o button
   Widget okButton = ElevatedButton(
     child: const Text("OK"),
@@ -239,8 +239,8 @@ breakAlert(BuildContext context) {
   );
   // configura o  AlertDialog
   AlertDialog alerta = AlertDialog(
-    title: const Text("O carro está quebrado ou no box."),
-    //content: const Text("Para contar, ligue o cronômetro principal."),
+    title: const Text("FALHA NA CONEXÃO"),
+    content: const Text("Verifique sua conexão com a internet."),
     actions: [
       okButton,
     ],

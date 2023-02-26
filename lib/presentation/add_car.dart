@@ -89,7 +89,7 @@ class _CarAdderState extends State<CarAdder> {
             Row(
               children: [
                 const SizedBox(
-                  width: 10,
+                  width: 80,
                 ), //SizedBox
                 const Text(
                   'Carro 4x4?',
@@ -157,6 +157,9 @@ class _CarAdderState extends State<CarAdder> {
                     },
                     child: const Text('Confirmar'),
                   ),
+                ),
+                const SizedBox(
+                  width: 80,
                 ),
               ],
             ),

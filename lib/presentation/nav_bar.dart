@@ -15,7 +15,7 @@ class NavBar extends StatelessWidget {
     //conexão mqtt
     ConnectivityCubit conCubit = BlocProvider.of<ConnectivityCubit>(context);
     //dados da lista
-    ContadorCubit carCubit = BlocProvider.of<ContadorCubit>(context);
+    //ContadorCubit carCubit = BlocProvider.of<ContadorCubit>(context);
 
     return Drawer(
       child: BlocBuilder<ConnectivityCubit, ConnectivityState>(
@@ -65,19 +65,21 @@ class NavBar extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    IconButton(
+                    TextButton(
                         onPressed: () {
                           //enviar mensagens
                           if (state is ConnectivityDisconnected) {
-                            alertFailed(context);
+                            testeFail(context);
                           } else if (state is ConnectivityConnected) {
-                            conCubit.publishTest(carCubit);
-                            alertSucess(context);
+                            //conCubit.publishTest(carCubit);
+                            teste(context);
                           } else {
                             wait(context);
                           }
                         },
-                        icon: const Icon(Icons.cloud_upload_outlined)),
+                        child: const Text('TESTAR CONEXÃO',
+                            style:
+                                TextStyle(fontSize: 15, color: Colors.black))),
                   ],
                 ),
               ),
@@ -92,8 +94,18 @@ class NavBar extends StatelessWidget {
                 child:
                     Image.asset('assets/images/LOGO DA MANGUE OFICIAL 2.png'),
               ),
+              /*const SizedBox(
+                height: 400,
+              ),*/
               Row(
-                children: const [],
+                children: const [
+                  Text(
+                    '© Todos os direitos reservados.',
+                    style: TextStyle(
+                      fontSize: 10,
+                    ),
+                  ),
+                ],
               ),
             ],
           );

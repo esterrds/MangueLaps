@@ -48,11 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   // }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     ConnectivityCubit conCubit = BlocProvider.of<ConnectivityCubit>(context);
     conCubit.mqttConnect();
@@ -68,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   Navigator.pushNamed(context, carList);
                 },
-                icon: Icon(Icons.arrow_right))
+                icon: const Icon(Icons.arrow_right))
           ],
         ),
         // bottomNavigationBar: BottomNavigationBar(
