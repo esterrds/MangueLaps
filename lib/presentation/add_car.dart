@@ -88,8 +88,8 @@ class _CarAdderState extends State<CarAdder> {
             //botão de confirmar, manda os dados cadastrados para o contador
             Row(
               children: [
-                const SizedBox(
-                  width: 80,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * .01,
                 ), //SizedBox
                 const Text(
                   'Carro 4x4?',
@@ -157,9 +157,6 @@ class _CarAdderState extends State<CarAdder> {
                     },
                     child: const Text('Confirmar'),
                   ),
-                ),
-                const SizedBox(
-                  width: 80,
                 ),
               ],
             ),
