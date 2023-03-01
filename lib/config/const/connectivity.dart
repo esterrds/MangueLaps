@@ -13,3 +13,4 @@ const String mqttPubTopic5 = '/gastimelist';
 const String mqttPubTopic6 = '/boxtimelist';
 const String mqttPubTopic7 = '/voltadobox';
 const String qporqTopic = '/tipocarro';
+const String resetTopic = '/reset';

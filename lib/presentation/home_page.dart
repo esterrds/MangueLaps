@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/config/navigator/routes.dart';
 import 'package:mangue_laps/presentation/add_car.dart';
-import 'package:mangue_laps/presentation/cronometro.dart';
-import 'package:mangue_laps/presentation/main_list.dart';
+// import 'package:mangue_laps/presentation/cronometro.dart';
+// import 'package:mangue_laps/presentation/main_list.dart';
 import 'package:mangue_laps/presentation/nav_bar.dart';
 import 'package:flutter/material.dart';
 

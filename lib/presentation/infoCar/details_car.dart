@@ -373,12 +373,26 @@ class _DetailsCarState extends State<DetailsCar> {
         appBar: AppBar(
           title: const Center(child: Text("Detalhes")),
           actions: <Widget>[
+            TextButton(
+                onLongPress: () {
+                  final builder = MqttClientPayloadBuilder();
+                  builder.addString(
+                      "false,0,00:00,false,00:00:00,00:00:00,false,00:00:00,00:00:00");
+                  client.publishMessage(
+                      resetTopic, MqttQos.atLeastOnce, builder.payload!);
+                },
+                onPressed: () {},
+                child: const Text(
+                  '-',
+                  style: TextStyle(color: green),
+                )),
             //botão teste
             IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, listTimes);
                 },
                 icon: const Icon(Icons.library_add)),
+
             IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, viewPage);
@@ -608,8 +622,6 @@ class _DetailsCarState extends State<DetailsCar> {
 
                       if (client.connectionStatus!.state ==
                           MqttConnectionState.connected) {
-                        count = 3;
-                        //selectCar(context);
                         cubit.carList[cubit.pressedIndex!].increment();
                         carRepo.saveCarList(cubit.carList);
                         sendData(cubit.pressedIndex, cubit);
@@ -620,8 +632,17 @@ class _DetailsCarState extends State<DetailsCar> {
                     }
                   },
                   onLongPress: () {
+                    count = 3;
+                    tempoVolta = '00:00';
                     cubit.carList[cubit.pressedIndex!].decrement();
                     carRepo.saveCarList(cubit.carList);
+                    if (client.connectionStatus!.state ==
+                        MqttConnectionState.connected) {
+                      sendData(cubit.pressedIndex, cubit);
+                    } else if (client.connectionStatus!.state ==
+                        MqttConnectionState.disconnected) {
+                      alertFailed(context);
+                    }
                   },
 
                   child: const Icon(
