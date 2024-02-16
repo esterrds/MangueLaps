@@ -20,7 +20,7 @@ class RouteGenerator {
       case initRoute:
         return MaterialPageRoute(builder: (_) => const MyHomePage());
       case carAdder:
-        return MaterialPageRoute(builder: (_) => CarAdder());
+        return MaterialPageRoute(builder: (_) => const CarAdder());
       case navBar:
         return MaterialPageRoute(builder: (_) => const NavBar());
       case viewPage:
@@ -28,7 +28,7 @@ class RouteGenerator {
       case carList:
         return MaterialPageRoute(builder: (_) => const CarPage());
       case detailsPage:
-        return MaterialPageRoute(builder: (_) => DetailsCar());
+        return MaterialPageRoute(builder: (_) => const DetailsCar());
       case listTimes:
         return MaterialPageRoute(builder: (_) => const ListTimes());
       case breakTimes:

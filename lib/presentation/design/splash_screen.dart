@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
       splash: Column(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/garrinha.png"),
                 fit: BoxFit.cover,
@@ -26,7 +26,7 @@ class SplashScreen extends StatelessWidget {
           //   width: 200,
           //   height: 200,
           // ),
-          Text(
+          const Text(
             'Mangue Laps',
             style: TextStyle(
                 fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),

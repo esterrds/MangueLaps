@@ -1,5 +1,5 @@
 import 'package:mangue_laps/bloc/Connectivity/connectivity_cubit.dart';
-import 'package:mangue_laps/bloc/ContadorCubit/contador_cubit.dart';
+//yimport 'package:mangue_laps/bloc/ContadorCubit/contador_cubit.dart';
 import 'package:mangue_laps/presentation/design/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,8 +97,8 @@ class NavBar extends StatelessWidget {
               /*const SizedBox(
                 height: 400,
               ),*/
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Text(
                     '© Todos os direitos reservados.',
                     style: TextStyle(

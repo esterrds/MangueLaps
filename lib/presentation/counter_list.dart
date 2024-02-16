@@ -1,8 +1,8 @@
-import 'dart:async';
+//import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mangue_laps/config/navigator/routes.dart';
-import 'package:mangue_laps/presentation/design/colors.dart';
+//import 'package:mangue_laps/config/navigator/routes.dart';
+//import 'package:mangue_laps/presentation/design/colors.dart';
 import 'package:mangue_laps/presentation/main_list.dart';
 
 class CarPage extends StatefulWidget {

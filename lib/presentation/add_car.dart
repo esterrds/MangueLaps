@@ -12,7 +12,7 @@ import '../config/const/connectivity.dart';
 
 //tela de cadastro
 class CarAdder extends StatefulWidget {
-  CarAdder({super.key});
+  const CarAdder({super.key});
 
   @override
   State<CarAdder> createState() => _CarAdderState();
@@ -116,8 +116,8 @@ class _CarAdderState extends State<CarAdder> {
                   activeColor: verdeClarinho,
                   hoverColor: Colors.black,
                   side: const BorderSide(
-                    color: Colors.black, //your desire colour here
-                    width: 1.5,
+                    color: debugBlack, //your desire colour here
+                    width: 3,
                   ),
                 ),
                 const SizedBox(
@@ -155,6 +155,11 @@ class _CarAdderState extends State<CarAdder> {
                         numeroVazio(context);
                       }
                     },
+                    style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                          Color.fromARGB(255, 31, 180, 36)),
+                      foregroundColor: MaterialStatePropertyAll(debugWhite),
+                    ),
                     child: const Text('Confirmar'),
                   ),
                 ),
@@ -167,6 +172,11 @@ class _CarAdderState extends State<CarAdder> {
                 onPressed: () {
                   Navigator.pushNamed(context, viewPage);
                 },
+                style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(
+                      Color.fromARGB(255, 31, 180, 36)),
+                  foregroundColor: MaterialStatePropertyAll(debugWhite),
+                ),
                 child: const Text('MONITORAMENTO'),
               ),
             ),

@@ -1,8 +1,8 @@
-import 'dart:async';
+//import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+//import 'package:flutter/src/widgets/framework.dart';
+//import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
 import '../bloc/Provider/timer_provider.dart';
@@ -61,7 +61,7 @@ class _TimePageState extends State<TimePage> {
                   value: seconds / finaltime,
                   valueColor: const AlwaysStoppedAnimation(darkerGreen),
                   strokeWidth: 12,
-                  backgroundColor: verdeClarinho,
+                  backgroundColor: green,
                 ),
                 Center(
                   child: buildTime(),
@@ -124,7 +124,7 @@ class _TimePageState extends State<TimePage> {
         timer.stop;
         return const Icon(
           Icons.done,
-          color: verdeClarinho,
+          color: green,
         );
       }
       return Center(

@@ -23,7 +23,7 @@ class Carro {
     } else {
       voltas++;
     }
-    print("equipe: $nome, voltas: $voltas");
+    //print("equipe: $nome, voltas: $voltas");
   }
 
   void decrement() {
@@ -32,7 +32,7 @@ class Carro {
     } else {
       voltas--;
     }
-    print("equipe: $nome, voltas: $voltas");
+    //print("equipe: $nome, voltas: $voltas");
   }
 
   @override

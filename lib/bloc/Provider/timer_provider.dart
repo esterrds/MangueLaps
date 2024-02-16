@@ -26,7 +26,7 @@ class TimerProvider extends ChangeNotifier {
     _stopEnable = true;
     _continueEnable = false;
 
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_seconds < 59) {
         _seconds++;
       } else if (_seconds == 59) {

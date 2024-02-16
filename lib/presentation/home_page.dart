@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mangue_laps/config/navigator/routes.dart';
 import 'package:mangue_laps/presentation/add_car.dart';
+import 'package:mangue_laps/presentation/design/colors.dart';
 // import 'package:mangue_laps/presentation/cronometro.dart';
 // import 'package:mangue_laps/presentation/main_list.dart';
 import 'package:mangue_laps/presentation/nav_bar.dart';
@@ -55,15 +56,19 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         drawer: const NavBar(),
-        body: CarAdder(),
+        body: const CarAdder(),
         appBar: AppBar(
+          backgroundColor: green,
           title: const Center(child: Text("Adicione um carro")),
           actions: [
             IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, carList);
                 },
-                icon: const Icon(Icons.arrow_right))
+                icon: const Icon(
+                  Icons.arrow_right,
+                  color: debugWhite,
+                ))
           ],
         ),
         // bottomNavigationBar: BottomNavigationBar(

@@ -8,6 +8,8 @@ const Color midBlue = Color.fromRGBO(11, 217, 142, 85);
 const Color darkerBlue = Color.fromRGBO(12, 247, 236, 97);
 const Color green = Colors.green;
 const Color verdeClarinho = Color.fromARGB(255, 197, 250, 180);
+const Color debugWhite = Color.fromARGB(255, 255, 255, 255);
+const Color debugBlack = Color.fromARGB(0, 0, 0, 0);
 
 Map<int, Color> color = const {
   50: Color.fromRGBO(0, 125, 83, .1),

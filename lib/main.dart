@@ -43,11 +43,11 @@ class MyApp extends StatelessWidget {
         title: 'Mangue Laps',
         theme: ThemeData(
           primaryColor: darkerGreen,
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
+          colorScheme: ColorScheme.fromSwatch(backgroundColor: Colors.white)
               .copyWith(secondary: Colors.blueAccent[700]),
         ),
         //chamada da animação
-        home: SplashScreen(),
+        home: const SplashScreen(),
         // ChangeNotifierProvider(
         //     create: (context) => TimerProvider(), child: MyHomePage()),
         //próxima página
