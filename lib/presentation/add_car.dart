@@ -258,7 +258,7 @@ class _CarAdderState extends State<CarAdder> {
         break;
 
       case 13:
-        //
+        // mangue baja
         id = 29;
         break;
 
@@ -423,7 +423,6 @@ class _CarAdderState extends State<CarAdder> {
         break;
 
       case 50:
-        //mangue baja
         id = 66;
         break;
 
