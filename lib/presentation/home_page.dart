@@ -57,9 +57,15 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         drawer: const NavBar(),
         body: const CarAdder(),
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: green,
-          title: const Center(child: Text("Adicione um carro")),
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: defaultgreen,
+          title: const Center(
+              child: Text(
+            "Adicione um carro",
+            style: TextStyle(color: Colors.white),
+          )),
           actions: [
             IconButton(
                 onPressed: () {

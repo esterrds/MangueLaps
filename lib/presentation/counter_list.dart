@@ -1,6 +1,7 @@
 //import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mangue_laps/presentation/design/colors.dart';
 //import 'package:mangue_laps/config/navigator/routes.dart';
 //import 'package:mangue_laps/presentation/design/colors.dart';
 import 'package:mangue_laps/presentation/main_list.dart';
@@ -18,7 +19,13 @@ class _CarPageState extends State<CarPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text("Lista de carros")),
+          backgroundColor: defaultgreen,
+          title: const Center(
+              child: Text(
+            "Lista de carros",
+            style: TextStyle(color: Colors.white),
+          )),
+          iconTheme: const IconThemeData(color: Colors.white),
           // actions: [
           //   IconButton(
           //       onPressed: () {

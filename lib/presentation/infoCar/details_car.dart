@@ -254,7 +254,6 @@ class _DetailsCarState extends State<DetailsCar> {
     });
   }
 
-//n guento mais
   void carroQuebrou() {
     setState(() {
       if (_stopWatchText != '00:00:00' && !gasolineTime.isRunning) {
@@ -887,84 +886,84 @@ class _DetailsCarState extends State<DetailsCar> {
         id = 64;
         break;
 
-      case 49:
-        id = 65;
-        break;
+      //case 49:
+      //  id = 65;
+      //  break;
 
-      case 50:
-        //mangue baja
-        id = 66;
-        break;
+      //case 50:
+      //  //mangue baja
+      //  id = 66;
+      //  break;
 
-      case 51:
-        id = 67;
-        break;
+      //case 51:
+      //  id = 67;
+      //  break;
 
-      case 52:
-        id = 68;
-        break;
+      //case 52:
+      //  id = 68;
+      //  break;
 
-      case 53:
-        id = 69;
-        break;
+      //case 53:
+      //  id = 69;
+      //  break;
 
-      case 54:
-        id = 70;
-        break;
+      //case 54:
+      //  id = 70;
+      //  break;
 
-      case 55:
-        id = 71;
-        break;
+      //case 55:
+      //  id = 71;
+      //  break;
 
-      case 56:
-        id = 72;
-        break;
+      //case 56:
+      //  id = 72;
+      //  break;
 
-      case 57:
-        id = 73;
-        break;
+      //case 57:
+      //  id = 73;
+      //  break;
 
-      case 58:
-        id = 74;
-        break;
+      //case 58:
+      //  id = 74;
+      //  break;
 
-      case 59:
-        id = 75;
-        break;
+      //case 59:
+      //  id = 75;
+      //  break;
 
-      case 60:
-        id = 76;
-        break;
+      //case 60:
+      //  id = 76;
+      //  break;
 
-      case 61:
-        id = 77;
-        break;
+      //case 61:
+      //  id = 77;
+      //  break;
 
-      case 62:
-        id = 78;
-        break;
+      //case 62:
+      //  id = 78;
+      //  break;
 
-      case 63:
-        id = 79;
-        break;
+      //case 63:
+      //  id = 79;
+      //  break;
 
-      case 64:
-        id = 80;
-        break;
+      //case 64:
+      //  id = 80;
+      //  break;
 
-      case 65:
-        id = 81;
-        break;
+      //case 65:
+      //  id = 81;
+      //  break;
 
-      case 66:
-        id = 82;
-        break;
+      //case 66:
+      //  id = 82;
+      //  break;
 
-      case 67:
-        id = 83;
-        break;
+      //case 67:
+      //  id = 83;
+      //  break;
 
-      default:
+      //default:
     }
 
     if (breakTime.isRunning) {

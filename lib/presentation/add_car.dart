@@ -61,8 +61,14 @@ class _CarAdderState extends State<CarAdder> {
                 //caixa para receber nome das equipes
                 Expanded(
                   child: TextField(
+                    cursorColor: Colors.black,
+                    obscureText: false,
                     controller: nameController,
                     decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 1.5,
+                                color: Color.fromARGB(255, 126, 125, 125))),
                         border: OutlineInputBorder(),
                         labelText: "Equipe",
                         hintText: "Ex.: Mangue Baja"),
@@ -73,12 +79,18 @@ class _CarAdderState extends State<CarAdder> {
                 SizedBox(
                   width: 100,
                   child: TextField(
+                    cursorColor: Colors.black,
+                    obscureText: false,
                     controller: numberController,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 1.5,
+                                color: Color.fromARGB(255, 126, 125, 125))),
                         border: OutlineInputBorder(),
                         labelText: "Número",
-                        hintText: "Ex.: 50"),
+                        hintText: "Ex.: 13"),
                   ),
                 ),
                 //validação 4x4
@@ -116,8 +128,8 @@ class _CarAdderState extends State<CarAdder> {
                   activeColor: verdeClarinho,
                   hoverColor: Colors.black,
                   side: const BorderSide(
-                    color: debugBlack, //your desire colour here
-                    width: 3,
+                    color: Colors.black, //your desire colour here
+                    width: 1.5,
                   ),
                 ),
                 const SizedBox(
@@ -156,8 +168,7 @@ class _CarAdderState extends State<CarAdder> {
                       }
                     },
                     style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                          Color.fromARGB(255, 31, 180, 36)),
+                      backgroundColor: MaterialStatePropertyAll(defaultgreen),
                       foregroundColor: MaterialStatePropertyAll(debugWhite),
                     ),
                     child: const Text('Confirmar'),
@@ -173,8 +184,7 @@ class _CarAdderState extends State<CarAdder> {
                   Navigator.pushNamed(context, viewPage);
                 },
                 style: const ButtonStyle(
-                  backgroundColor: MaterialStatePropertyAll(
-                      Color.fromARGB(255, 31, 180, 36)),
+                  backgroundColor: MaterialStatePropertyAll(defaultgreen),
                   foregroundColor: MaterialStatePropertyAll(debugWhite),
                 ),
                 child: const Text('MONITORAMENTO'),

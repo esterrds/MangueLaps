@@ -55,7 +55,14 @@ class _ListViewCarState extends State<ListViewCar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Monitoramento'),
+        backgroundColor: defaultgreen,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Center(
+          child: Text(
+            'Monitoramento',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {
